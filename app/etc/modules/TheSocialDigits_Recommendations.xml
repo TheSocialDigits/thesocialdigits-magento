@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config>
+  <modules>
+    <TheSocialDigits_Recommendations>
+      <active>True</active>
+      <codePool>local</codePool>
+    </TheSocialDigits_Recommendations>
+  </modules>
+</config>

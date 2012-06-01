@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<config>
+  <global>
+    <modules>
+      <TheSocialDigits_Recommendations>
+        <version>0.1.0</version>
+      </TheSocialDigits_Recommendations>
+    </modules>
+    <blocks>
+      <recommendations>
+        <rewrite>
+          <recommendations>TheSocialDigits_Recommendations_Block_Recommendations</recommendations>
+        </rewrite>
+      </recommendations>
+    </blocks>
+  </global>
+  <frontend>
+    <routers>
+      <recommendations>
+        <use>standard</use>
+        <args>
+          <module>TheSocialDigits_Recommendations</module>
+          <frontName>recommendations</frontName>
+        </args>
+      </recommendations>
+    </routers>
+    <layout>
+      <updates>
+        <recommendations>
+          <file>recommendations.xml</file>
+        </recommendations>
+      </updates>
+    </layout> 
+  </frontend>
+</config>
