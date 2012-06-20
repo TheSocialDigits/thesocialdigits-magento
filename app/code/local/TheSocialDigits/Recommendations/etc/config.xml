@@ -9,7 +9,17 @@
     <default>
       <recommendations_options>
         <settings>
+          <api_key></api_key>
           <language>english</language>
+          <template>
+          <div>
+            <a href="/index.php/{product_url}">
+              <img src="{thumbnail_url}" /><br/>
+              {name}<br />
+              {price},-
+            </a>
+          </div>
+          </template>
         </settings>
       </recommendations_options>
     </default>
