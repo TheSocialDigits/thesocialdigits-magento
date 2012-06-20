@@ -7,11 +7,10 @@ Mage_Core_Controller_Front_Action {
       'categories' => array(),
       'sales' => array(),
     );
- 
-    $language = 'english'; //this is used througout the module
-
+    $language = Mage::getStoreConfig('recommendations_options/settings/language');
+    if(!$language)
+      $language = 'english'; //Should be fixed 
     //All of the following shit should be in a helper
-
     //Retreive all enabled products
     $products = Mage::getModel('catalog/product')
       ->getCollection()
@@ -20,6 +19,7 @@ Mage_Core_Controller_Front_Action {
       ->getItems();
 
     foreach($products as $product){
+
       $product_data = array();
       $product_data['id'] = $product['entity_id'];
       $product_data['name'] = array(
@@ -29,31 +29,26 @@ Mage_Core_Controller_Front_Action {
         $language => $product['description'],
       );
 
-      $product_data['price'] = $product['price'];
+      $product_data['price'] = (float) $product['price'];
       $product_data['rating'] = null;
       $product_categories = $product->getCategoryIds();
-      $product_data['category'] = sizeof($product_categories) ?
-      $product_categories[0] : 0;
-      
-      //Retrieve the category data
-/*      foreach($product_categories as $category_id){
-        $category =
-        Mage::getModel('catalog/category')->load($category_id);
-        $category_data = array();
-        $category_data['id'] = $categoryId;
-        $category_data['name'] = array(
-          $language => $category->getName(),
-        );
-        $category_data['subcategories'] = array();
-        $sub_categories = $category->getChildrenCategories();
-        foreach($sub_categories as $sub_category){
-          $category_data['subcategories'][] = $sub_category->getId();
-        }
-        $product_data['category'][] = $category_data;
-      }*/
+      $product_data['categories'] = $product_categories;
+
+      //API legacy support :P
+      $product_data['category'] = isset($product_categories[0]) ?
+      $product_categories[0] : 1; 
+
+      $product_attributes = $product->getAttributes();
+      //$product_data = array_merge($product_data, $product_attributes);     
       //Product definition is finished, add to data array
+      $attributes = array();
+      foreach($product_attributes as $attr_name=>$attr){
+        $attributes[$attr_name] =
+        $product->getData($attr->getAttributecode());
+      }
+      $product_data['attributes'] = $attributes;
+
       $data['products'][] = $product_data;
-//      $data['products'][] = $product->getData(); //for safekeeping
     }
 
     //Retrieve all the categories
@@ -87,11 +82,14 @@ Mage_Core_Controller_Front_Action {
         $sale['product'] = $order_item->getProductId();
         $sale['sale'] = $order->getId();
         $sale['customer'] = $order->getCustomerId();
-        $sale['timestamp'] = strtotime($order->getCreatedAt());
+        $sale['time'] = strtotime($order->getCreatedAt());
         $data['sales'][] = $sale;
       }
     }
+
     // Print out the jsoon encoded object
-    echo json_encode($data);
+    $json = json_encode($data);
+    header('Content-length: ' . strlen($json));
+    echo $json;
   }
 }

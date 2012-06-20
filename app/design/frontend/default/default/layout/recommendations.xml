@@ -2,7 +2,26 @@
 <layout version="0.1.0">
   <default>
     <reference name="right">
-      <block type="recommendations/recommendations" name="recommendations" template="recommendations/recommendations.phtml" />
+      <block type="recommendations/recommendations" name="recommendations" template="recommendations/recommendations.phtml" >
+        <action method="addJs">
+          <path>jquery-1.7.2.min.js</path>
+        </action>
+        <action method="addJs">
+          <path>jquery.ui.core.min.js</path>
+        </action>
+        <action method="addJs">
+          <path>jquery.ui.widget.min.js</path>
+        </action>
+        <action method="addJs">
+          <path>jquery.ui.rcarousel.min.js</path>
+        </action>
+        <action method="addJs">
+          <path>thesocialdigits-js/json2.min.js</path>
+        </action>
+        <action method="addJs">
+          <path>thesocialdigits-js/jquery.thesocialdigits.min.js</path>
+        </action>
+      </block>
     </reference>
   </default>
 </layout>

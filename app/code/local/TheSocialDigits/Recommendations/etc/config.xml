@@ -6,6 +6,13 @@
         <version>0.1.0</version>
       </TheSocialDigits_Recommendations>
     </modules>
+    <default>
+      <recommendations_options>
+        <settings>
+          <language>english</language>
+        </settings>
+      </recommendations_options>
+    </default>
     <blocks>
       <recommendations>
         <rewrite>
@@ -13,6 +20,16 @@
         </rewrite>
       </recommendations>
     </blocks>
+    <helpers>
+      <recommendations>
+        <class>TheSocialDigits_Recommendations_Helper</class>
+      </recommendations>
+    </helpers>
+    <models>
+      <recommendations>
+        <class>TheSocialDigits_Recommendations_Model</class>
+      </recommendations>
+    </models>
   </global>
   <frontend>
     <routers>
@@ -32,4 +49,25 @@
       </updates>
     </layout> 
   </frontend>
+  <adminhtml>
+    <acl>
+      <resources>
+        <admin>
+          <children>
+            <system>
+              <children>
+                <config>
+                  <children>
+                    <recommendations_options>
+                      <title>The Social Digits Recommendations module settings</title>
+                    </recommendations_options>
+                  </children>
+                </config>
+              </children>
+            </system>
+          </children>
+        </admin>
+      </resources>
+    </acl>
+  </adminhtml>
 </config>

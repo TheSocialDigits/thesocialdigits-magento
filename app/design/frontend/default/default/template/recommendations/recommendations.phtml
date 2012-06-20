@@ -1,31 +1,22 @@
-    <!-- Load jQuery. -->
-    <script type="text/javascript" src="/lib/thesocialdigits-js/jquery.min.js"></script>
-    
-    <!-- JSON support for legacy browsers. -->
-    <script type="text/javascript" src="/lib/thesocialdigits-js/json2.min.js"></script>
-    
-    <!-- The actual plugin for The Social Digits service. -->
-    <script type="text/javascript" src="/lib/thesocialdigits-js/jquery.thesocialdigits.js"></script>
-    
-    <!-- Set global configuration of the plugin. Can be exported to an external
-         JavaScript file since it is always the same. -->
     <script type="text/javascript">
-      $.thesocialdigits({
-        key: 'your_api_key', 
+    jQuery.noConflict();
+      jQuery(function($){
+        $.thesocialdigits({
+        key: '<?php echo $this->getApiKey() ?>',
         
         datasource: function (products, callback) {
           var url = '/index.php/recommendations/list';
           var data = {
-            'products': products.join(',')
+            'products': products
           };
-  
           $.getJSON(url, data, callback);
         }
       });
+      });
     </script>
-  
+
   <!-- The list we want to display the popular products in. -->
-  <ul id="products"></ul>
+  <div id="products"></div>
   
   <!-- The template to be used when rendering the products. 
        
@@ -38,12 +29,7 @@
        Remember to set the type attribute to 'text/html' for templates.
    -->
   <script id="productsTemplate" type="text/html"> 
-    <li>
-      <a href="/product/{id}">
-        <img src="/images/product/{id}.jpg" />
-        {name} - {price},-
-      </a>
-    </li>
+  <?php echo $this->getHtmlTemplate(); ?>
   </script>
   
   <!-- The actual use of the plugin. 
@@ -52,8 +38,9 @@
        the element having id 'products' using the template 'productsTemplate'.
    -->
   <script type="text/javascript">
-    $('#products').thesocialdigits('popular', 
-                                   {'limit': 3,
-                                    'filter': 'price < 50'},
-                                   '#productsTemplate');
-  </script>
+    jQuery(function($){
+      $('#products').thesocialdigits('popular', 
+      { 'limit': 3}
+      , '#productsTemplate');
+    });
+   </script>
