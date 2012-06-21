@@ -38,16 +38,13 @@ Mage_Core_Controller_Front_Action {
       $product_data['category'] = isset($product_categories[0]) ?
       $product_categories[0] : 1; 
 
+      //get additional product attributes
       $product_attributes = $product->getAttributes();
-      //$product_data = array_merge($product_data, $product_attributes);     
-      //Product definition is finished, add to data array
-      $attributes = array();
-      foreach($product_attributes as $attr_name=>$attr){
-        $attributes[$attr_name] =
-        $product->getData($attr->getAttributecode());
-      }
-      $product_data['attributes'] = $attributes;
+      $product_data['weight'] = $product->getData('weight');
+      $product_data['color'] = $product->getData('color');
+      $product_data['SKU'] = $product->getData('sku');
 
+      //add the product to the array of products
       $data['products'][] = $product_data;
     }
 
