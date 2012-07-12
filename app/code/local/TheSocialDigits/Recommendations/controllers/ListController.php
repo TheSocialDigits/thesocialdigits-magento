@@ -12,7 +12,7 @@ Mage_Core_Controller_Front_Action {
         $item_data = $product->getData();
         $item_data['id'] = $item_data['entity_id'];
         $item_data['thumbnail_url'] = $product->getThumbnailUrl();
-        $item_data['product_url]'] = $item_data['url_path'];
+        $item_data['product_url'] = $item_data['url_path'];
         $items[] = $item_data;
       }
       echo json_encode($items);
