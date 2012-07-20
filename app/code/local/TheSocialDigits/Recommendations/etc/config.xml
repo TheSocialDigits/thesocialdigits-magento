@@ -28,6 +28,9 @@
         <rewrite>
           <recommendations>TheSocialDigits_Recommendations_Block_Recommendations</recommendations>
         </rewrite>
+        <rewrite>
+          <checkout_success>TheSocialDigits_Recommendations_Block_Checkout_Onepage_Success</checkout_success>
+        </rewrite>
       </recommendations>
     </blocks>
     <helpers>

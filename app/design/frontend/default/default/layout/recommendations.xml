@@ -3,6 +3,41 @@
   <default>
     <reference name="right">
       <block type="recommendations/recommendations" name="recommendations" template="recommendations/recommendations.phtml" >
+<!--        <action method="addJs">
+          <path>jquery-1.7.2.min.js</path>
+        </action>
+        <action method="addJs">
+          <path>thesocialdigits-js/json2.min.js</path>
+        </action>
+        <action method="addJs">
+          <path>thesocialdigits-js/jquery.thesocialdigits.min.js</path>
+        </action>-->
+      </block>
+    </reference>
+    
+  </default>
+  <checkout_onepage_success>
+    <reference name="content">
+      <block type="recommendations/checkout_onepage_success"
+      name="recommendations.checkout.onepage.success"
+      template="recommendations/onepage_success.phtml">
+       <action method="addJs">
+          <path>jquery-1.7.2.min.js</path>
+        </action>
+        <action method="addJs">
+          <path>thesocialdigits-js/json2.min.js</path>
+        </action>
+        <action method="addJs">
+          <path>thesocialdigits-js/jquery.thesocialdigits.min.js</path>
+        </action>
+      </block>
+    </reference>
+  </checkout_onepage_success>
+  <checkout_multishipping_success>
+    <reference name="content">
+      <block type="recommendations/checkout_multishipping_success"
+      name="recommendations.checkout.multishipping.success"
+      template="recommendations/multishipping_success.phtml" >
         <action method="addJs">
           <path>jquery-1.7.2.min.js</path>
         </action>
@@ -14,5 +49,5 @@
         </action>
       </block>
     </reference>
-  </default>
+  </checkout_multishipping_success>
 </layout>

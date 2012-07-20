@@ -1,0 +1,25 @@
+<script type="text/javascript">
+jQuery.noConflict();
+jQuery(function($){
+  $.thesocialdigits({
+  key: '<?php echo $this->getApiKey() ?>',
+        
+        datasource: function (products, callback) {
+          var url = '/index.php/recommendations/list';
+          var data = {
+            'products': products
+          };
+          $.getJSON(url, data, callback);
+        }
+  });
+});
+</script>
+<?php foreach($this->getOrderIds() as $id): ?>
+<div id="sale-<?php echo $id ?>"></div>
+<script type="text/javascript">
+jQuery(function($){$('#sale-<?php echo $id; ?>').thesocialdigits('add_sale',
+  <?php echo $this->getJson($id) ?>,
+  '');
+});
+</script>
+<?php endforeach; ?>
