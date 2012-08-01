@@ -21,7 +21,7 @@
           </div>
           </template>
         </settings>
-        <ga_tracking></ga_tracking>
+        <ga_tracking>The SocialDigits</ga_tracking>
       </recommendations_options>
     </default>
     <blocks>
