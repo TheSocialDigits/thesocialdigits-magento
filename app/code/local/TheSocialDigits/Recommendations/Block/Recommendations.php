@@ -20,4 +20,11 @@ Mage_Core_Block_Template {
     return
     Mage::getStoreConfig('recommendations_options/settings/template');
   }
+
+  public function getProductId(){
+    $product = Mage::registry('current_product');
+    if($product)
+      return $product->getId();
+    return 'null';
+  }
 }
