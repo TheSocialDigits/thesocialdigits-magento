@@ -3,7 +3,12 @@
       jQuery(function($){
         $.thesocialdigits({
         key: '<?php echo $this->getApiKey() ?>',
-        
+        ga_tracking: function() {
+          var trackingCategory = '<?php echo $this->getTrackingCategory() ?>';
+          if(trackingCategory)
+             return trackingCategory;
+          return null;
+        },
         datasource: function (products, callback) {
           var url = '/index.php/recommendations/list';
           var data = {

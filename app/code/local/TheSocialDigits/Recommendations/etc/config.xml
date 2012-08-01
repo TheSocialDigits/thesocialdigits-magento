@@ -21,6 +21,7 @@
           </div>
           </template>
         </settings>
+        <ga_tracking></ga_tracking>
       </recommendations_options>
     </default>
     <blocks>
