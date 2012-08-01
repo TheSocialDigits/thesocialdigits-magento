@@ -29,7 +29,10 @@
           <recommendations>TheSocialDigits_Recommendations_Block_Recommendations</recommendations>
         </rewrite>
         <rewrite>
-          <checkout_success>TheSocialDigits_Recommendations_Block_Checkout_Onepage_Success</checkout_success>
+          <checkout_onepage_success>TheSocialDigits_Recommendations_Block_Checkout_Onepage_Success</checkout_onepage_success>
+        </rewrite>
+<rewrite>
+          <checkout_multishipping_success>TheSocialDigits_Recommendations_Block_Checkout_Multishipping_Success</checkout_multishipping_success>
         </rewrite>
       </recommendations>
     </blocks>

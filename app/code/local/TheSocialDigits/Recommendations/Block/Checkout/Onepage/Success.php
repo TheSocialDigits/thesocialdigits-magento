@@ -24,13 +24,8 @@ Mage_Core_Block_Template {
    * Get the customer id for the order
    */
   public function getCustomerId(){
-    $order_data = $this->getOrder();
-   
+    $order_data = $this->getOrder(); 
     $customerId = $order_data->getCustomerId();
-    if(!$customerId) {
-      //The user was not logged in, return a custom made id
-      return $this->getOrderId() . strtotime($order->getCreatedAt());
-    }
     return $customerId;
   }
 
