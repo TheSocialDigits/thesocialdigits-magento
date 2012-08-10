@@ -47,7 +47,7 @@ Mage_Core_Block_Template {
       'sale' => $this->getOrderId(),
       'products' => $this->getProducts(),
     );
-    return json_encode($json);
+    return json_encode($json,JSON_NUMERIC_CHECK);
   }
 
   /**

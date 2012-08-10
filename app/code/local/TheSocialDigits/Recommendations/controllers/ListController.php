@@ -15,7 +15,7 @@ Mage_Core_Controller_Front_Action {
         $item_data['product_url'] = $item_data['url_path'];
         $items[] = $item_data;
       }
-      echo json_encode($items);
+      echo json_encode($items,JSON_NUMERIC_CHECK);
     } else {
       echo 'Please supply a list of item ids';
     }
