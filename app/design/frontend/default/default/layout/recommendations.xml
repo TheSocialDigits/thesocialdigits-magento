@@ -2,7 +2,8 @@
 <layout version="0.1.0">
   <default>
     <reference name="right">
-      <block type="recommendations/recommendations" name="recommendations" template="recommendations/recommendations.phtml" >
+      <block type="recommendations/recommendations" name="recommendations"
+      template="recommendations/recommendations.phtml" >
         <action method="addJs">
           <path>jquery-1.7.2.min.js</path>
         </action>
@@ -14,6 +15,13 @@
         </action>
         <action method="addJs">
           <path>thesocialdigits-js/config.thesocialdigits.js</path>
+        </action>
+        <action method="setArgument">
+          <argument>limit</argument>
+          <value>3</value>
+        </action>
+        <action method="setAction">
+          <action>related</action>
         </action>
       </block>
     </reference>

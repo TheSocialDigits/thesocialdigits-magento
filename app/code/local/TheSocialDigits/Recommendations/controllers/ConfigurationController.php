@@ -14,10 +14,15 @@ Mage_Core_Controller_Front_Action {
 
     $json = json_encode($settings);
     //Insert the function
-    $json = str_replace('"__FUNC1__"',"function(products,callback){var url
-    = '/index.php/recommendations/list'; var data = {'products':
-    products}; $.getJSON(url,data,callback);}",$json);
-
+    /* For some reason this won't work
+    $json = str_replace('"__FUNC1__"',"function(products,callback){
+        var url = '/index.php/recommendations/list';
+        var data = {'products': products};
+        $.getJSON(url,data,callback);
+      }",$json);
+    */
+    $this->getResponse()->setHeader('Content-type','application/json');
+    
     echo $json;
   }
 }

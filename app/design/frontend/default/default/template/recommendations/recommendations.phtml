@@ -1,27 +1,5 @@
-<?php error_reporting(E_ALL ^ E_NOTICE); ini_set('display_errors',1); ?>
-    <script type="text/javascript">
-    jQuery.noConflict();
-      jQuery(function($){
-        $.thesocialdigits({
-        key: '<?php echo $this->getApiKey() ?>',
-        ga_tracking: function() {
-          var trackingCategory = '<?php echo $this->getTrackingCategory() ?>';
-          if(trackingCategory)
-             return trackingCategory;
-          return null;
-        },
-        datasource: function (products, callback) {
-          var url = '/index.php/recommendations/list';
-          var data = {
-            'products': products
-          };
-          $.getJSON(url, data, callback);
-        }
-      });
-      });
-    </script>
   <!-- The list we want to display the popular products in. -->
-  <div id="products"></div>
+  <div id="<?php echo $this->getElementId(); ?>"></div>
   
   <!-- The template to be used when rendering the products. 
        
@@ -33,7 +11,7 @@
        
        Remember to set the type attribute to 'text/html' for templates.
    -->
-  <script id="productsTemplate" type="text/html"> 
+  <script id="<?php echo $this->getHtmlTemplateId(); ?>" type="text/html"> 
   <?php echo $this->getHtmlTemplate(); ?>
   </script>
   
@@ -44,10 +22,12 @@
    -->
   <script type="text/javascript">
     jQuery(function($){
-      $('#products').thesocialdigits('related', 
-      { 'products': [<?php echo $this->getProductId(); ?>]
-      , 'limit': 3}
-      , '#productsTemplate');
-    
+      $(document).bind('thesocialdigits.ready',function(event){
+        var arguments = <?php echo $this->getArgumentsJson(); ?>;
+        arguments.products = [<?php echo $this->getProductId(); ?>];
+        $('#<?php echo $this->getElementId(); ?>').thesocialdigits('related'
+        , arguments
+        , '#<?php echo $this->getHtmlTemplateId(); ?>');
+      });
     });
    </script>
