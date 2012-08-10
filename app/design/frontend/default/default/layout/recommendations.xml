@@ -13,7 +13,7 @@
           <path>thesocialdigits-js/jquery.thesocialdigits.min.js</path>
         </action>
         <action method="addJs">
-          <path>thesocialdigits-js/configuration.js</path>
+          <path>thesocialdigits-js/config.thesocialdigits.js</path>
         </action>
       </block>
     </reference>
