@@ -79,6 +79,17 @@ Mage_Core_Block_Template {
     return json_encode($this->getCartContents(), JSON_NUMERIC_CHECK);
   }
 
+  /**
+   * Get the ids of the item in cart
+   */
+  public function getCartContents(){
+    $cart_contents = array();
+    $quote = Mage::helper('checkout')->getQuote();
+    foreach($quote->getItemsCollection() as $item){
+      $cart_contents[] = $item->getId();
+    }
+    return json_encode($cart_contents,JSON_NUMERIC_CHECK);
+  }
   public function setElementId($id){
     if(is_string($id)){
       $this->_id = $id;
