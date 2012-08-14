@@ -39,6 +39,13 @@
       template="recommendations/add_to_cart.phtml"></block>
     </reference>
   </checkout_cart_added>
+  <checkout_cart_index>
+    <reference name="checkout.cart">
+      <block type="recommendations/recommendations" name="crosssell"
+      template="recommendations/crosssell.phtml">
+      </block>
+    </reference>
+  </checkout_cart_index>
   <checkout_onepage_success>
     <reference name="content">
       <block type="recommendations/checkout_onepage_success"
