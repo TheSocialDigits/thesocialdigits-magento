@@ -25,7 +25,6 @@
         </action>
       </block>
     </reference>
-    
   </default>
   <checkout_onepage_success>
     <reference name="content">
