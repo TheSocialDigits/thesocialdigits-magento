@@ -4,6 +4,13 @@ Mage_Core_Block_Template {
 
   private $_arguments = array('limit' => 3);
 
+  public function _prepareLayout(){
+    $this->addJs('jquery-1.7.2.min.js');
+    $this->addJs('thesocialdigits-js/json2.min.js');
+    $this->addJs('thesocialdigits-js/jquery.thesocialdigits.min.js');
+    $this->addJs('thesocialdigits-js/config.thesocialdigits.js');
+  }
+
   public function getApiKey(){
     //this should be a setting
     return
