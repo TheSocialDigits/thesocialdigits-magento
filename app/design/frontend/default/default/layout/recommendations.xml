@@ -18,19 +18,6 @@
     <reference name="product.info">
       <block type="recommendations/recommendations" name="upsell_products"
       template="recommendations/upsell.phtml">
-        <action method="addJs">
-          <path>jquery-1.7.2.min.js</path>
-        </action>
-        <action method="addJs">
-          <path>thesocialdigits-js/json2.min.js</path>
-        </action>
-        <action method="addJs">
-          <path>thesocialdigits-js/jquery.thesocialdigits.min.js</path>
-        </action>
-        <action method="addJs">
-          <path>thesocialdigits-js/config.thesocialdigits.js</path>
-        </action>
-        <action method="setArgument">
           <argument>limit</argument>
           <value>3</value>
         </action>
