@@ -11,16 +11,6 @@ Mage_Core_Block_Template {
     $this->addJs('thesocialdigits-js/config.thesocialdigits.js');
   }
 
-  public function getApiKey(){
-    //this should be a setting
-    return
-    Mage::getStoreConfig('recommendations_options/settings/api_key');
-  }
-
-  public function getTrackingCategory(){
-    return Mage::getStoreConfig('recommendations_options/settings/ga_tracking');
-  }
-
   public function addJs($path){
     $head = $this->getLayout()->getBlock('head');
     return $head->addJs($path);
@@ -35,7 +25,28 @@ Mage_Core_Block_Template {
     $product = Mage::registry('current_product');
     if($product)
       return $product->getId();
-    return 'null';
+    return null;
+  }
+
+  public function getProductIdJson(){
+    $product_id = $this->getProductId();
+    if(!is_null)
+      return json_encode(array($product_id),JSON_NUMERIC_CHECK);
+    return '[]';
+  }
+
+  public function getCartContents(){
+    $contents = array();
+    $quote = Mage::helper('checkout/cart')->getQuote();
+    foreach ($quote->getAllItems() as $item) {
+      $contents[] =
+        Mage::getModel('catalog/product')->getIdBySku($item->getSku());
+    }
+    return $contents;
+  }
+
+  public function getCartContentsJson(){
+    return json_encode($this->getCartContents(), JSON_NUMERIC_CHECK);
   }
 
   public function setElementId($id){
@@ -86,6 +97,6 @@ Mage_Core_Block_Template {
   }
 
   public function getArgumentsJson(){
-    return json_encode($this->_arguments,JSON_NUMERIC_CHECK);
+    return json_encode($this->getArguments(),JSON_NUMERIC_CHECK);
   }
 }
