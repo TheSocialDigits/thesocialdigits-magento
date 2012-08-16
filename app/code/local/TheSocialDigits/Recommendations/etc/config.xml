@@ -30,6 +30,9 @@
           <recommendations>TheSocialDigits_Recommendations_Block_Recommendations</recommendations>
         </rewrite>
         <rewrite>
+          <checkout_cart_added>TheSocialDigits_Recommendations_Block_Checkout_Cart</checkout_cart_added>
+        </rewrite>
+        <rewrite>
           <checkout_onepage_success>TheSocialDigits_Recommendations_Block_Checkout_Onepage_Success</checkout_onepage_success>
         </rewrite>
 <rewrite>
@@ -57,6 +60,14 @@
           <frontName>recommendations</frontName>
         </args>
       </recommendations>
+      <checkout>
+        <args>
+          <modules>
+            <TheSocialDigits_Recommendations
+            before="Mage_Checkout">TheSocialDigits_Recommendations</TheSocialDigits_Recommendations>
+          </modules>
+        </args>
+      </checkout>
     </routers>
     <layout>
       <updates>
