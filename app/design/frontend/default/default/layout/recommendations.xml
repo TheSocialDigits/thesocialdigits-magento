@@ -2,8 +2,7 @@
 <layout version="0.1.0">
   <default>
     <reference name="right">
-      <block type="recommendations/recommendations" name="recommendations"
-      template="recommendations/recommendations.phtml" >
+      <block type="recommendations/recommendations" name="recommendations" template="recommendations/recommendations.phtml">
         <action method="setArgument">
           <argument>limit</argument>
           <value>3</value>
@@ -18,6 +17,7 @@
     <reference name="product.info">
       <block type="recommendations/recommendations" name="upsell_products"
       template="recommendations/upsell.phtml">
+        <action method="setArgument">
           <argument>limit</argument>
           <value>3</value>
         </action>
