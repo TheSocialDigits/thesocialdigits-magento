@@ -8,8 +8,16 @@ Mage_Checkout_CartController {
      */
 
     protected function rewriteUrl(){
-      $this->getRequest()->setParam('return_url',Mage::getUrl('checkout/cart/added'));
+      $this->getRequest()->setParam('return_url',
+        Mage::getUrl('checkout/cart/added',array(
+          '_query'=>array(
+            'product' => $this->getRequest()->getParam('product'),
+            'qty' => $this->getRequest()->getParam('qty'),
+          )
+        ))
+      );
     }
+
     public function addAction()
     {
       $this->rewriteUrl();
