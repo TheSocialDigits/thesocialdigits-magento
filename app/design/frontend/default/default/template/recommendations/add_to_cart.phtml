@@ -1,0 +1,19 @@
+<div></div>This is supposed to be a system message telling you that the product
+was added to the cart.</div>
+<div id="tsd-crosssell"></div> 
+
+<script id="crosssellTemplate" type="text/html">
+  <?php echo $this->getHtmlTemplate(); ?>
+</script>
+
+  <script type="text/javascript">
+    jQuery(function($){
+      $(document).bind('thesocialdigits.ready',function(event){
+        var arguments = <?php echo $this->getArgumentsJson(); ?>;
+        arguments.products = <?php echo $this->getProductIdJson() ?>;
+        $('#tsd-crosssell').thesocialdigits('related'
+        , arguments
+        , '#crosssellTemplate');
+      });
+    });
+   </script>

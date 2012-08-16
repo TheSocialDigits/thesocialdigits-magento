@@ -1,0 +1,40 @@
+<?php
+/**
+ * Cart cross sell items template
+ *
+ * @see Mage_Checkout_Block_Cart_Crosssell
+ */
+?>
+<div class="crosssell">
+  <ul id="tsd-crosssell">
+  </ul>
+  <script type="text/javascript">decorateList('tsd-crosssell', 'none-recursive')</script>
+</div>
+
+<script id="crosssellTemplate" type="text/html">
+        <li class="item">
+            <a class="product-image" href="/index.php/{product_url}"
+            title="{name}"><img src="{thumbnail_url}" width="75" height="75"
+            alt="{name}" /></a>
+            <div class="product-details">
+                <h3 class="product-name"><a
+                href="/index.php/{product_url}">{name}</a></h3>
+                {price}
+                <button type="button" title="<?php echo $this->__('Add to Cart')
+                ?>" class="button btn-cart"
+                onclick="setLocation('{add_to_cart_url}')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+            </div>
+        </li>
+
+</script>
+  <script type="text/javascript">
+    jQuery(function($){
+      $(document).bind('thesocialdigits.ready',function(event){
+        var arguments = <?php echo $this->getArgumentsJson(); ?>;
+        arguments.products = <?php echo $this->getCartContentsJson(); ?>;
+        $('#tsd-crosssell').thesocialdigits('related'
+        , arguments
+        , '#crosssellTemplate');
+      });
+    });
+   </script>
