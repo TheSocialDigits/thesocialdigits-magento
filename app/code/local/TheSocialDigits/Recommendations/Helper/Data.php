@@ -5,6 +5,11 @@ Mage_Core_Helper_Abstract {
   
   public function getProducts(){
     $retval = array();
+
+    $language = Mage::getStoreConfig('recommendations_options/settings/language');
+    if(!$language)
+      $language = 'english'; //Should be fixed 
+
     //Retreive all enabled products
     $products = Mage::getModel('catalog/product')
       ->getCollection()
@@ -46,6 +51,11 @@ Mage_Core_Helper_Abstract {
 
   public function getCategories(){
     $retval = array();
+
+    $language = Mage::getStoreConfig('recommendations_options/settings/language');
+    if(!$language)
+      $language = 'english'; //Should be fixed 
+
       //Retrieve all the categories
     $categories = Mage::getModel('catalog/category')
       ->getCollection()
