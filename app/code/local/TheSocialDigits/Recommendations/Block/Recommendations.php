@@ -6,6 +6,9 @@ Mage_Core_Block_Template {
 
   public function _prepareLayout(){
     $this->addJs('jquery-1.7.2.min.js');
+    $this->addJs('jquery.ui.core.min.js');
+    $this->addJs('jquery.ui.widget.min.js');
+    $this->addJs('jquery.ui.rcarousel.min.js');
     $this->addJs('thesocialdigits-js/json2.min.js');
     $this->addJs('thesocialdigits-js/jquery.thesocialdigits.min.js');
     $this->addJs('thesocialdigits-js/config.thesocialdigits.js');
@@ -21,6 +24,9 @@ Mage_Core_Block_Template {
     Mage::getStoreConfig('recommendations_options/settings/template');
   }
 
+  /**
+   * Get the product id of the current showing product
+   */
   public function getProductId(){
     $product = Mage::registry('current_product');
     if($product)
