@@ -13,6 +13,7 @@ Mage_Checkout_CartController {
           '_query'=>array(
             'product' => $this->getRequest()->getParam('product'),
             'qty' => $this->getRequest()->getParam('qty'),
+            'return_url' => $this->_getRefererUrl(),
           )
         ))
       );
@@ -21,7 +22,6 @@ Mage_Checkout_CartController {
     public function addAction()
     {
       $this->rewriteUrl();
-      $this->_getSession()->setNoCartRedirect(true);
       parent::addAction();
     }
 
@@ -32,12 +32,13 @@ Mage_Checkout_CartController {
     }
 
     public function addedAction(){
-      $messages = Mage::getSingleton('checkout/session')->getMessages(true);
-      $messages = $this->_getSession()->getMessages(true);
+      $product = $this->_initProduct();
+      if($product) {
+        $message = $this->__("%s was added to your shopping cart.",
+          Mage::helper('core')->escapeHtml($product->getName()));
+        Mage::getSingleton('core/session')->addSuccess($message);
+      }
       $this->loadLayout();
-//      $this->getLayout()->getMessagesBlock()->addMessages($messages);
-      $this->_initLayoutMessages('checkout/session');
-      $this->_initLayoutMessages('catalog/session');
       $this->renderLayout();
     }
 

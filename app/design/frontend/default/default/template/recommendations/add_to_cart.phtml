@@ -1,7 +1,16 @@
-<div></div>This is supposed to be a system message telling you that the product
-was added to the cart.</div>
-<div id="tsd-crosssell"></div> 
-
+<div id="navigation">
+  <button type="button" class="button btn-continue" style="float:left"
+  onclick="setLocation('<?php echo $this->getRequest()->getParam('return_url')
+  ?>')">
+    <span><?php echo $this->__('Continue shopping')?></span>
+  </button>
+  <button type="button" class="button btn-cart" style="float:right" onclick="setLocation('<?php echo
+  Mage::getUrl('checkout/cart'); ?>')">
+    <span><?php echo $this->__('Go to shopping cart') ?></span>
+  </button>
+</div>
+<div style="clear:both"></div>
+<div id="crosssellProducts"></div> 
 <script id="crosssellTemplate" type="text/html">
   <?php echo $this->getHtmlTemplate(); ?>
 </script>
@@ -11,7 +20,7 @@ was added to the cart.</div>
       $(document).bind('thesocialdigits.ready',function(event){
         var arguments = <?php echo $this->getArgumentsJson(); ?>;
         arguments.products = <?php echo $this->getProductIdJson() ?>;
-        $('#tsd-crosssell').thesocialdigits('related'
+        $('#crosssellProducts').thesocialdigits('related'
         , arguments
         , '#crosssellTemplate');
       });
