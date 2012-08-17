@@ -8,7 +8,6 @@ Mage_Checkout_CartController {
      */
 
     protected function rewriteUrl(){
-<<<<<<< HEAD
       $this->getRequest()->setParam('return_url',
         Mage::getUrl('checkout/cart/added',array(
           '_query'=>array(
@@ -19,13 +18,10 @@ Mage_Checkout_CartController {
       );
     }
 
-=======
-      $this->getRequest()->setParam('return_url',Mage::getUrl('checkout/cart/added'));
-    }
->>>>>>> Landing page showing
     public function addAction()
     {
       $this->rewriteUrl();
+      $this->_getSession()->setNoCartRedirect(true);
       parent::addAction();
     }
 
@@ -39,7 +35,7 @@ Mage_Checkout_CartController {
       $messages = Mage::getSingleton('checkout/session')->getMessages(true);
       $messages = $this->_getSession()->getMessages(true);
       $this->loadLayout();
-      $this->getLayout()->getMessagesBlock()->addMessages($messages);
+//      $this->getLayout()->getMessagesBlock()->addMessages($messages);
       $this->_initLayoutMessages('checkout/session');
       $this->_initLayoutMessages('catalog/session');
       $this->renderLayout();
