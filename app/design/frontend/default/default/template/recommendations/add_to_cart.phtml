@@ -10,7 +10,11 @@
   </button>
 </div>
 <div style="clear:both"></div>
-<div id="crosssellProducts"></div> 
+<div id="crosssellProducts">
+  <a href=""></a>
+  <div class="container"></div>
+  <a href=""></a>
+</div> 
 <script id="crosssellTemplate" type="text/html">
   <?php echo $this->getHtmlTemplate(); ?>
 </script>
@@ -20,9 +24,11 @@
       $(document).bind('thesocialdigits.ready',function(event){
         var arguments = <?php echo $this->getArgumentsJson(); ?>;
         arguments.products = <?php echo $this->getProductIdJson() ?>;
-        $('#crosssellProducts').thesocialdigits('related'
+        $('#crosssellProducts .container').thesocialdigits('related'
         , arguments
-        , '#crosssellTemplate');
+        , '#crosssellTemplate',function(){
+          $('#crosssellProducts .container').rcarousel({visible:1,step:1});
+        });
       });
     });
    </script>
