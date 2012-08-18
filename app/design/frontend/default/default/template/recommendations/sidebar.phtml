@@ -1,0 +1,37 @@
+<div class="block block-recommendations">
+  <div class="block-title"><strong><?php echo $this->__('Related products'); ?></strong></div>
+  <div class="block-content">
+    <div id="<?php echo $this->getElementId(); ?>" class="rcarousel">
+      <?php if($this->getSliderArgument('navigation_prev')): ?>
+      <a href="#" id="<?php echo $this->getElementId(); ?>-prev">
+        <span><?php echo $this->__('Previous') ?></span>
+      </a>
+      <?php endif; ?>
+      <div id="<?php echo $this->getElementId(); ?>-container" class="rcarousel-container"></div>
+      <?php if($this->getSliderArgument('navigation_next')): ?>
+      <a href="#" id="<?php echo $this->getElementId(); ?>-next">
+        <span><?php echo $this->__('Next'); ?></span>
+      </a>
+      <?php endif; ?>
+    </div>
+  </div>
+</div>
+
+<script id="<?php echo $this->getElementId(); ?>-template" type="text/html"> 
+<?php echo $this->getHtmlTemplate(); ?>
+</script>
+  
+<script type="text/javascript">
+  jQuery(function($){
+    $(document).bind('thesocialdigits.ready',function(event){
+      var arguments = <?php echo $this->getApiArgumentsJson(); ?>;
+      $('#<?php echo $this->getElementId(); ?>-container').thesocialdigits('<?php
+      echo $this->getAction(); ?>'
+      , arguments
+      , '#<?php echo $this->getElementId(); ?>-template',function(){
+        var arguments = <?php echo $this->getSliderArgumentsJson();?>;
+        $('#<?php echo $this->getElementId(); ?>-container').rcarousel(arguments);
+      });
+    });
+  });
+</script>

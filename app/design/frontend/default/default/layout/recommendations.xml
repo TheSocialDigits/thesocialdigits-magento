@@ -2,13 +2,30 @@
 <layout version="0.1.0">
   <default>
     <reference name="right">
-      <block type="recommendations/recommendations" name="recommendations" template="recommendations/recommendations.phtml">
-        <action method="setArgument">
+      <block type="recommendations/recommendations" name="recommendations"
+      template="recommendations/sidebar.phtml" >
+        <action method="setApiArgument">
           <argument>limit</argument>
           <value>3</value>
         </action>
         <action method="setAction">
           <action>related</action>
+        </action>
+        <action method="setSliderArgument">
+          <argument>visible</argument>
+          <value>1</value>
+        </action>
+        <action method="setSliderArgument">
+          <argument>orientation</argument>
+          <value>vertical</value>
+        </action>
+        <action method="setSliderArgument">
+          <argument>width</argument>
+          <value>190</value>
+        </action>
+        <action method="setSliderArgument">
+          <argument>height</argument>
+          <value>150</value>
         </action>
       </block>
     </reference>
