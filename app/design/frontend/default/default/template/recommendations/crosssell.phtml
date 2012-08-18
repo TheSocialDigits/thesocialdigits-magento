@@ -1,17 +1,12 @@
-<?php
-/**
- * Cart cross sell items template
- *
- * @see Mage_Checkout_Block_Cart_Crosssell
- */
-?>
 <div class="crosssell">
-  <ul id="tsd-crosssell">
+  <h2><?php echo $this->__('Based on your selection, you may be interested in the following items:'); ?></h2>
+  <ul id="<?php echo $this->getElementId(); ?>-container">
   </ul>
-  <script type="text/javascript">decorateList('tsd-crosssell', 'none-recursive')</script>
+  <script type="text/javascript">decorateList('<?php echo $this->getElementId();
+  ?>-container', 'none-recursive')</script>
 </div>
 
-<script id="crosssellTemplate" type="text/html">
+<script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
         <li class="item">
             <a class="product-image" href="/index.php/{product_url}"
             title="{name}"><img src="{thumbnail_url}" width="75" height="75"
@@ -19,7 +14,7 @@
             <div class="product-details">
                 <h3 class="product-name"><a
                 href="/index.php/{product_url}">{name}</a></h3>
-                {price}
+                {price},-
                 <button type="button" title="<?php echo $this->__('Add to Cart')
                 ?>" class="button btn-cart"
                 onclick="setLocation('{add_to_cart_url}')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
@@ -30,11 +25,15 @@
   <script type="text/javascript">
     jQuery(function($){
       $(document).bind('thesocialdigits.ready',function(event){
-        var arguments = <?php echo $this->getArgumentsJson(); ?>;
-        arguments.products = <?php echo $this->getCartContentsJson(); ?>;
-        $('#tsd-crosssell').thesocialdigits('related'
+        var arguments = <?php echo $this->getApiArgumentsJson(); ?>;
+        $('#<?php echo $this->getElementId();
+        ?>-container').thesocialdigits('<?php echo $this->getAction(); ?>'
         , arguments
-        , '#crosssellTemplate');
+        , '#<?php echo $this->getElementId(); ?>-template', function(){
+          var arguments = <?php echo $this->getSliderArgumentsJson(); ?>;
+          $('#<?php echo $this->getElementId();
+          ?>-container').rcarousel(arguments);
+        });
       });
     });
    </script>

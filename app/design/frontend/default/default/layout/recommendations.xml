@@ -72,6 +72,20 @@
     <reference name="checkout.cart">
       <block type="recommendations/recommendations" name="crosssell"
       template="recommendations/crosssell.phtml">
+        <action method="setElementId">
+          <id>tsd-crosssell</id>
+        </action>
+        <action method="setAction">
+          <action>related</action>
+        </action>
+        <action method="setSliderArgument">
+          <argument>orientation</argument>
+          <value>vertical</value>
+        </action>
+        <action method="setSliderArgument">
+          <argument>width</argument>
+          <value>250</value>
+        </action>
       </block>
     </reference>
   </checkout_cart_index>

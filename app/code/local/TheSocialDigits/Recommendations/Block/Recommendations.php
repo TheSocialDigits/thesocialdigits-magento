@@ -37,11 +37,11 @@ Mage_Core_Block_Template {
     $this->addJs('thesocialdigits-js/jquery.thesocialdigits.min.js');
     $this->addJs('thesocialdigits-js/config.thesocialdigits.js');
   }
-
   public function addJs($path){
     $head = $this->getLayout()->getBlock('head');
     return $head->addJs($path);
   }
+
 
   public function getHtmlTemplate(){
     return
@@ -50,7 +50,7 @@ Mage_Core_Block_Template {
 
   /**
    * Get the product id of the current showing product
-   */
+   */   
   public function getProductId(){
     $product = Mage::registry('current_product');
     if($product)
@@ -78,18 +78,7 @@ Mage_Core_Block_Template {
   public function getCartContentsJson(){
     return json_encode($this->getCartContents(), JSON_NUMERIC_CHECK);
   }
-
-  /**
-   * Get the ids of the item in cart
-   */
-  public function getCartContents(){
-    $cart_contents = array();
-    $quote = Mage::helper('checkout')->getQuote();
-    foreach($quote->getItemsCollection() as $item){
-      $cart_contents[] = $item->getId();
-    }
-    return json_encode($cart_contents,JSON_NUMERIC_CHECK);
-  }
+  
   public function setElementId($id){
     if(is_string($id)){
       $this->_id = $id;
@@ -97,7 +86,7 @@ Mage_Core_Block_Template {
     }
     return false;
   }
-
+  
   public function getElementId(){
     return isset($this->_id) ? $this->_id : 'tsd-products';
   }
@@ -136,10 +125,15 @@ Mage_Core_Block_Template {
     foreach($this->_api_arguments as $arg => $val){
       switch($arg){
         case 'products':
-          $arguments['products'] = array($this->getProductId());
+          $product_id = $this->getProductId();
+          if(!is_null($product_id)){
+            $arguments['products'] = array($this->getProductId());
+          } else {
+            $arguments['products'] = array();
+          }
         break;
         case 'exclude':
-          //$arguments['exclude'] = $this->getCartContents();
+          $arguments['exclude'] = $this->getCartContents();
         break;
         default:
           $arguments[$arg] = $val;
