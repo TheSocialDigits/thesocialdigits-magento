@@ -4,6 +4,9 @@
     <reference name="right">
       <block type="recommendations/recommendations" name="recommendations"
       template="recommendations/sidebar.phtml" >
+        <action method="setElementId">
+          <id>tsd-related</id>
+        </action>
         <action method="setApiArgument">
           <argument>limit</argument>
           <value>3</value>
@@ -34,12 +37,23 @@
     <reference name="product.info">
       <block type="recommendations/recommendations" name="upsell_products"
       template="recommendations/upsell.phtml">
-        <action method="setArgument">
+        <action method="setElementId">
+          <id>tsd-upsell</id>
+        </action>
+        <action method="setApiArgument">
           <argument>limit</argument>
           <value>3</value>
         </action>
+        <action method="setSliderArgument">
+          <argument>width</argument>
+          <value>130</value>
+        </action>
+        <action method="setSliderArgument">
+          <argument>height</argument>
+          <value>120</value>
+        </action>
         <action method="setAction">
-          <action>related</action>
+          <action>alternative</action>
         </action>
       </block>
     </reference>

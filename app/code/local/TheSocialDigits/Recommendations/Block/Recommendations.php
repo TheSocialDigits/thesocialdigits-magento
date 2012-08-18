@@ -11,8 +11,8 @@ Mage_Core_Block_Template {
   );
 
   private $_slider_arguments = array(
-    'visible' => 3,
-    'step' => 3,
+    'visible' => 1,
+    'step' => 1,
     'width' => 100,
     'height' => 100,
     'speed' => 1000,
@@ -25,6 +25,8 @@ Mage_Core_Block_Template {
     'navigation_next' => false,
     'navigation_prev' => false,
   );
+
+  private $_id;
 
   public function _prepareLayout(){
     $this->addJs('jquery-1.7.2.min.js');
@@ -126,7 +128,7 @@ Mage_Core_Block_Template {
           $arguments['products'] = array($this->getProductId());
         break;
         case 'exclude':
-          $arguments['exclude'] = $this->getCartContents();
+          //$arguments['exclude'] = $this->getCartContents();
         break;
         default:
           $arguments[$arg] = $val;
@@ -167,6 +169,8 @@ Mage_Core_Block_Template {
         case 'step':
           if($val > $this->getSliderArgument('visible',$val))
             $arguments['step'] = $this->getSliderArgument('visible',$val);
+          else
+            $arguments['step'] = $val;
         break;
         case 'auto_enabled':
           $arguments['auto']['enabled'] = $val;
