@@ -1,34 +1,36 @@
-<div id="navigation">
-  <button type="button" class="button btn-continue" style="float:left"
-  onclick="setLocation('<?php echo $this->getRequest()->getParam('return_url')
-  ?>')">
-    <span><?php echo $this->__('Continue shopping')?></span>
-  </button>
-  <button type="button" class="button btn-cart" style="float:right" onclick="setLocation('<?php echo
+<div id="product-added">
+  <div id="navigation">
+    <button type="button" class="button btn-continue" style="float:left"
+    onclick="setLocation('<?php echo $this->getRequest()->getParam('return_url')
+    ?>')">
+      <span><?php echo $this->__('Continue shopping')?></span>
+    </button>
+    <button type="button" class="button btn-cart" style="float:right" onclick="setLocation('<?php echo
   Mage::getUrl('checkout/cart'); ?>')">
-    <span><?php echo $this->__('Go to shopping cart') ?></span>
-  </button>
-</div>
-<div style="clear:both"></div>
-<div id="crosssellProducts">
-  <a href=""></a>
-  <div class="container"></div>
-  <a href=""></a>
-</div> 
-<script id="crosssellTemplate" type="text/html">
-  <?php echo $this->getHtmlTemplate(); ?>
-</script>
+      <span><?php echo $this->__('Go to shopping cart') ?></span>
+    </button>
+  </div>
+  <div style="clear:both"></div>
+  <div id="<?php echo $this->getElementId(); ?>">
+    <div id="<?php echo $this->getElementId(); ?>-container"></div>
+  </div> 
+
+  <script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
+    <?php echo $this->getHtmlTemplate(); ?>
+  </script>
 
   <script type="text/javascript">
     jQuery(function($){
       $(document).bind('thesocialdigits.ready',function(event){
-        var arguments = <?php echo $this->getArgumentsJson(); ?>;
-        arguments.products = <?php echo $this->getProductIdJson() ?>;
-        $('#crosssellProducts .container').thesocialdigits('related'
+        var arguments = <?php echo $this->getApiArgumentsJson(); ?>;
+        $('#<?php echo $this->getElementId(); ?>-container').thesocialdigits('<?php echo
+        $this->getAction(); ?>'
         , arguments
-        , '#crosssellTemplate',function(){
-          $('#crosssellProducts .container').rcarousel({visible:1,step:1});
+        , '#<?php echo $this->getElementId(); ?>-template',function(){
+          var arguments = <?php echo $this->getSliderArgumentsJson(); ?>;
+          $('#<?php echo $this->getElementId(); ?>-container').rcarousel(arguments);
         });
       });
     });
-   </script>
+  </script>
+</div>
