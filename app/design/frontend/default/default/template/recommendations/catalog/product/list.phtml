@@ -1,9 +1,6 @@
 <?php
-/**
- * Product list template
- *
- * @see Mage_Catalog_Block_Product_List
- */
+$api_helper = $this->helper('thesocialdigits_api');
+$carousel_helper = $this->helper('carousel');
 ?>
 <?php/*
     $_productCollection=$this->getLoadedProductCollection();
@@ -13,7 +10,6 @@
 <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
 <?php else: ?>
 <div class="category-products">
-    <?php echo $this->getToolbarHtml() ?>
     <?php // List mode ?>
     <?php if($this->getMode()!='grid'): ?>
     <?php $_iterator = 0; ?>
@@ -100,4 +96,35 @@
     </div>
 </div>
 <?php endif; */?>
-This is the product list block
+<div class="category-products">
+  <?php echo $this->getToolbarHtml() ?>
+  <?php if($this->getMode() != 'grid'): ?>
+  list mode
+  <?php else: ?>
+  grid mode
+  <?php endif; ?>
+  <div class="<?php echo $this->getElementId(); ?>">
+    <div id="<?php echo $this->getElementId(); ?>-container" class="rcarousel-container"></div>
+  </div>
+  <div class="toolbar-bottom">
+      <?php echo $this->getToolbarHtml() ?>
+  </div>
+  <script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
+    <?php echo $this->getHtmlTemplate(); ?>
+  </script>
+
+  <script type="text/javascript">
+    jQuery(function($){
+      $(document).bind('thesocialdigits.ready',function(event){
+        var arguments = <?php echo $api_helper->getArgumentsJson(); ?>;
+        $('#<?php echo $this->getElementId(); ?>-container').thesocialdigits('<?php echo
+        $this->getAction(); ?>'
+        , arguments
+        , '#<?php echo $this->getElementId(); ?>-template',function(){
+          var arguments = <?php echo $carousel_helper->getArgumentsJson(); ?>;
+          $('#<?php echo $this->getElementId(); ?>-container').rcarousel(arguments);
+        });
+      });
+    });
+  </script>
+</div>
