@@ -104,4 +104,15 @@
       </block>
     </reference>
   </checkout_multishipping_success>
+  <catalogsearch_result_index>
+    <reference name="search.result">
+      <block type="recommendations/catalog_product_list" name="search_result_list"
+    template="recommendations/catalog/product/list.phtml">
+        <block type="catalog/product_list_toolbar" name="product_list_toolbar"
+        template="catalog/product/list/toolbar.phtml">
+          <block type="page/html_pager" name="product_list_toolbar_pager" />
+        </block>
+      </block>
+    </reference>
+  </catalogsearch_result_index>
 </layout>

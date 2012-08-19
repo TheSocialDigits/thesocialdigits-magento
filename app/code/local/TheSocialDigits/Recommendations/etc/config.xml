@@ -26,8 +26,11 @@
         <rewrite>
           <checkout_onepage_success>TheSocialDigits_Recommendations_Block_Checkout_Onepage_Success</checkout_onepage_success>
         </rewrite>
-<rewrite>
+        <rewrite>
           <checkout_multishipping_success>TheSocialDigits_Recommendations_Block_Checkout_Multishipping_Success</checkout_multishipping_success>
+        </rewrite>
+        <rewrite>
+          <catalog_product_list>TheSocialDigits_Recommendations_Block_Catalog_Product_List</catalog_product_list>
         </rewrite>
       </recommendations>
     </blocks>
