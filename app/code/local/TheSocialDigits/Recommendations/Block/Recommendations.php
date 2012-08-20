@@ -12,7 +12,7 @@ Mage_Core_Block_Template {
 //    'filter' => "",
   );
 
-  private $_slider_arguments = array(
+  private $_carousel_arguments = array(
     'visible' => 3,
     'step' => 1,
     'width' => 130,
@@ -150,30 +150,30 @@ Mage_Core_Block_Template {
     return json_encode($this->getApiArguments(),JSON_NUMERIC_CHECK);
   }
 
-  protected function _validateSliderArgument($argument, $value){
+  protected function _validateCarouselArgument($argument, $value){
     return true;
   }
 
-  public function setSliderArgument($argument, $value){
-    if($this->_validateSliderArgument($argument, $value)){
-      $this->_slider_arguments[$argument] = $value;
+  public function setCarouselArgument($argument, $value){
+    if($this->_validateCarouselArgument($argument, $value)){
+      $this->_carousel_arguments[$argument] = $value;
       return true;
     }
     return false;
   }
 
-  public function getSliderArgument($argument, $default_value=NULL){
-    return isset($this->_slider_arguments[$argument]) ?
-      $this->_slider_arguments[$argument] : $default_value;
+  public function getCarouselArgument($argument, $default_value=NULL){
+    return isset($this->_carousel_arguments[$argument]) ?
+      $this->_carousel_arguments[$argument] : $default_value;
   }
 
-  protected function _prepareSliderArguments(){
+  protected function _prepareCarouselArguments(){
     $arguments = array();
-    foreach($this->_slider_arguments as $arg => $val){
+    foreach($this->_carousel_arguments as $arg => $val){
       switch($arg){
         case 'step':
-          if($val > $this->getSliderArgument('visible',$val))
-            $arguments['step'] = $this->getSliderArgument('visible',$val);
+          if($val > $this->getCarouselArgument('visible',$val))
+            $arguments['step'] = $this->getCarouselArgument('visible',$val);
           else
             $arguments['step'] = $val;
         break;
@@ -203,11 +203,11 @@ Mage_Core_Block_Template {
     return $arguments;
   }
 
-  protected function _getSliderArguments(){
-    return $this->_prepareSliderArguments();
+  protected function _getCarouselArguments(){
+    return $this->_prepareCarouselArguments();
   }
 
-  public function getSliderArgumentsJson(){
-    return json_encode($this->_getSliderArguments(),JSON_NUMERIC_CHECK);
+  public function getCarouselArgumentsJson(){
+    return json_encode($this->_getCarouselArguments(),JSON_NUMERIC_CHECK);
   }
 }

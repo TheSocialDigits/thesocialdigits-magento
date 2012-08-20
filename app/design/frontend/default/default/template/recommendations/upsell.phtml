@@ -8,13 +8,13 @@
     <h2><?php echo $this->__('You may also be interested in the following product(s)') ?></h2>
     <div id="<?php echo $this->getElementId(); ?>" class="rcarousel"
     width="300px;">
-      <?php if($this->getSliderArgument('navigation_prev')): ?>
+      <?php if($this->getCarouselArgument('navigation_prev')): ?>
       <a href="#" id="<?php echo $this->getElementId(); ?>-prev">
         <span><?php echo $this->__('Previous') ?></span>
       </a>
       <?php endif; ?>
       <div id="<?php echo $this->getElementId(); ?>-container" class="rcarousel-container"></div>
-      <?php if($this->getSliderArgument('navigation_next')): ?>
+      <?php if($this->getCarouselArgument('navigation_next')): ?>
       <a href="#" id="<?php echo $this->getElementId(); ?>-next">
         <span><?php echo $this->__('Next'); ?></span>
       </a>
@@ -40,7 +40,7 @@ jQuery(function($){
       , arguments
       , '#<?php echo $this->getElementId(); ?>-template',
       function(){
-        var arguments = <?php echo $this->getSliderArgumentsJson();?>;
+        var arguments = <?php echo $this->getCarouselArgumentsJson();?>;
         $('#<?php echo $this->getElementId(); ?>-container').rcarousel(arguments);
     });
   });

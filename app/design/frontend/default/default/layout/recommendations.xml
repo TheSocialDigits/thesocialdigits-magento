@@ -14,19 +14,19 @@
         <action method="setAction">
           <action>related</action>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>visible</argument>
           <value>1</value>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>orientation</argument>
           <value>vertical</value>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>width</argument>
           <value>190</value>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>height</argument>
           <value>150</value>
         </action>
@@ -44,11 +44,11 @@
           <argument>limit</argument>
           <value>3</value>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>width</argument>
           <value>130</value>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>height</argument>
           <value>120</value>
         </action>
@@ -78,11 +78,11 @@
         <action method="setAction">
           <action>related</action>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>orientation</argument>
           <value>vertical</value>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>width</argument>
           <value>250</value>
         </action>

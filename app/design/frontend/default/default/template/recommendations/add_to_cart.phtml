@@ -27,7 +27,7 @@
         $this->getAction(); ?>'
         , arguments
         , '#<?php echo $this->getElementId(); ?>-template',function(){
-          var arguments = <?php echo $this->getSliderArgumentsJson(); ?>;
+          var arguments = <?php echo $this->getCarouselArgumentsJson(); ?>;
           $('#<?php echo $this->getElementId(); ?>-container').rcarousel(arguments);
         });
       });
