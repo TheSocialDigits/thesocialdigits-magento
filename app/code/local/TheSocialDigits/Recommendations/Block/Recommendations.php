@@ -6,17 +6,17 @@ Mage_Core_Block_Template {
 
   private $_api_arguments = array(
     'products' => array(),
-    'limit' => 3,
+    'limit' => 20,
 //    'visitor' => null,
     'exclude' => array(),
 //    'filter' => "",
   );
 
   private $_slider_arguments = array(
-    'visible' => 1,
+    'visible' => 3,
     'step' => 1,
-    'width' => 100,
-    'height' => 100,
+    'width' => 130,
+    'height' => 140,
     'speed' => 1000,
     'margin' => 0,
     'orientation' => 'horizontal',
