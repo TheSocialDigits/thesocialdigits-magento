@@ -2,6 +2,8 @@
 class TheSocialDigits_Recommendations_Block_Recommendations extends
 Mage_Core_Block_Template {
 
+  private $_id, $_action;
+
   private $_api_arguments = array(
     'products' => array(),
     'limit' => 3,
@@ -26,8 +28,6 @@ Mage_Core_Block_Template {
     'navigation_prev' => false,
   );
 
-  private $_id;
-
   public function _prepareLayout(){
     $this->addJs('jquery-1.7.2.min.js');
     $this->addJs('jquery.ui.core.min.js');
@@ -37,11 +37,11 @@ Mage_Core_Block_Template {
     $this->addJs('thesocialdigits-js/jquery.thesocialdigits.min.js');
     $this->addJs('thesocialdigits-js/config.thesocialdigits.js');
   }
+
   public function addJs($path){
     $head = $this->getLayout()->getBlock('head');
     return $head->addJs($path);
   }
-
 
   public function getHtmlTemplate(){
     return
