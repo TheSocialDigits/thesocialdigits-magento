@@ -42,7 +42,7 @@
           <argument>limit</argument>
           <value>10</value>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>visible</argument>
           <value>4</value>
         </action>
@@ -54,11 +54,11 @@
           <argument>height</argument>
           <value>150</value>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>navigation_prev</argument>
           <value>1</value>
         </action>
-        <action method="setSliderArgument">
+        <action method="setCarouselArgument">
           <argument>navigation_next</argument>
           <value>1</value>
         </action>
