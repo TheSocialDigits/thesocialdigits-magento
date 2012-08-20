@@ -65,8 +65,11 @@ Mage_Core_Helper_Abstract {
       $category_data = array();
       $category->load();
       $category_data['id'] = $category->getId();
+      $category_name = $category->getName();
+      if(is_null($category_name))
+        continue;
       $category_data['name'] = array(
-        $language => $category->getName(),
+        $language => $category_name,
       );
       $category_data['subcategories'] = array();
       $sub_categories = $category->getChildrenCategories();
