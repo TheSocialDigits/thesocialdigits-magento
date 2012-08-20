@@ -7,17 +7,6 @@
         <action method="setElementId">
           <id>tsd-related</id>
         </action>
-        <action method="setApiArgument">
-          <argument>limit</argument>
-          <value>3</value>
-        </action>
-        <action method="setAction">
-          <action>related</action>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>visible</argument>
-          <value>1</value>
-        </action>
         <action method="setCarouselArgument">
           <argument>orientation</argument>
           <value>vertical</value>
