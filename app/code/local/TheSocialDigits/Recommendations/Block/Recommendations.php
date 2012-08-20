@@ -1,7 +1,7 @@
 <?php
 class TheSocialDigits_Recommendations_Block_Recommendations extends
 Mage_Core_Block_Template {
-
+  
   private $_id, $_action;
 
   private $_api_arguments = array(

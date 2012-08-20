@@ -1,21 +1,24 @@
 <style>
-.carousel-element{
-  text-align:center;
+.carousel-navigation {
+  display: block;
+  position: absolute;
+  top: 0;
+  z-index: 100;
 }
 </style>
 
 <div class="box-collateral box-up-sell">
     <h2><?php echo $this->__('You may also be interested in the following product(s)') ?></h2>
-    <div id="<?php echo $this->getElementId(); ?>" class="rcarousel"
-    width="300px;">
+    <div id="<?php echo $this->getElementId(); ?>" style="position:relative">
+      <div id="<?php echo $this->getElementId(); ?>-container"
+      style="margin: 0 auto;"></div>
       <?php if($this->getCarouselArgument('navigation_prev')): ?>
-      <a href="#" id="<?php echo $this->getElementId(); ?>-prev">
+      <a href="#" id="<?php echo $this->getElementId(); ?>-prev" class="carousel-navigation" style="left:0;">
         <span><?php echo $this->__('Previous') ?></span>
       </a>
       <?php endif; ?>
-      <div id="<?php echo $this->getElementId(); ?>-container" class="rcarousel-container"></div>
       <?php if($this->getCarouselArgument('navigation_next')): ?>
-      <a href="#" id="<?php echo $this->getElementId(); ?>-next">
+      <a href="#" id="<?php echo $this->getElementId(); ?>-next" class="carousel-navigation" style="right:0;">
         <span><?php echo $this->__('Next'); ?></span>
       </a>
       <?php endif; ?>
@@ -23,11 +26,9 @@
 </div>
 
 <script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
-  <div class="carousel-element">
-    <a href="/index.php/{product_url}">
-      <img src="{thumbnail_url}" /><br/>
-        {name}<br />
-        {price},-
+  <div style="float:left; text-align:center;">
+    <a href="{product_url}">
+      <span><img src="{thumbnail_url}" /><br />{name}<br />{price} ,-</span>
     </a>
   </div>
 </script>

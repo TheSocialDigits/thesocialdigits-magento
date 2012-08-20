@@ -40,7 +40,11 @@
         </action>
         <action method="setApiArgument">
           <argument>limit</argument>
-          <value>3</value>
+          <value>10</value>
+        </action>
+        <action method="setSliderArgument">
+          <argument>visible</argument>
+          <value>4</value>
         </action>
         <action method="setCarouselArgument">
           <argument>width</argument>
@@ -48,7 +52,15 @@
         </action>
         <action method="setCarouselArgument">
           <argument>height</argument>
-          <value>120</value>
+          <value>150</value>
+        </action>
+        <action method="setSliderArgument">
+          <argument>navigation_prev</argument>
+          <value>1</value>
+        </action>
+        <action method="setSliderArgument">
+          <argument>navigation_next</argument>
+          <value>1</value>
         </action>
         <action method="setAction">
           <action>alternative</action>
