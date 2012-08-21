@@ -36,11 +36,18 @@ Mage_Core_Block_Template {
     $this->addJs('thesocialdigits-js/json2.min.js');
     $this->addJs('thesocialdigits-js/jquery.thesocialdigits.min.js');
     $this->addJs('thesocialdigits-js/config.thesocialdigits.js');
+
+    $this->addCss('css/thesocialdigits-styles.css');
   }
 
   public function addJs($path){
     $head = $this->getLayout()->getBlock('head');
     return $head->addJs($path);
+  }
+
+  public function addCss($path){
+    $head = $this->getLayout()->getBlock('head');
+    return $head->addCss($path);
   }
 
   public function getHtmlTemplate(){
