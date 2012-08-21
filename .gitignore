@@ -43,7 +43,9 @@ var/cache/
 var/locks/
 var/package/
 var/session
-skin/
+skin/adminhtml/
+skin/install/
+skin/frontend/base/
 includes/
 downloader/
 php.ini.sample
