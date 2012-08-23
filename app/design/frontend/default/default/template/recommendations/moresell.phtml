@@ -1,0 +1,41 @@
+<div id="product-added">
+  <h2><?php echo $this->__('You may also be interested in the following product(s)'); ?></h2>
+  <div id="<?php echo $this->getElementId(); ?>"
+  class="recommendations-carousel-horizontal recommendations-carousel">
+    <?php echo $this->getPrevButton(); ?>
+    <div id="<?php echo $this->getElementId(); ?>-container"
+    class="recommendations-carousel-container"></div>
+    <?php echo $this->getNextButton(); ?>
+  </div> 
+  <div style="clear:both"></div>
+  <div id="navigation">
+    <button type="button" class="button btn-continue" style="float:left"
+    onclick="setLocation('<?php echo $this->getRequest()->getParam('return_url')
+    ?>')">
+      <span><?php echo $this->__('Continue shopping')?></span>
+    </button>
+    <button type="button" class="button btn-cart" style="float:right" onclick="setLocation('<?php echo
+  Mage::getUrl('checkout/cart'); ?>')">
+      <span><?php echo $this->__('Go to shopping cart') ?></span>
+    </button>
+  </div>
+
+  <script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
+    <?php echo $this->getHtmlTemplate(); ?>
+  </script>
+
+  <script type="text/javascript">
+    jQuery(function($){
+      $(document).bind('thesocialdigits.ready',function(event){
+        var arguments = <?php echo $this->getApiArgumentsJson(); ?>;
+        $('#<?php echo $this->getElementId(); ?>-container').thesocialdigits('<?php echo
+        $this->getAction(); ?>'
+        , arguments
+        , '#<?php echo $this->getElementId(); ?>-template',function(){
+          var arguments = <?php echo $this->getCarouselArgumentsJson(); ?>;
+          $('#<?php echo $this->getElementId(); ?>-container').rcarousel(arguments);
+        });
+      });
+    });
+  </script>
+</div>

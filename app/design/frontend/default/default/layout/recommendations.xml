@@ -68,16 +68,29 @@
       </block>
     </reference>
   </catalog_product_view>
-  <checkout_cart_added>
+  <checkout_cart_moresell>
     <reference name="root">
       <action
       method="setTemplate"><template>page/2columns-right.phtml</template></action>
     </reference>
     <reference name="content">
-      <block type="recommendations/checkout_cart_added" name="add_to_cart"
-      template="recommendations/add_to_cart.phtml"></block>
+      <block type="recommendations/recommendations" name="moresell"
+      template="recommendations/moresell.phtml">
+        <action method="setCarouselArgument">
+          <argument>visible</argument>
+          <value>4</value>
+        </action>
+        <action method="setCarouselArgument">
+          <argument>navigation_prev</argument>
+          <value>1</value>
+        </action>
+        <action method="setCarouselArgument">
+          <argument>navigation_next</argument>
+          <value>1</value>
+        </action>
+      </block>
     </reference>
-  </checkout_cart_added>
+  </checkout_cart_moresell>
   <checkout_cart_index>
     <reference name="checkout.cart">
       <block type="recommendations/recommendations" name="crosssell"

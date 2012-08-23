@@ -9,7 +9,7 @@ Mage_Checkout_CartController {
 
     protected function rewriteUrl(){
       $this->getRequest()->setParam('return_url',
-        Mage::getUrl('checkout/cart/added',array(
+        Mage::getUrl('checkout/cart/moresell',array(
           '_query'=>array(
             'product' => $this->getRequest()->getParam('product'),
             'qty' => $this->getRequest()->getParam('qty'),
@@ -31,7 +31,7 @@ Mage_Checkout_CartController {
       parent::addgroupAction();
     }
 
-    public function addedAction(){
+    public function moresellAction(){
       $product = $this->_initProduct();
       if($product) {
         $message = $this->__("%s was added to your shopping cart.",
