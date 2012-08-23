@@ -20,8 +20,16 @@
             </a>
           </div>
           </template>
+          <ga_tracking>The SocialDigits</ga_tracking>
         </settings>
-        <ga_tracking>The SocialDigits</ga_tracking>
+        <related>
+          <active>1</active>
+          <limit>10</limit>
+          <exclude_cart>1</exclude_cart>
+          <filter></filter>
+          <navigation>1</navigation>
+          <visible>3</visible>
+        </related>
       </recommendations_options>
     </default>
     <blocks>
