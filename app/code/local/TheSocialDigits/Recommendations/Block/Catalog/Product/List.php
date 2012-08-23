@@ -14,7 +14,7 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
     'limit' => 20,
 //    'visitor' => null,
     'exclude' => array(),
-//    'filter' => "",
+    'filter' => '',
   );
 
   public function _prepareLayout(){
@@ -97,6 +97,37 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
     return isset($this->_action) ? $this->_action : 'search';
   }
 
+  public function getFilter(){
+    $params = $this->getRequest()->getParams();
+    $filter = array();;
+    $ignore = array('q','limit','p');
+    foreach($params as $param => $value){
+      if(!in_array($param,$ignore)){
+      $dashpos = strpos('-',$value);
+      if($dashpos === false){
+        //no dash in string
+        $filter[] = $param . ' = \"' . $value . '\"';
+      } else {
+        if($dashpos == 0){
+          //dash is first
+          $filter[] = $param . ' > ' . $value;
+        } else {
+          if($dashpos == strlen($value)){
+            //dash is last
+            $filter[] = $param . ' < ' . $value;
+          } else {
+            //dash is in the middle
+            $values = explode('-',$value);
+            $filter[] = $param . ' > ' . $values[0];
+            $filter[] = $param . ' < ' . $values[1];
+          }
+        }
+      }
+      }
+    }
+    return implode(' and ',$filter);
+  }
+
   protected function _validateApiArgument($argument, $value){
     return true;
   }
@@ -128,6 +159,9 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
         break;
         case 'exclude':
           $arguments['exclude'] = $this->getCartContents();
+        break;
+        case 'filter':
+          $arguments['filter'] = $this->getFilter();
         break;
         default:
           $arguments[$arg] = $val;
