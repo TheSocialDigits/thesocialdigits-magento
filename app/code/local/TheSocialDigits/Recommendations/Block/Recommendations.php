@@ -220,13 +220,13 @@ Mage_Core_Block_Template {
 
   public function getPrevButton(){
     $output = '';
-    $base_class = 'recommendations-' .
-      $this->getCarouselArgument('orientation');
+    $orientation = $this->getCarouselArgument('orientation');
+    $base_class = 'recommendations-' . $orientation;
     if($this->getCarouselArgument('navigation_prev')){
-    $output .= '<a href id="' . $this->getElementId() . '-prev"
-      class="recommendations-' . $this->getCarouselArgument('orientation') .
+    $output .= '<a href="#" id="' . $this->getElementId() . '-prev"
+      class="recommendations-' . $orientation .
       '-prev-btn"><img src="'.
-      $this->getSkinUrl('images/tango/prev-vertical.gif') . '"
+      $this->getSkinUrl('images/tango/prev-' . $orientation . '.gif') . '"
       class="recommendations-navigation-img" alt="' .
       $this->__('Prev') . '" /></a>';
     }
@@ -235,13 +235,13 @@ Mage_Core_Block_Template {
 
   public function getNextButton(){
     $output = '';
-    $base_class = 'recommendations-' .
-      $this->getCarouselArgument('orientation');
+    $orientation = $this->getCarouselArgument('orientation');
+    $base_class = 'recommendation-' . $orientation;
     if($this->getCarouselArgument('navigation_next')){
-    $output .= '<a href id="' . $this->getElementId() . '-next"
-      class="recommendations-' . $this->getCarouselArgument('orientation') .
+    $output .= '<a href="#" id="' . $this->getElementId() . '-next"
+      class="recommendations-' . $orientation .
       '-next-btn"><img src="'.
-      $this->getSkinUrl('images/tango/next-vertical.gif') . '"
+      $this->getSkinUrl('images/tango/next-' . $orientation . '.gif') . '"
       class="recommendations-navigation-img" alt="' .
       $this->__('Next') . '" /></a>';
     }

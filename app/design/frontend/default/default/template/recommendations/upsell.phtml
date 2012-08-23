@@ -1,27 +1,12 @@
-<style>
-.carousel-navigation {
-  display: block;
-  position: absolute;
-  top: 0;
-  z-index: 100;
-}
-</style>
-
 <div class="box-collateral box-up-sell">
     <h2><?php echo $this->__('You may also be interested in the following product(s)') ?></h2>
-    <div id="<?php echo $this->getElementId(); ?>" style="position:relative">
+    <div id="<?php echo $this->getElementId(); ?>"
+    class="recommendations-carousel-horizontal">
+      <?php echo $this->getPrevButton(); ?>
       <div id="<?php echo $this->getElementId(); ?>-container"
-      style="margin: 0 auto;"></div>
-      <?php if($this->getCarouselArgument('navigation_prev')): ?>
-      <a href="#" id="<?php echo $this->getElementId(); ?>-prev" class="carousel-navigation" style="left:0;">
-        <span><?php echo $this->__('Previous') ?></span>
-      </a>
-      <?php endif; ?>
-      <?php if($this->getCarouselArgument('navigation_next')): ?>
-      <a href="#" id="<?php echo $this->getElementId(); ?>-next" class="carousel-navigation" style="right:0;">
-        <span><?php echo $this->__('Next'); ?></span>
-      </a>
-      <?php endif; ?>
+class="recommendations-carousel-container"></div>
+      <?php echo $this->getNextButton(); ?>
+      <div style="clear:both"></div>
     </div>
 </div>
 

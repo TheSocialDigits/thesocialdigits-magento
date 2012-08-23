@@ -48,7 +48,7 @@
         </action>
         <action method="setCarouselArgument">
           <argument>width</argument>
-          <value>130</value>
+          <value>135</value>
         </action>
         <action method="setCarouselArgument">
           <argument>height</argument>
