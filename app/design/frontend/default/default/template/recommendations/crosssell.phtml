@@ -1,11 +1,19 @@
 <div class="crosssell">
   <h2><?php echo $this->__('Based on your selection, you may be interested in the following items:'); ?></h2>
+  <div>
+  <?php echo $this->getPrevButton(); ?>
   <ul id="<?php echo $this->getElementId(); ?>-container">
   </ul>
+  <?php echo $this->getNextButton(); ?>
+  </div>
   <script type="text/javascript">decorateList('<?php echo $this->getElementId();
   ?>-container', 'none-recursive')</script>
 </div>
-
+<style>
+#<?php echo $this->getElementId(); ?>-container li.item {
+  margin-top:0px;
+}
+</style>
 <script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
         <li class="item">
             <a class="product-image" href="/index.php/{product_url}"
