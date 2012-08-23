@@ -1,18 +1,11 @@
-<div class="block block-recommendations">
+<div class="block block-related">
   <div class="block-title"><strong><?php echo $this->__('Related products'); ?></strong></div>
   <div class="block-content">
-    <div id="<?php echo $this->getElementId(); ?>" class="rcarousel">
-      <?php if($this->getSliderArgument('navigation_prev')): ?>
-      <a href="#" id="<?php echo $this->getElementId(); ?>-prev">
-        <span><?php echo $this->__('Previous') ?></span>
-      </a>
-      <?php endif; ?>
-      <div id="<?php echo $this->getElementId(); ?>-container" class="rcarousel-container"></div>
-      <?php if($this->getSliderArgument('navigation_next')): ?>
-      <a href="#" id="<?php echo $this->getElementId(); ?>-next">
-        <span><?php echo $this->__('Next'); ?></span>
-      </a>
-      <?php endif; ?>
+    <div id="<?php echo $this->getElementId(); ?>" class="recommendations-carousel">
+      <?php echo $this->getPrevButton(); ?>
+      <div id="<?php echo $this->getElementId(); ?>-container"
+      class="recommendations-carousel-container"></div>
+      <?php echo $this->getNextButton(); ?>
     </div>
   </div>
 </div>

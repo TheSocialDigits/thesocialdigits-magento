@@ -2,7 +2,8 @@
 <layout version="0.1.0">
   <default>
     <reference name="right">
-      <block type="recommendations/recommendations" name="recommendations"
+      <block type="recommendations/recommendations"
+      name="catalog.product.recommendations" before="-"
       template="recommendations/sidebar.phtml" >
         <action method="setElementId">
           <id>tsd-related</id>
@@ -13,11 +14,19 @@
         </action>
         <action method="setCarouselArgument">
           <argument>width</argument>
-          <value>190</value>
+          <value>180</value>
         </action>
         <action method="setCarouselArgument">
           <argument>height</argument>
           <value>150</value>
+        </action>
+        <action method="setCarouselArgument">
+          <argument>navigation_prev</argument>
+          <value>1</value>
+        </action>
+        <action method="setCarouselArgument">
+          <argument>navigation_next</argument>
+          <value>1</value>
         </action>
       </block>
     </reference>

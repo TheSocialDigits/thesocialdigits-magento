@@ -50,7 +50,7 @@ Mage_Core_Block_Template {
     return $head->addCss($path);
   }
 
-  public function getHtmlTemplate(){
+  public function getHtmlTemplate($tpl){
     return
     Mage::getStoreConfig('recommendations_options/settings/template');
   }
@@ -217,4 +217,35 @@ Mage_Core_Block_Template {
   public function getCarouselArgumentsJson(){
     return json_encode($this->_getCarouselArguments(),JSON_NUMERIC_CHECK);
   }
+
+  public function getPrevButton(){
+    $output = '';
+    $base_class = 'recommendations-' .
+      $this->getCarouselArgument('orientation');
+    if($this->getCarouselArgument('navigation_prev')){
+    $output .= '<a href id="' . $this->getElementId() . '-prev"
+      class="recommendations-' . $this->getCarouselArgument('orientation') .
+      '-prev-btn"><img src="'.
+      $this->getSkinUrl('images/tango/prev-vertical.gif') . '"
+      class="recommendations-navigation-img" alt="' .
+      $this->__('Prev') . '" /></a>';
+    }
+    return $output;
+  }
+
+  public function getNextButton(){
+    $output = '';
+    $base_class = 'recommendations-' .
+      $this->getCarouselArgument('orientation');
+    if($this->getCarouselArgument('navigation_next')){
+    $output .= '<a href id="' . $this->getElementId() . '-next"
+      class="recommendations-' . $this->getCarouselArgument('orientation') .
+      '-next-btn"><img src="'.
+      $this->getSkinUrl('images/tango/next-vertical.gif') . '"
+      class="recommendations-navigation-img" alt="' .
+      $this->__('Next') . '" /></a>';
+    }
+    return $output;
+  }
+
 }
