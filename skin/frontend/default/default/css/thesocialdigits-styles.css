@@ -1,0 +1,52 @@
+.recommnedations-rcarousel-container{
+}
+
+.recommendations-navigation-img {
+  height: 30px;
+  width: 30px;
+}
+
+.recommendations-horizontal-prev {
+}
+
+.recommendations-horizontal-prev-btn, .recommendations-horizontal-next-btn  {
+  height:150px;
+  float:left;
+  padding:5px;
+}
+.recommendations-horizontal-prev-btn img, .recommendations-horizontal-next-btn img {
+  position:relative;
+  top: 50px;
+}
+
+.recommendations-vertical-prev-btn,.recommendations-vertical-next-btn {
+  display:block;
+  text-align:center;
+  z-index: 999;
+  padding: 5px;
+}
+
+.recommendations-carousel {
+  padding:5px;
+}
+.recommendations-carousel-vertical {
+
+}
+
+.recommendations-carousel-horizontal {
+  height:200px;
+  width:620px;
+  margin: auto;
+}
+.recommendations-carousel-horizontal .wrapper div {
+  float:left;
+  text-align:center;
+}
+
+.recommendations-carousel-container {
+  text-align:center;
+  float:left;
+
+}
+
+
