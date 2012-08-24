@@ -33,12 +33,12 @@
   </default>
   <catalog_product_view>
     <reference name="product.info">
-      <block type="recommendations/recommendations" name="upsell_products"
-      template="recommendations/upsell.phtml">
+      <block type="recommendations/upsell" name="upsell_products"
+      template="recommendations/upsell.phtml" before="-">
         <action method="setElementId">
           <id>tsd-upsell</id>
         </action>
-        <action method="setApiArgument">
+<!--        <action method="setApiArgument">
           <argument>limit</argument>
           <value>10</value>
         </action>
@@ -61,7 +61,7 @@
         <action method="setCarouselArgument">
           <argument>navigation_next</argument>
           <value>1</value>
-        </action>
+        </action> -->
         <action method="setAction">
           <action>alternative</action>
         </action>

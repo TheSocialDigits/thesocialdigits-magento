@@ -12,6 +12,9 @@
           <recommendations>TheSocialDigits_Recommendations_Block_Recommendations</recommendations>
         </rewrite>
         <rewrite>
+          <upsell>TheSocialDigits_Recommendations_Block_Upsell</upsell>
+        </rewrite>
+        <rewrite>
           <checkout_onepage_success>TheSocialDigits_Recommendations_Block_Checkout_Onepage_Success</checkout_onepage_success>
         </rewrite>
 <rewrite>
@@ -111,6 +114,31 @@
           <transition_speed>0</transition_speed>
           <template></template>
         </related>
+        <upsell>
+          <active>1</active>
+          <limit>0</limit>
+          <exclude_cart>1</exclude_cart>
+          <filter></filter>
+          <visible>4</visible>
+          <step>0</step>
+          <navigation>1</navigation>
+          <navigation_prev>1</navigation_prev>
+          <navigation_next>1</navigation_next>
+          <transition_speed>2000</transition_speed>
+          <template><![CDATA[
+<div>
+  <a href="/index.php/{product_url}">
+    <img src="{thumbnail_url}" /><br/>
+    {name}<br />
+    {price},-
+  </a>
+</div>]]></template>
+          <width>115</width>
+          <height>150</height>
+          <margin>0</margin>
+          <auto>1</auto>
+          <auto_interval>0</auto_interval>
+        </upsell>
       </recommendations_options>
     </default>
 </config>
