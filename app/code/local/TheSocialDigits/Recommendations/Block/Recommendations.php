@@ -24,9 +24,43 @@ Mage_Core_Block_Template {
     'auto_direction' => 'next',
     'auto_interval' => 5000,
     'startAtPage' => 0,
-    'navigation_next' => false,
     'navigation_prev' => false,
+    'navigation_next' => false,
   );
+
+  public function _construct(){
+
+    $this->setApiArguments(array(
+      'limit' => $this->getStoreConfig('limit',20,'0'),
+      'filter' => $this->getStoreConfig('filter'),
+    ));
+
+    $this->setCarouselArguments(array(
+      'visible' => $this->getStoreConfig('visible',3,'0'),
+      'step' =>
+        $this->getStoreConfig('step',$this->getStoreConfig('visible',3,'0'),'0'),
+      'width' => $this->getStoreConfig('width',130,'0'),
+      'height' => $this->getStoreConfig('height',140,'0'),
+      'speed' => $this->getStoreConfig('transition_speed',1000,'0'),
+      'margin' => $this->getStoreConfig('margin',0,'0'),
+      'auto_enabled' => $this->getStoreConfig('auto',false,'0'),
+      'auto_interval' => $this->getStoreConfig('auto_interval',5000,'0'),
+      'navigation_prev' => $this->getStoreConfig('navigation_prev',false,''),
+      'navigation_next' => $this->getStoreConfig('navigation_next',false,''),
+    ));
+  }
+
+  public function getType(){
+    return 'related';
+  }
+
+  public function getStoreConfig($variable, $default_value=null, $zero_value=false){
+    $arg =
+    implode('/',array('recommendations_options',$this->getType(),$variable));
+    $value =
+    Mage::getStoreConfig($arg);
+    return $value === $zero_value ? $default_value : $value;
+  }
 
   public function _prepareLayout(){
     $this->addJs('jquery-1.7.2.min.js');
@@ -50,9 +84,10 @@ Mage_Core_Block_Template {
     return $head->addCss($path);
   }
 
-  public function getHtmlTemplate($tpl){
-    return
-    Mage::getStoreConfig('recommendations_options/settings/template');
+  public function getHtmlTemplate(){
+    $template = '<div><a href="{product_url}"><img src="{thumbnail_url}" /><br
+    />{name}<br />{price} ,-</a></div>';
+    return $this->getStoreConfig('template',$template,'');
   }
 
   /**
@@ -122,6 +157,18 @@ Mage_Core_Block_Template {
     return false;
   }
 
+  public function setApiArguments($args){
+    if(is_array($args)){
+      $result = array();
+      foreach($args as $argument => $value){
+        $result[$argument] = $this->setApiArgument($argument,$value);
+      }
+      return $result;
+    }
+    return null;
+  }
+
+
   public function getApiArgument($argument,$default_value=NULL){
     return isset($this->_api_arguments[$argument]) ?
       $this->_api_arguments[$argument] : $default_value;
@@ -141,6 +188,10 @@ Mage_Core_Block_Template {
         break;
         case 'exclude':
           $arguments['exclude'] = $this->getCartContents();
+        break;
+        case 'filter':
+          if(!$val)
+            unset($arguments['filter']);
         break;
         default:
           $arguments[$arg] = $val;
@@ -167,6 +218,17 @@ Mage_Core_Block_Template {
       return true;
     }
     return false;
+  }
+
+  public function setCarouselArguments($args){
+    if(is_array($args)){
+      $result = array();
+      foreach($args as $argument => $value){
+        $result[$argument] = $this->setCarouselArgument($argument,$value);
+      }
+      return $result;
+    }
+    return null;
   }
 
   public function getCarouselArgument($argument, $default_value=NULL){
@@ -220,30 +282,36 @@ Mage_Core_Block_Template {
 
   public function getPrevButton(){
     $output = '';
-    $orientation = $this->getCarouselArgument('orientation');
-    $base_class = 'recommendations-' . $orientation;
-    if($this->getCarouselArgument('navigation_prev')){
-    $output .= '<a href="#" id="' . $this->getElementId() . '-prev"
-      class="recommendations-' . $orientation .
-      '-prev-btn"><img src="'.
-      $this->getSkinUrl('images/tango/prev-' . $orientation . '.gif') . '"
-      class="recommendations-navigation-img" alt="' .
-      $this->__('Prev') . '" /></a>';
+    if($this->getStoreConfig('navigation') &&
+      $this->getStoreConfig('navigation_prev',false,'')){
+      $orientation = $this->getCarouselArgument('orientation');
+      $base_class = 'recommendations-' . $orientation;
+      if($this->getCarouselArgument('navigation_prev')){
+      $output .= '<a href="#" id="' . $this->getElementId() . '-prev"
+        class="recommendations-' . $orientation .
+        '-prev-btn"><img src="'.
+        $this->getSkinUrl('images/tango/prev-' . $orientation . '.gif') . '"
+        class="recommendations-navigation-img" alt="' .
+        $this->__('Prev') . '" /></a>';
+      }
     }
     return $output;
   }
 
   public function getNextButton(){
     $output = '';
-    $orientation = $this->getCarouselArgument('orientation');
-    $base_class = 'recommendation-' . $orientation;
-    if($this->getCarouselArgument('navigation_next')){
-    $output .= '<a href="#" id="' . $this->getElementId() . '-next"
-      class="recommendations-' . $orientation .
-      '-next-btn"><img src="'.
-      $this->getSkinUrl('images/tango/next-' . $orientation . '.gif') . '"
-      class="recommendations-navigation-img" alt="' .
-      $this->__('Next') . '" /></a>';
+    if($this->getStoreConfig('navigation') &&
+      $this->getStoreConfig('navigation_prev',false,'')){
+      $orientation = $this->getCarouselArgument('orientation');
+      $base_class = 'recommendation-' . $orientation;
+      if($this->getCarouselArgument('navigation_next')){
+        $output .= '<a href="#" id="' . $this->getElementId() . '-next"
+        class="recommendations-' . $orientation .
+        '-next-btn"><img src="'.
+        $this->getSkinUrl('images/tango/next-' . $orientation . '.gif') . '"
+        class="recommendations-navigation-img" alt="' .
+        $this->__('Next') . '" /></a>';
+      }
     }
     return $output;
   }

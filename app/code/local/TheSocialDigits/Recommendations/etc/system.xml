@@ -88,29 +88,42 @@
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
             </active>
+            <display_advanced translate="label comment">
+              <label>Display advanced settings</label>
+              <comment>Displays advanced settings to configure for
+              the block.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </display_advanced>
             <api_header translate="label comment">
               <label>API settings</label>
-              <comment>Block specific API settings</comment>
+              <comment>Block specific API settings.</comment>
               <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
-              <sort_order>1</sort_order>
+              <sort_order>20</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </api_header>
             <limit translate="label comment">
               <label>Limit</label>
-              <comment>The number of items that will be loaded from the API</comment>
+              <comment>The number of items that will be loaded from the API. (0 = block default)</comment>
               <frontend_type>text</frontend_type>
               <validate>validate-ajax validate-not-negative-number</validate>
-              <sort_order>2</sort_order>
+              <sort_order>31</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </limit>
 <!--            <exclude_cart translate="label comment">
@@ -132,54 +145,58 @@
               must be on the form described
               <a
               href="http://developers.thesocialdigits.com/docs/api/result-filtering"
-              target="_blank">here</a>]]></comment>
+              target="_blank">here</a>. ('' = block default)]]></comment>
               <frontend_type>text</frontend_type>
-              <sort_order>4</sort_order>
+              <sort_order>44</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </filter>
             <frontend_header translate="label comment">
               <label>Frontend settings</label>
-              <comment>Configure how the block will be presented in the shop</comment>
+              <comment>Configure how the block will be presented in the shop.</comment>
               <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
-              <sort_order>5</sort_order>
+              <sort_order>55</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </frontend_header>
             <visible translate="label comment">
               <label>Visible</label>
               <comment>The number of items visible in the carousel at a time. Be
-              careful not to break the layout.</comment>
+              careful not to break the layout. (0 = block default)</comment>
               <frontend_type>text</frontend_type>
               <validate>validate-ajax validate-not-negative-number</validate>
-              <sort_order>6</sort_order>
+              <sort_order>66</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </visible>
             <step translate="label comment">
               <label>Step</label>
               <comment>The number of items to scroll when transitioning. Enter 0
-              to use the same number as visible.</comment>
+              to use the same number as visible. (0 = block default)</comment>
               <frontend_type>text</frontend_type>
               <validate>validate-ajax validate-not-negative-number</validate>
-              <sort_order>7</sort_order>
+              <sort_order>77</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </step>
             <navigation translate="label comment">
@@ -188,26 +205,58 @@
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
               <validate></validate>
-              <sort_order>8</sort_order>
+              <sort_order>88</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </navigation>
+            <navigation_prev translate="label comment">
+              <label>Previous-button image</label>
+              <comment>The url location of the image used for the previous button.
+              ('' = disabled)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-url</validate>
+              <sort_order>89</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation_prev>
+            <navigation_next translate="label comment">
+              <label>Next-button image</label>
+              <comment>The url location of the image used for the next button.
+              ('' = disabled)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-url</validate>
+              <sort_order>90</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation_next>
             <transition_speed translate="label comment">
                <label>Transition speed</label>
               <comment>The time (in milliseconds) the animimation scrolls when
-              transitioning</comment>
+              transitioning. (0 = block default)</comment>
               <frontend_type>text</frontend_type>
               <validate>validate-ajax validate-not-negative-number</validate>
-              <sort_order>9</sort_order>
+              <sort_order>99</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </transition_speed>
             <template translate="label comment">
@@ -215,80 +264,87 @@
               <comment>The html template used to render each item. The input will be
               rendered as html. Magic values are inserted in curly brackets.
               e.g. '{name}' - commonly used values are {name} {price}
-              {product_url} {thumbnail_url}.</comment>
+              {product_url} {thumbnail_url}. ('' = block default)</comment>
               <frontend_type>textarea</frontend_type>
-              <sort_order>10</sort_order>
+              <sort_order>100</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </template>
             <width translate="label comment">
               <label>Item width</label>
-              <comment>The width (in pixels) of each item presented</comment>
+              <comment>The width (in pixels) of each item presented. (0 = block default)</comment>
               <frontend_type>text</frontend_type>
               <validate>validate-ajax validate-not-negative-number</validate>
-              <sort_order>11</sort_order>
+              <sort_order>111</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </width> 
             <height translate="label comment">
               <label>Item height</label>
-              <comment>The height (in pixels) of each item presented</comment>
+              <comment>The height (in pixels) of each item presented. (0 = block default) </comment>
               <frontend_type>text</frontend_type>
               <validate>validate-ajax validate-not-negative-number</validate>
-              <sort_order>12</sort_order>
+              <sort_order>121</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </height>
             <margin translate="label comment">
               <label>Item margin</label>
-              <comment>The margin (in pixels) of each item presented</comment>
+              <comment>The margin (in pixels) of each item presented. (0 = block default)</comment>
               <frontend_type>text</frontend_type>
               <validate>validate-ajax validate-not-negative-number</validate>
-              <sort_order>13</sort_order>
+              <sort_order>131</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </margin>
             <auto translate="label comment">
               <label>Automatic transition</label>
-              <comment>Automatically transition items after a given interval</comment>
+              <comment>Automatically transition items after a given interval.</comment>
               <frontend_type>select</frontend_type>
               <source_model>adminhtml/system_config_source_enabledisable</source_model>
-              <sort_order>14</sort_order>
+              <sort_order>141</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
+                <display_advanced>1</display_advanced>
               </depends>
             </auto>
             <auto_interval translate="label comment">
               <label>Interval</label>
-              <comment>The interval (in milliseconds) between automatic transitions</comment>
+              <comment>The interval (in milliseconds) between automatic
+              transitions. (0 = block default)</comment>
               <frontend_type>text</frontend_type>
               <validate>validate-ajax validate-not-negative-number</validate>
-              <sort_order>15</sort_order>
+              <sort_order>151</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store> 
               <depends>
                 <active>1</active>
                 <auto>1</auto>
+                <display_advanced>1</display_advanced>
               </depends>
             </auto_interval>
             <!--<auto_direction translate="label comment">

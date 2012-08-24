@@ -6,32 +6,6 @@
         <version>0.1.0</version>
       </TheSocialDigits_Recommendations>
     </modules>
-    <default>
-      <recommendations_options>
-        <settings>
-          <api_key></api_key>
-          <language>english</language>
-          <template>
-          <div>
-            <a href="/index.php/{product_url}">
-              <img src="{thumbnail_url}" /><br/>
-              {name}<br />
-              {price},-
-            </a>
-          </div>
-          </template>
-          <ga_tracking>The SocialDigits</ga_tracking>
-        </settings>
-        <related>
-          <active>1</active>
-          <limit>10</limit>
-          <exclude_cart>1</exclude_cart>
-          <filter></filter>
-          <navigation>1</navigation>
-          <visible>3</visible>
-        </related>
-      </recommendations_options>
-    </default>
     <blocks>
       <recommendations>
         <rewrite>
@@ -102,5 +76,41 @@
         </admin>
       </resources>
     </acl>
-  </adminhtml>
+  </adminhtml>    
+  <default>
+      <recommendations_options>
+        <settings>
+          <api_key>XBJbcxBuEuLTiJ8fjCn6cTnIxcFjYNNs</api_key>
+          <language>english</language>
+          <template>
+          <div>
+            <a href="/index.php/{product_url}">
+              <img src="{thumbnail_url}" /><br/>
+              {name}<br />
+              {price},-
+            </a>
+          </div>
+          </template>
+          <ga_tracking>The SocialDigits</ga_tracking>
+        </settings>
+        <related>
+          <active>1</active>
+          <limit>10</limit>
+          <exclude_cart>1</exclude_cart>
+          <filter></filter>
+          <navigation>0</navigation>
+          <navigation_prev></navigation_prev>
+          <navigation_next></navigation_next>
+          <visible>0</visible>
+          <step>0</step>
+          <width>0</width>
+          <height>0</height>
+          <margin>0</margin>
+          <auto>0</auto>
+          <auto_interval>0</auto_interval>
+          <transition_speed>0</transition_speed>
+          <template></template>
+        </related>
+      </recommendations_options>
+    </default>
 </config>
