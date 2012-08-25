@@ -3,9 +3,9 @@
   <default>
     <reference name="right">
       <remove name="catalog.product.related" />
-      <block type="recommendations/recommendations"
+      <block type="recommendations/related"
       name="catalog.product.recommendations" before="-"
-      template="recommendations/sidebar.phtml" >
+      template="recommendations/related.phtml" >
         <action method="setElementId">
           <id>tsd-related</id>
         </action>
