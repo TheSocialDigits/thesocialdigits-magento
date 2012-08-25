@@ -2,6 +2,7 @@
 <layout version="0.1.0">
   <default>
     <reference name="right">
+      <remove name="catalog.product.related" />
       <block type="recommendations/recommendations"
       name="catalog.product.recommendations" before="-"
       template="recommendations/sidebar.phtml" >
@@ -11,22 +12,6 @@
         <action method="setCarouselArgument">
           <argument>orientation</argument>
           <value>vertical</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>width</argument>
-          <value>180</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>height</argument>
-          <value>150</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>navigation_prev</argument>
-          <value>1</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>navigation_next</argument>
-          <value>1</value>
         </action>
       </block>
     </reference>
@@ -89,6 +74,9 @@
           <value>1</value>
         </action>
       </block>
+    </reference>
+    <reference name="right">
+      <remove name="catalog.product.recommendations" />
     </reference>
   </checkout_cart_moresell>
   <checkout_cart_index>
