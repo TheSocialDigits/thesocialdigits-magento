@@ -13,28 +13,25 @@ Mage_Core_Block_Template {
   );
 
   private $_carousel_arguments = array(
-    'visible' => 3,
-    'step' => 1,
-    'width' => 130,
-    'height' => 140,
-    'speed' => 1000,
-    'margin' => 0,
+//    'visible' => 3,
+//    'width' => 130,
+//    'height' => 140,
+//    'speed' => 1000,
+//    'margin' => 0,
     'orientation' => 'horizontal',
-    'auto_enabled' => TRUE,
+//    'auto_enabled' => TRUE,
     'auto_direction' => 'next',
-    'auto_interval' => 5000,
+//    'auto_interval' => 5000,
     'startAtPage' => 0,
-    'navigation_prev' => false,
-    'navigation_next' => false,
+//    'navigation_prev' => false,
+//    'navigation_next' => false,
   );
 
   public function _construct(){
-
     $this->setApiArguments(array(
       'limit' => $this->getStoreConfig('limit',20,'0'),
       'filter' => $this->getStoreConfig('filter'),
     ));
-
     $this->setCarouselArguments(array(
       'visible' => $this->getStoreConfig('visible',3,'0'),
       'step' =>
@@ -247,12 +244,20 @@ Mage_Core_Block_Template {
             $arguments['step'] = $val;
         break;
         case 'auto_enabled':
-          $arguments['auto']['enabled'] = $val;
+          if($val)
+            $arguments['auto']['enabled'] = $val;
         break;
         case 'auto_direction':
-          $arguments['auto']['direction'] = $val;
+          if($this->getCarouselArgument('auto_enabled',false,'0') || 
+            (isset($argument['auto']['enabled']) && 
+              $arguments['auto']['enabled']))
+            $arguments['auto']['direction'] = $val;
+          
         break;
         case 'auto_interval':
+          if($this->getCarouselArgument('auto_enabled',false,'0') || 
+            (isset($argument['auto']['enabled']) && 
+              $arguments['auto']['enabled']))
           $arguments['auto']['interval'] = $val;
         break;
         case 'navigation_prev':

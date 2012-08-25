@@ -4,7 +4,9 @@ require_once 'TheSocialDigits/Recommendations/Block/Recommendations.php';
 
 class TheSocialDigits_Recommendations_Block_Related extends
 TheSocialDigits_Recommendations_Block_Recommendations {
+
   public function _construct(){
+    parent::_construct();
     $this->setCarouselArguments(array(
       'visible' => $this->getStoreConfig('visible',3,'0'),
       'width' => $this->getStoreConfig('width',180,'0'),
