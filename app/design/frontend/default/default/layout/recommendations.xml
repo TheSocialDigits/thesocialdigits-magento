@@ -81,7 +81,7 @@
   </checkout_cart_moresell>
   <checkout_cart_index>
     <reference name="checkout.cart">
-      <block type="recommendations/recommendations" name="crosssell"
+      <block type="recommendations/crosssell" name="crosssell"
       template="recommendations/crosssell.phtml">
         <action method="setElementId">
           <id>tsd-crosssell</id>
@@ -92,22 +92,6 @@
         <action method="setCarouselArgument">
           <argument>orientation</argument>
           <value>vertical</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>width</argument>
-          <value>250</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>height</argument>
-          <value>80</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>navigation_prev</argument>
-          <value>1</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>navigation_next</argument>
-          <value>1</value>
         </action>
       </block>
     </reference>

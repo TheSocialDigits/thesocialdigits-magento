@@ -15,20 +15,7 @@
 }
 </style>
 <script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
-        <li class="item">
-            <a class="product-image" href="/index.php/{product_url}"
-            title="{name}"><img src="{thumbnail_url}" width="75" height="75"
-            alt="{name}" /></a>
-            <div class="product-details">
-                <h3 class="product-name"><a
-                href="/index.php/{product_url}">{name}</a></h3>
-                {price},-
-                <button type="button" title="<?php echo $this->__('Add to Cart')
-                ?>" class="button btn-cart"
-                onclick="setLocation('{add_to_cart_url}')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
-            </div>
-        </li>
-
+  <?php echo $this->getHtmlTemplate(); ?>
 </script>
   <script type="text/javascript">
     jQuery(function($){

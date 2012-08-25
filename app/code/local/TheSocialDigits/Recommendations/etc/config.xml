@@ -12,6 +12,9 @@
           <recommendations>TheSocialDigits_Recommendations_Block_Recommendations</recommendations>
         </rewrite>
         <rewrite>
+          <crosssell>TheSocialDigits_Recommendations_Block_Crosssell</crosssell>
+        </rewrite>
+        <rewrite>
           <related>TheSocialDigits_Recommendations_Block_Related</related>
         </rewrite>
         <rewrite>
@@ -99,6 +102,41 @@
           </template>
           <ga_tracking>The SocialDigits</ga_tracking>
         </settings>
+        <crosssell>
+          <active>1</active>
+          <limit>0</limit>
+          <exclude_cart>1</exclude_cart>
+          <filter></filter>
+          <visible>0</visible>
+          <step>0</step>
+          <navigation>0</navigation>
+          <navigation_prev></navigation_prev>
+          <navigation_next></navigation_next>
+          <transition_speed>0</transition_speed>
+          <template><![CDATA[
+<li class="item">
+  <a class="product-image" href="/index.php/{product_url}" title="{name}">
+    <img src="{thumbnail_url}" width="75" height="75" alt="{name}" />
+  </a>
+  <div class="product-details">
+    <h3 class="product-name">
+      <a href="/index.php/{product_url}">{name}</a>
+    </h3>
+    {price},-
+    <button type="button" title="Add to Cart" class="button btn-cart" 
+      onclick="setLocation('{add_to_cart_url}')">
+      <span>
+        <span>Add to Cart</span>
+      </span>
+    </button>
+  </div>
+</li>]]></template> 
+          <width>0</width>
+          <height>0</height>
+          <margin>0</margin>
+          <auto>0</auto>
+          <auto_interval>0</auto_interval>
+        </crosssell>
         <related>
           <active>1</active>
           <limit>0</limit>
