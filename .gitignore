@@ -22,9 +22,11 @@ app/code/local/*
 !app/code/local/TheSocialDigits
 !app/design
 app/design/*
-!app/design/default
-app/design/default/*
-!app/design/default/default
+!app/design/frontend
+app/design/frontend/*
+!app/design/frontend/default
+app/design/frontend/default/*
+!app/design/frontend/default/default
 errors/
 lib/
 js/*
