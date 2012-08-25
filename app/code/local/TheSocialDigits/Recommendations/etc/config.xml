@@ -98,21 +98,28 @@
         </settings>
         <related>
           <active>1</active>
-          <limit>10</limit>
+          <limit>0</limit>
           <exclude_cart>1</exclude_cart>
           <filter></filter>
+          <visible>0</visible>
+          <step>0</step>
           <navigation>0</navigation>
           <navigation_prev></navigation_prev>
           <navigation_next></navigation_next>
-          <visible>0</visible>
-          <step>0</step>
+          <transition_speed>0</transition_speed>
+          <template><![CDATA[
+<div>
+  <a href="/index.php/{product_url}">
+    <img src="{thumbnail_url}" /><br/>
+    {name}<br />
+    {price},-
+  </a>
+</div>]]></template> 
           <width>0</width>
           <height>0</height>
           <margin>0</margin>
           <auto>0</auto>
           <auto_interval>0</auto_interval>
-          <transition_speed>0</transition_speed>
-          <template></template>
         </related>
         <upsell>
           <active>1</active>
