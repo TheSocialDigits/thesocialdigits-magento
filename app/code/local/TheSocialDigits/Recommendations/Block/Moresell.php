@@ -20,19 +20,12 @@ Mage_Core_Block_Template {
       'limit' => $this->getStoreConfig('limit',20,'0'),
       'filter' => $this->getStoreConfig('filter'),
     ));
- /*   $this->setCarouselArguments(array(
-      'visible' => $this->getStoreConfig('visible',3,'0'),
-      'step' =>
-        $this->getStoreConfig('step',$this->getStoreConfig('visible',3,'0'),'0'),
+    $this->setUiArguments(array(
+      'columns' => $this->getStoreConfig('columns',4,'0'),
       'width' => $this->getStoreConfig('width',130,'0'),
-      'height' => $this->getStoreConfig('height',140,'0'),
-      'speed' => $this->getStoreConfig('transition_speed',1000,'0'),
-      'margin' => $this->getStoreConfig('margin',0,'0'),
-      'auto_enabled' => $this->getStoreConfig('auto',false,'0'),
-      'auto_interval' => $this->getStoreConfig('auto_interval',5000,'0'),
-      'navigation_prev' => $this->getStoreConfig('navigation_prev',false,''),
-      'navigation_next' => $this->getStoreConfig('navigation_next',false,''),
-    ));*/
+      'height' => $this->getStoreConfig('height',150,'0'),
+      'margin' => $this->getStoreConfig('margin',5,'0'),
+    ));
   }
 
   public function getType(){
@@ -47,23 +40,12 @@ Mage_Core_Block_Template {
     return $value === $zero_value ? $default_value : $value;
   }
 
-  public function setColumns($count){
-    $this->_columns = $count;
-  }
-
-  public function getColumns(){
-    return $this->_columns;
-  }
-
   public function getColumnWidth(){
-    return (100 / $this->getColumns()) . '%';
+    return (100 / (int) $this->getUiArgument('columns',4)) . '%';
   }
 
   public function _prepareLayout(){
     $this->addJs('jquery-1.7.2.min.js');
-//    $this->addJs('jquery.ui.core.min.js');
-//    $this->addJs('jquery.ui.widget.min.js');
-//    $this->addJs('jquery.ui.rcarousel.min.js');
     $this->addJs('thesocialdigits-js/json2.min.js');
     $this->addJs('thesocialdigits-js/jquery.thesocialdigits.min.js');
     $this->addJs('thesocialdigits-js/config.thesocialdigits.js');
@@ -91,10 +73,6 @@ Mage_Core_Block_Template {
    * Get the product id of the current showing product
    */   
   public function getProductId(){
-/*    $product = Mage::registry('current_product');
-    if($product)
-      return $product->getId();
-    return null;*/
     return $this->getRequest()->getParam('product',null);
   }
 
@@ -177,7 +155,7 @@ Mage_Core_Block_Template {
     foreach($this->_api_arguments as $arg => $val){
       switch($arg){
         case 'limit':
-          $limit = ((int) $val) - fmod($val, $this->getColumns());
+          $limit = ((int) $val) - fmod($val, $this->getUiArgument('columns',4));
           $arguments['limit'] = $limit;
         break;
         case 'products':
@@ -210,71 +188,38 @@ Mage_Core_Block_Template {
     return json_encode($this->getApiArguments(),JSON_NUMERIC_CHECK);
   }
 
-  protected function _validateCarouselArgument($argument, $value){
+  protected function _validateUiArgument($argument, $value){
     return true;
   }
 
-/*  public function setCarouselArgument($argument, $value){
-    if($this->_validateCarouselArgument($argument, $value)){
+  public function setUiArgument($argument, $value){
+    if($this->_validateUiArgument($argument, $value)){
       $this->_carousel_arguments[$argument] = $value;
       return true;
     }
     return false;
   }
 
-  public function setCarouselArguments($args){
+  public function setUiArguments($args){
     if(is_array($args)){
       $result = array();
       foreach($args as $argument => $value){
-        $result[$argument] = $this->setCarouselArgument($argument,$value);
+        $result[$argument] = $this->setUiArgument($argument,$value);
       }
       return $result;
     }
     return null;
   }
 
-  public function getCarouselArgument($argument, $default_value=NULL){
+  public function getUiArgument($argument, $default_value=NULL){
     return isset($this->_carousel_arguments[$argument]) ?
       $this->_carousel_arguments[$argument] : $default_value;
   }
 
-  protected function _prepareCarouselArguments(){
+  protected function _prepareUiArguments(){
     $arguments = array();
     foreach($this->_carousel_arguments as $arg => $val){
       switch($arg){
-        case 'step':
-          if($val > $this->getCarouselArgument('visible',$val))
-            $arguments['step'] = $this->getCarouselArgument('visible',$val);
-          else
-            $arguments['step'] = $val;
-        break;
-        case 'auto_enabled':
-          if($val)
-            $arguments['auto']['enabled'] = $val;
-        break;
-        case 'auto_direction':
-          if($this->getCarouselArgument('auto_enabled',false,'0') || 
-            (isset($argument['auto']['enabled']) && 
-              $arguments['auto']['enabled']))
-            $arguments['auto']['direction'] = $val;
-          
-        break;
-        case 'auto_interval':
-          if($this->getCarouselArgument('auto_enabled',false,'0') || 
-            (isset($argument['auto']['enabled']) && 
-              $arguments['auto']['enabled']))
-          $arguments['auto']['interval'] = $val;
-        break;
-        case 'navigation_prev':
-          if($val)
-            $arguments['navigation']['prev'] = '#' . $this->getElementId() .
-              '-prev';
-        break;
-        case 'navigation_next':
-          if($val)
-            $arguments['navigation']['next'] = '#' . $this->getElementId() .
-              '-next';
-        break;
         default:
           $arguments[$arg] = $val;
       }
@@ -282,47 +227,11 @@ Mage_Core_Block_Template {
     return $arguments;
   }
 
-  protected function _getCarouselArguments(){
-    return $this->_prepareCarouselArguments();
+  protected function _getUiArguments(){
+    return $this->_prepareUiArguments();
   }
 
-  public function getCarouselArgumentsJson(){
-    return json_encode($this->_getCarouselArguments(),JSON_NUMERIC_CHECK);
+  public function getUiArgumentsJson(){
+    return json_encode($this->_getUiArguments(),JSON_NUMERIC_CHECK);
   }
-
-  public function getPrevButton(){
-    $output = '';
-    if($this->getStoreConfig('navigation') &&
-      $this->getStoreConfig('navigation_prev',false,'')){
-      $orientation = $this->getCarouselArgument('orientation');
-      $base_class = 'recommendations-' . $orientation;
-      if($this->getCarouselArgument('navigation_prev')){
-      $output .= '<a href="#" id="' . $this->getElementId() . '-prev"
-        class="recommendations-' . $orientation .
-        '-prev-btn"><img src="'.
-        $this->getSkinUrl('images/tango/prev-' . $orientation . '.gif') . '"
-        class="recommendations-navigation-img" alt="' .
-        $this->__('Prev') . '" /></a>';
-      }
-    }
-    return $output;
-  }
-
-  public function getNextButton(){
-    $output = '';
-    if($this->getStoreConfig('navigation') &&
-      $this->getStoreConfig('navigation_prev',false,'')){
-      $orientation = $this->getCarouselArgument('orientation');
-      $base_class = 'recommendation-' . $orientation;
-      if($this->getCarouselArgument('navigation_next')){
-        $output .= '<a href="#" id="' . $this->getElementId() . '-next"
-        class="recommendations-' . $orientation .
-        '-next-btn"><img src="'.
-        $this->getSkinUrl('images/tango/next-' . $orientation . '.gif') . '"
-        class="recommendations-navigation-img" alt="' .
-        $this->__('Next') . '" /></a>';
-      }
-    }
-    return $output;
-  }*/
 }

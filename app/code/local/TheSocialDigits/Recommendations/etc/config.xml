@@ -140,6 +140,25 @@
           <auto>0</auto>
           <auto_interval>0</auto_interval>
         </crosssell>
+        <moresell>
+          <active>1</active>
+          <display_advanced>0</display_advanced>
+          <limit>0</limit>
+          <exclude_cart>1</exclude_cart>
+          <filter></filter>
+          <columns>0</columns>
+          <template><![CDATA[
+<div>
+  <a href="/index.php/{product_url}">
+    <img src="{thumbnail_url}" /><br/>
+    {name}<br />
+    {price},-
+  </a>
+</div>]]></template> 
+          <width>0</width>
+          <height>0</height>
+          <margin>0</margin>
+        </moresell>
         <related>
           <active>1</active>
           <limit>0</limit>
