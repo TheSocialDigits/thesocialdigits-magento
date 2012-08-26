@@ -29,7 +29,7 @@ Mage_Core_Block_Template {
   }
 
   public function getType(){
-    return 'related';
+    return 'moresell';
   }
 
   public function getStoreConfig($variable, $default_value=null, $zero_value=false){
