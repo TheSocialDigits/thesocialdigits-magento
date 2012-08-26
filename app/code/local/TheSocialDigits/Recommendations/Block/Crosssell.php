@@ -18,4 +18,8 @@ TheSocialDigits_Recommendations_Block_Recommendations {
   public function getType(){
     return 'crosssell';
   }
+
+  public function getProductId(){
+    return $this->getCartContents();
+  }
 }

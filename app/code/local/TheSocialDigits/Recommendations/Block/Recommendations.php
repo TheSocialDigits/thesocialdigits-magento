@@ -178,7 +178,10 @@ Mage_Core_Block_Template {
         case 'products':
           $product_id = $this->getProductId();
           if(!is_null($product_id)){
-            $arguments['products'] = array($this->getProductId());
+            if(is_array($product_id))
+              $arguments['products'] = $product_id;
+            else
+              $arguments['products'] = array($product_id);
           } else {
             $arguments['products'] = array();
           }
