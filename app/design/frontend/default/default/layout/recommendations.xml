@@ -59,19 +59,11 @@
       method="setTemplate"><template>page/2columns-right.phtml</template></action>
     </reference>
     <reference name="content">
-      <block type="recommendations/recommendations" name="moresell"
+      <block type="recommendations/moresell" name="moresell"
       template="recommendations/moresell.phtml">
         <action method="setCarouselArgument">
           <argument>visible</argument>
           <value>4</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>navigation_prev</argument>
-          <value>1</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>navigation_next</argument>
-          <value>1</value>
         </action>
       </block>
     </reference>

@@ -18,6 +18,9 @@
           <related>TheSocialDigits_Recommendations_Block_Related</related>
         </rewrite>
         <rewrite>
+          <moresell>TheSocialDigits_Recommendations_Block_Moresell</moresell>
+        </rewrite>
+        <rewrite>
           <upsell>TheSocialDigits_Recommendations_Block_Upsell</upsell>
         </rewrite>
         <rewrite>
