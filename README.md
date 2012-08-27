@@ -1,57 +1,79 @@
 thesocialdigits-magento
 =======================
 
-### About
-The Recommendations module provides a linkage to The Social Digits
-recommendation service API, specifikation available at
-http://developers.thesocialdigits.com. The feed for the API is available
-at http://yourdomain.com/recommendations/feed.
+## About
+The Social Digits Recommendations module provides alternatives to built in
+magento blocks that provides product relations by using The Social Digits API.
+The API specifikation is available at http://developers.thesocialdigits.com.
 
-### Installation
+The 
+## Installation
 1. Unzip tar.gz file (or copy contents of the
 github repository) into magento root folder. 
 2. Go to System > Configuration
 > The Social Digits on the administration page to insert API key and configure module.
 3. Profit
 
-### Configuration
-#### API key 
-The API key is needed in order for the recommendation service to run.
-If you do not have an API key, please email us on
-hello@thesocialdigits.com.
+## Configuration
+### Enabling and disabling blocks
+The module provides alternatives to built in magento blocks and by default
+removes or replaces them. Block override and removal is done through the layout
+xml file, per default located under
+app/design/frontend/default/default/layout/recommendations.xml. 
 
-#### Language
-The magento API currently does not support multilanguage setup. This
-settings is used to define the language of products etc. that will be
-send to the service.
+#### Crosssell block
+Cross sells are displayed on the checkout cart page below the shopping cart and
+replaces the default crosssell block. To disable the override comment out the
+checkout_cart_index handle. e.g.
+<!-- <checkout_cart_index... </checkout_cart_index> -->
 
-#### Template
-The template is used for displaying each product recommendation. It is
-possible to define exactly how you wish to display the items in the
-recommendations block. The template uses variables available in the json
-object readable at
-http://yourdomain.com/recommendations/list?products[]=1 (where 1 is a
-product id) enclosed in curly brackets ({attribue})
-The inputted text will be formatted as html in the recommendations
-block. e.g. in order to display an image with the name below for up to
-three products use the following test
+#### Moresell block
+The moresell block is a landing page that displays related products when adding
+an item to a cart. To disable the landing page simply choose disable on the
+admin configuration form.
 
-`<div>
-  <a href="/index.php/{product_url}">
-    <img src="{thumbnail_url}" /><br/>
-    {name}
-  </a>
-</div>`
+#### Related block
+The related block removes the default catalog.product.related block and adds a
+block named catalog.product.recommendations. To reenabled the related block
+simply remove the line  <remove name="catalog.product.related" />. To restore to
+magento defaults entirely comment out the default handle. Also comment out the
+<reference name="right"> block under the checkout_cart_moresell handle.
 
-#### Method (Not yet implemented)
-Supplies which API method will be invoked. See
-http://developers.thesocialdigits.com for details.
+#### Search block
+The search block replaces the product listing when using the search
+functionality. It can be configured to use grid og list layout in the admin
+configuration form.
+To disable the override comment out the catalogsearch_result_index handle.
 
-#### API options (Not yet implemented)
-The API options are used to supply the jQuery plugin with
-additional options to the API. The value is a json-string. Accepted
-values depends on the choice of method. See
-http://developers.thesocialdigits.com for acceptable values and details.
+#### Upsell block
+The upsell block is displayed beneath the product on product view pages. To
+disable the block, comment out the catalog_product_view handle in the layout xml
+file.
+
+### Admin configuration
+Under the magento system configuration (System > Configuration) a tab is located
+under advanced named "The Social Digits". 6 sections are available.
+
+The General configuration section contains options that is global for the entire setup.
+One section affects each of the available blocks named previously. Settings for
+the blocks can also be made directly in the recommendations.xml layout file.
+
+### Configuring blocks from recommendations.xml
+Some options are not available in the adminstration page but can be set only in
+the layout xml file. Refer to the default recommendations.xml file to see what.
+To set the argument options use 
+
+    <action method="methodname">
+      <argument>argumentname</argument>
+      <value>argumentvalue</value>
+    </action>
+
+inside the block description where methodname is either 'setApiArgument',
+'setCarouselArgument' og 'setUiArgument'. *argumentname* is an argument (see
+config.xml file for argument names) and *argumentvalue* is the value you wish to
+set. setApiArgument is available for alle blocks. setCarouselArgument is
+available for Related, Crosssell and Upsell blocks and setUiArgument is
+available for the Search and Moresell blocks.
 
 ### Miscellaneous
 #### Data feed
