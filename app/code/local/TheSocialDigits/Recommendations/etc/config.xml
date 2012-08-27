@@ -96,7 +96,7 @@
           <language>english</language>
           <template>
           <div>
-            <a href="/index.php/{product_url}">
+            <a href="{product_url}">
               <img src="{thumbnail_url}" /><br/>
               {name}<br />
               {price},-
@@ -118,12 +118,12 @@
           <transition_speed>0</transition_speed>
           <template><![CDATA[
 <li class="item">
-  <a class="product-image" href="/index.php/{product_url}" title="{name}">
+  <a class="product-image" href="{product_url}" title="{name}">
     <img src="{thumbnail_url}" width="75" height="75" alt="{name}" />
   </a>
   <div class="product-details">
     <h3 class="product-name">
-      <a href="/index.php/{product_url}">{name}</a>
+      <a href="{product_url}">{name}</a>
     </h3>
     {price},-
     <button type="button" title="Add to Cart" class="button btn-cart" 
@@ -149,7 +149,7 @@
           <columns>0</columns>
           <template><![CDATA[
 <div>
-  <a href="/index.php/{product_url}">
+  <a href="{product_url}">
     <img src="{thumbnail_url}" /><br/>
     {name}<br />
     {price},-
@@ -172,7 +172,7 @@
           <transition_speed>0</transition_speed>
           <template><![CDATA[
 <div>
-  <a href="/index.php/{product_url}">
+  <a href="{product_url}">
     <img src="{thumbnail_url}" /><br/>
     {name}<br />
     {price},-
@@ -197,7 +197,7 @@
           <transition_speed>2000</transition_speed>
           <template><![CDATA[
 <div>
-  <a href="/index.php/{product_url}">
+  <a href="{product_url}">
     <img src="{thumbnail_url}" /><br/>
     {name}<br />
     {price},-
