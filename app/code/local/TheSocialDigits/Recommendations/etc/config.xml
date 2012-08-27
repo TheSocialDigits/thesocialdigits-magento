@@ -209,7 +209,14 @@
   </div><div style="clear:both"></div>
 </div>]]></template_list>
           <columns>0</columns>
-          <template_grid>This is the grid template not made yet</template_grid>
+          <template_grid><![CDATA[
+<div>
+  <a href="{product_url}">
+    <img src="{thumbnail_url}" /><br/>
+    {name}<br />
+    {price},-
+  </a>
+</div>]]></template_grid>
           <width>0</width>
           <height>0</height>
           <margin>0</margin>

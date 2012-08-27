@@ -50,7 +50,7 @@
           : <?php echo $offset+$limit; ?>;
 
           var amount_txt = "Items " + first_item + " to " + last_item + " of " + hits + " total";
-          alert(JSON.stringify(data));
+          
           $('.pager p.amount').html(amount_txt);
           <?php 
           if($page > 1){
