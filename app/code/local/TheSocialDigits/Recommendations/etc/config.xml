@@ -95,18 +95,9 @@
   <default>
       <recommendations_options>
         <settings>
-          <api_key>XBJbcxBuEuLTiJ8fjCn6cTnIxcFjYNNs</api_key>
-          <language>danish</language>
-          <template>
-          <div>
-            <a href="{product_url}">
-              <img src="{thumbnail_url}" /><br/>
-              {name}<br />
-              {price},-
-            </a>
-          </div>
-          </template>
-          <ga_tracking>The SocialDigits</ga_tracking>
+          <api_key></api_key>
+          <language>english</language>
+          <ga_tracking>The Social Digits</ga_tracking>
         </settings>
         <crosssell>
           <active>1</active>
@@ -229,8 +220,8 @@
           <visible>4</visible>
           <step>0</step>
           <navigation>1</navigation>
-          <navigation_prev>1</navigation_prev>
-          <navigation_next>1</navigation_next>
+          <navigation_prev>http://demoshop.thesocialdigits.com/skin/frontend/default/default/images/tango/prev-horizontal.gif</navigation_prev>
+          <navigation_next>http://demoshop.thesocialdigits.com/skin/frontend/default/default/images/tango/next-horizontal.gif</navigation_next>
           <transition_speed>2000</transition_speed>
           <template><![CDATA[
 <div>

@@ -298,7 +298,7 @@ Mage_Core_Block_Template {
       $output .= '<a href="#" id="' . $this->getElementId() . '-prev"
         class="recommendations-' . $orientation .
         '-prev-btn"><img src="'.
-        $this->getSkinUrl('images/tango/prev-' . $orientation . '.gif') . '"
+        $this->getStoreConfig('navigation_prev') .  '"
         class="recommendations-navigation-img" alt="' .
         $this->__('Prev') . '" /></a>';
       }
@@ -316,7 +316,7 @@ Mage_Core_Block_Template {
         $output .= '<a href="#" id="' . $this->getElementId() . '-next"
         class="recommendations-' . $orientation .
         '-next-btn"><img src="'.
-        $this->getSkinUrl('images/tango/next-' . $orientation . '.gif') . '"
+        $this->getStoreConfig('navigation_next') . '"
         class="recommendations-navigation-img" alt="' .
         $this->__('Next') . '" /></a>';
       }
