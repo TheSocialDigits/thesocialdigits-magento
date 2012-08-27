@@ -33,10 +33,6 @@ Mage_Core_Helper_Abstract {
       $product_categories = $product->getCategoryIds();
       $product_data['categories'] = $product_categories;
 
-      //API legacy support :P
-      $product_data['category'] = isset($product_categories[0]) ?
-      $product_categories[0] : 1; 
-
       //get additional product attributes
       $product_attributes = $product->getAttributes();
       $product_data['weight'] = $product->getData('weight');
