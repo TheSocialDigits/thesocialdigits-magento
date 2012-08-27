@@ -19,6 +19,15 @@ Mage_Core_Helper_Abstract {
 
     foreach($products as $product){
 
+      if($product['type_id'] == 'simple') {  
+          $configurable_product_model_obj =
+            Mage::getModel('catalog/product_type_configurable');  
+          $parents =
+            $configurable_product_model_obj->getParentIdsByChild($product['entity_id']);
+          if(sizeof($parents))
+            continue;
+      }
+ 
       $product_data = array();
       $product_data['id'] = $product['entity_id'];
       $product_data['name'] = array(
