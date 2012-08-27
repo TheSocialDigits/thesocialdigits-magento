@@ -2,7 +2,7 @@
 <layout version="0.1.0">
   <default>
     <reference name="right">
-      <remove name="catalog.product.related" />
+      <remove name="catalog.product.related" /> 
       <block type="recommendations/related"
       name="catalog.product.recommendations" before="-"
       template="recommendations/related.phtml" >
@@ -23,30 +23,6 @@
         <action method="setElementId">
           <id>tsd-upsell</id>
         </action>
-<!--        <action method="setApiArgument">
-          <argument>limit</argument>
-          <value>10</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>visible</argument>
-          <value>4</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>width</argument>
-          <value>135</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>height</argument>
-          <value>150</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>navigation_prev</argument>
-          <value>1</value>
-        </action>
-        <action method="setCarouselArgument">
-          <argument>navigation_next</argument>
-          <value>1</value>
-        </action> -->
         <action method="setAction">
           <action>alternative</action>
         </action>
