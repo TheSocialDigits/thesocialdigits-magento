@@ -1,6 +1,6 @@
   <?php 
     $request = $this->getRequest();
-    $limit = $request->getParam('limit',10);
+    $limit = $this->getApiArgument('limit',10);//$request->getParam('limit',10);
     $page = $request->getParam('p',1);
     $offset = ($page-1) * $limit; 
 
@@ -10,12 +10,22 @@
     unset($pager_params['p']);
     ?>
 <div class="category-products">
+  <style>
+    .tsd-grid {
+      width: <?php echo $this->getColumnWidth(); ?>;
+      float:left;
+    }
+    .tsd-grid div{
+      text-align:center;
+      margin: <?php echo $this->getUiArgument('margin',5); ?>px;
+    }
+  </style>
   <?php echo $this->getToolbarHtml(); ?>
   <div class="<?php echo $this->getElementId(); ?>">
     <div id="<?php echo $this->getElementId(); ?>-container" class="rcarousel-container"></div>
   </div>
   <?php echo $this->getToolbarHtml(); ?>
-  
+
   <script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
     <?php echo $this->getHtmlTemplate(); ?>
   </script>
@@ -25,8 +35,6 @@
       $(document).bind('thesocialdigits.ready',function(event){
         var arguments = <?php echo $this->getApiArgumentsJson(); ?>;
         arguments.offset = <?php echo $offset ?>;
-        arguments.limit = <?php echo $limit;
-        ?>;
         $('#<?php echo $this->getElementId(); ?>-container').thesocialdigits('<?php echo
         $this->getAction(); ?>'
         , arguments
@@ -34,13 +42,15 @@
           
           var page = <?php echo $page; ?>;
           var limit = <?php echo $limit; ?>;
-          var totalpages = Math.ceil(data.hits / limit);
+          var hits = data.result.length;
+          var totalpages = Math.ceil(hits / limit);
         
           var first_item = <?php echo $offset+1 ?>;
-          var last_item = <?php echo $offset+$limit; ?> > data.hits ? data.hits
+          var last_item = <?php echo $offset+$limit; ?> > hits ? hits
           : <?php echo $offset+$limit; ?>;
 
-          var amount_txt = "Items " + first_item + " to " + last_item + " of " + data.hits + " total";
+          var amount_txt = "Items " + first_item + " to " + last_item + " of " + hits + " total";
+          alert(JSON.stringify(data));
           $('.pager p.amount').html(amount_txt);
           <?php 
           if($page > 1){

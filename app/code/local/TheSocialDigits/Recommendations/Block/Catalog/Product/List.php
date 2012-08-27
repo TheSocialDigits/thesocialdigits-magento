@@ -17,6 +17,31 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
     'filter' => '',
   );
 
+  private $_ui_arguments = array(
+  );
+
+  public function _construct(){
+    $this->setUiArguments(array(
+      'columns' => $this->getStoreConfig('columns',3,'0'),
+      'mode' => $this->getStoreConfig('mode','grid',''),
+      'width' => $this->getStoreConfig('width',140,'0'),
+      'height' => $this->getStoreConfig('height',150,'0'),
+      'margin' => $this->getStoreConfig('margin',5,'0'),
+    ));
+  }
+
+  public function getStoreConfig($variable, $default_value=null, $zero_value=false){
+    $arg =
+    implode('/',array('recommendations_options','search',$variable));
+    $value =
+    Mage::getStoreConfig($arg);
+    return $value === $zero_value ? $default_value : $value;
+  }
+
+  public function getColumnWidth(){
+    return (100 / (int) $this->getUiArgument('columns',4)) . '%';
+  }
+
   public function _prepareLayout(){
     $this->addJs('jquery-1.7.2.min.js');
     $this->addJs('thesocialdigits-js/json2.min.js');
@@ -24,6 +49,7 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
     $this->addJs('thesocialdigits-js/config.thesocialdigits.js');
 
     $this->setApiArgument('query',$this->getRequest()->getParam('q',''));
+    $this->setApiArgument('limit', $this->getRequest()->getParam('limit',10));
     $language =
       Mage::getStoreConfig('recommendations_options/settings/language');
     if(!$language)
@@ -38,8 +64,16 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
   }
 
   public function getHtmlTemplate(){
-    return
-    Mage::getStoreConfig('recommendations_options/settings/template');
+    $mode = $this->getUiArgument('mode','grid');
+    $tpl = Mage::getStoreConfig('recommendations_options/search/template_' .
+    $mode);
+
+    if($mode == 'grid'){
+      $output = '<div class="tsd-grid">' . $tpl . '</div>';
+    } else {
+      $output = $tpl;
+    }
+    return $output;
   }
 
   /**
@@ -106,7 +140,7 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
       $dashpos = strpos('-',$value);
       if($dashpos === false){
         //no dash in string
-        $filter[] = $param . ' = \"' . $value . '\"';
+        $filter[] = $param . ' = "' . $value . '"';
       } else {
         if($dashpos == 0){
           //dash is first
@@ -142,30 +176,42 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
 
   public function getApiArgument($argument,$default_value=NULL){
     return isset($this->_api_arguments[$argument]) ?
-      $this->_api_arguments[$argument] : $default_value;
+    $this->_prepareApiArgument($argument,
+      $this->_api_arguments[$argument]) : $default_value;
+  }
+
+  protected function _prepareApiArgument($arg, $val){
+    $retval = $val;
+
+    switch($arg){
+        case 'limit':
+          $limit = ((int) $val) - fmod($val, $this->getUiArgument('columns',4));
+          $retval = $limit;
+        break;
+        case 'products':
+          $product_id = $this->getProductId();
+          if(!is_null($product_id)){
+            $retval = array($this->getProductId());
+          } else {
+            $retval = array();
+          }
+        break;
+        case 'exclude':
+          $retval = $this->getCartContents();
+        break;
+        case 'filter':
+          $retval = $this->getFilter();
+        break;
+      }
+      return $retval;
   }
 
   protected function _prepareApiArguments(){
     $arguments = array();
     foreach($this->_api_arguments as $arg => $val){
-      switch($arg){
-        case 'products':
-          $product_id = $this->getProductId();
-          if(!is_null($product_id)){
-            $arguments['products'] = array($this->getProductId());
-          } else {
-            $arguments['products'] = array();
-          }
-        break;
-        case 'exclude':
-          $arguments['exclude'] = $this->getCartContents();
-        break;
-        case 'filter':
-          $arguments['filter'] = $this->getFilter();
-        break;
-        default:
-          $arguments[$arg] = $val;
-      }
+      $value = $this->getApiArgument($arg);
+      if($value)
+        $arguments[$arg] = $value;
     }
     return $arguments;
   }
@@ -178,22 +224,24 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
     return json_encode($this->getApiArguments(),JSON_NUMERIC_CHECK);
   }
 
-  protected function _validateCarouselArgument($argument, $value){
-    return true;
-  }
-
   public function getToolbarHtml(){
-    $output ="<div class=\"pager\">
+    $output ="<div class=\"pager\" style=\"clear:both;\">
     <p class=\"amount\"></p>
     <div class=\"limiter\">
       <label>Show</label>
+
       <select onchange=\"setLocation(this.value)\">";
       
           $params = $this->getRequest()->getParams();
           $current_limit = $this->getRequest()->getParam('limit',10);
 
           for($i = 0; $i < 5; $i++){
-            $limit = ($i+1)*5;
+            if($this->getStoreConfig('mode','grid','') == 'grid'){
+              $limit = ($i*2+$this->getUiArgument('columns',3))*$this->getUiArgument('columns',3);
+            } else {
+              print 'wth' . $this->getStoreConfig('mode','grid','');
+              $limit = ($i+1)*5;
+            }
             $params['limit'] = $limit;
             $option = '<option ';
             if($current_limit == $limit)
@@ -215,4 +263,52 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
 
     return $output;
   }
+
+  protected function _validateUiArgument($argument, $value){
+    return true;
+  }
+
+  public function setUiArgument($argument, $value){
+    if($this->_validateUiArgument($argument, $value)){
+      $this->_ui_arguments[$argument] = $value;
+      return true;
+    }
+    return false;
+  }
+
+  public function setUiArguments($args){
+    if(is_array($args)){
+      $result = array();
+      foreach($args as $argument => $value){
+        $result[$argument] = $this->setUiArgument($argument,$value);
+      }
+      return $result;
+    }
+    return null;
+  }
+
+  public function getUiArgument($argument, $default_value=NULL){
+    return isset($this->_ui_arguments[$argument]) ?
+      $this->_ui_arguments[$argument] : $default_value;
+  }
+
+  protected function _prepareUiArguments(){
+    $arguments = array();
+    foreach($this->_ui_arguments as $arg => $val){
+      switch($arg){
+        default:
+          $arguments[$arg] = $val;
+      }
+    }
+    return $arguments;
+  }
+
+  protected function _getUiArguments(){
+    return $this->_prepareUiArguments();
+  }
+
+  public function getUiArgumentsJson(){
+    return json_encode($this->_getUiArguments(),JSON_NUMERIC_CHECK);
+  }
+
 }

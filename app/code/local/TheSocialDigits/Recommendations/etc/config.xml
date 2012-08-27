@@ -96,7 +96,7 @@
       <recommendations_options>
         <settings>
           <api_key>XBJbcxBuEuLTiJ8fjCn6cTnIxcFjYNNs</api_key>
-          <language>english</language>
+          <language>danish</language>
           <template>
           <div>
             <a href="{product_url}">
@@ -187,6 +187,33 @@
           <auto>0</auto>
           <auto_interval>0</auto_interval>
         </related>
+        <search>
+          <mode>grid</mode>
+          <template_list><![CDATA[
+<div>
+  <a class="product-image" href="/index.php/{product_url}" title="{name}"
+  style="float:left">
+    <img src="{thumbnail_url}" width="75" height="75" alt="{name}" />
+  </a>
+  <div class="product-details">
+    <h3 class="product-name">
+      <a href="/index.php/{product_url}">{name}</a>
+    </h3>
+    {price},-
+    <button type="button" title="Add to Cart" class="button btn-cart" 
+      onclick="setLocation('{add_to_cart_url}')">
+      <span>
+        <span>Add to Cart</span>
+      </span>
+    </button>
+  </div><div style="clear:both"></div>
+</div>]]></template_list>
+          <columns>0</columns>
+          <template_grid>This is the grid template not made yet</template_grid>
+          <width>0</width>
+          <height>0</height>
+          <margin>0</margin>
+        </search>
         <upsell>
           <active>1</active>
           <limit>0</limit>
