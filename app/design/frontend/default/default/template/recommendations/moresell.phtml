@@ -1,18 +1,4 @@
 <div id="product-added">
-  <h2><?php echo $this->__('You may also be interested in the following product(s)'); ?></h2>
-  <div id="<?php echo $this->getElementId(); ?>"></div> 
-  <div style="clear:both"></div>
-  <div id="navigation">
-    <button type="button" class="button btn-continue" style="float:left"
-    onclick="setLocation('<?php echo $this->getRequest()->getParam('return_url')
-    ?>')">
-      <span><?php echo $this->__('Continue shopping')?></span>
-    </button>
-    <button type="button" class="button btn-cart" style="float:right" onclick="setLocation('<?php echo
-  Mage::getUrl('checkout/cart'); ?>')">
-      <span><?php echo $this->__('Go to shopping cart') ?></span>
-    </button>
-  </div>
   <style>
     div.tsd-grid {
       float:left;
@@ -24,6 +10,21 @@
       padding: <?php echo $this->getUiArgument('margin',5); ?>px;
     }
   </style>
+  <div id="navigation">
+    <button type="button" class="button btn-continue" style="float:left"
+    onclick="setLocation('<?php echo $this->getRequest()->getParam('return_url')
+    ?>')">
+      <span><?php echo $this->__('Continue shopping')?></span>
+    </button>
+    <button type="button" class="button btn-cart" style="float:right" onclick="setLocation('<?php echo
+  Mage::getUrl('checkout/cart'); ?>')">
+      <span><?php echo $this->__('Go to shopping cart') ?></span>
+    </button>
+  </div>
+  <div style="clear:both"></div>
+  <h2><?php echo $this->__('You may also be interested in the following product(s)'); ?></h2>
+  <div id="<?php echo $this->getElementId(); ?>"></div> 
+  <div style="clear:both"></div>
   <script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
     <div class="tsd-grid">
     <?php echo $this->getHtmlTemplate(); ?>
