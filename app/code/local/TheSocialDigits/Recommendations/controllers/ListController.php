@@ -24,6 +24,9 @@ Mage_Core_Controller_Front_Action {
           ->getUrlPath();
         else
           $item_data['product_url'] = $product->getUrlPath();
+        $item_data['add_to_cart_url'] = Mage::getUrl('checkout/cart/add',array(
+          'product' => $item_id, 'qty' => 1
+        ));
         $items[] = $item_data;
 
       }
