@@ -833,6 +833,159 @@
             </auto_direction> -->
           </fields>
         </related>
+        <search translate="label">
+          <label>Search block configuration</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>10</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
+          <fields>
+            <active translate="label comment">
+              <label>Activate</label>
+              <comment>Enable/disable the block on the frontend.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <sort_order>0</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </active>
+            <display_advanced translate="label comment">
+              <label>Display advanced settings</label>
+              <comment>Displays advanced settings to configure for
+              the block.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </display_advanced>
+            <frontend_header translate="label comment">
+              <label>Frontend settings</label>
+              <comment>Configure how the block will be presented in the shop.</comment>
+              <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+              <sort_order>55</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </frontend_header>
+            <mode translate="label comment">
+              <label>Mode</label>
+              <comment>Choose between list mode and grid mode for the result
+              item list.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>recommendations/modes</source_model>
+              <sort_order>58</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </mode>
+            <template_list translate="label comment">
+              <label>Item template</label>
+              <comment>The html template used to render each item. The input will be
+              rendered as html. Magic values are inserted in curly brackets.
+              e.g. '{name}' - commonly used values are {name} {price}
+              {product_url} {thumbnail_url}. ('' = block default)</comment>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+                <mode>list</mode>
+              </depends>
+            </template_list>
+            <columns translate="label comment">
+              <label>Columns</label>
+              <comment>The number of columns to display in the grid. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+                <mode>grid</mode>
+              </depends>
+            </columns>
+            <template_grid translate="label comment">
+              <label>Item template</label>
+              <comment>The html template used to render each item. The input will be
+              rendered as html. Magic values are inserted in curly brackets.
+              e.g. '{name}' - commonly used values are {name} {price}
+              {product_url} {thumbnail_url}. ('' = block default)</comment>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+                <mode>grid</mode>
+              </depends>
+            </template_grid>
+            <width translate="label comment">
+              <label>Item width</label>
+              <comment>The width (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>111</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>a
+                <mode>grid</mode>
+              </depends>
+            </width> 
+            <height translate="label comment">
+              <label>Item height</label>
+              <comment>The height (in pixels) of each item presented. (0 = block default) </comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>121</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+                <mode>grid</mode>
+              </depends>
+            </height>
+            <margin translate="label comment">
+              <label>Item margin</label>
+              <comment>The margin (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>131</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+                <mode>grid</mode>
+              </depends>
+            </margin>
+          </fields>
+        </search>
         <upsell translate="label comment">
           <label>Upsell block configuration</label>
           <comment>The upsell block is displayed below the product on the
