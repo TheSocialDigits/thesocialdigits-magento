@@ -194,7 +194,7 @@ Mage_Core_Block_Template {
 
   public function setUiArgument($argument, $value){
     if($this->_validateUiArgument($argument, $value)){
-      $this->_carousel_arguments[$argument] = $value;
+      $this->_ui_arguments[$argument] = $value;
       return true;
     }
     return false;
@@ -212,13 +212,13 @@ Mage_Core_Block_Template {
   }
 
   public function getUiArgument($argument, $default_value=NULL){
-    return isset($this->_carousel_arguments[$argument]) ?
-      $this->_carousel_arguments[$argument] : $default_value;
+    return isset($this->_ui_arguments[$argument]) ?
+      $this->_ui_arguments[$argument] : $default_value;
   }
 
   protected function _prepareUiArguments(){
     $arguments = array();
-    foreach($this->_carousel_arguments as $arg => $val){
+    foreach($this->_ui_arguments as $arg => $val){
       switch($arg){
         default:
           $arguments[$arg] = $val;
