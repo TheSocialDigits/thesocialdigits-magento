@@ -6,7 +6,6 @@ The Social Digits Recommendations module provides alternatives to built in
 magento blocks that provides product relations by using The Social Digits API.
 The API specifikation is available at http://developers.thesocialdigits.com.
 
-The 
 ## Installation
 1. Unzip tar.gz file (or copy contents of the
 github repository) into magento root folder. 
@@ -24,8 +23,7 @@ app/design/frontend/default/default/layout/recommendations.xml.
 #### Crosssell block
 Cross sells are displayed on the checkout cart page below the shopping cart and
 replaces the default crosssell block. To disable the override comment out the
-checkout_cart_index handle. e.g.
-<!-- <checkout_cart_index... </checkout_cart_index> -->
+checkout_cart_index handle. e.g. `<!-- <checkout_cart_index... </checkout_cart_index> -->`
 
 #### Moresell block
 The moresell block is a landing page that displays related products when adding
@@ -35,9 +33,9 @@ admin configuration form.
 #### Related block
 The related block removes the default catalog.product.related block and adds a
 block named catalog.product.recommendations. To reenabled the related block
-simply remove the line  <remove name="catalog.product.related" />. To restore to
+simply remove the line  `<remove name="catalog.product.related" />`. To restore to
 magento defaults entirely comment out the default handle. Also comment out the
-<reference name="right"> block under the checkout_cart_moresell handle.
+`<reference name="right">` block under the checkout_cart_moresell handle.
 
 #### Search block
 The search block replaces the product listing when using the search
