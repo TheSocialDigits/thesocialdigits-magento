@@ -137,18 +137,20 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
     $ignore = array('q','limit','p');
     foreach($params as $param => $value){
       if(!in_array($param,$ignore)){
-      $dashpos = strpos('-',$value);
+        if($param == 'cat')
+          $param = 'categories';
+      $dashpos = strpos($value,'-');
       if($dashpos === false){
         //no dash in string
         $filter[] = $param . ' = "' . $value . '"';
       } else {
         if($dashpos == 0){
           //dash is first
-          $filter[] = $param . ' > ' . $value;
+          $filter[] = $param . ' >= ' . $value;
         } else {
           if($dashpos == strlen($value)){
             //dash is last
-            $filter[] = $param . ' < ' . $value;
+            $filter[] = $param . ' <= ' . $value;
           } else {
             //dash is in the middle
             $values = explode('-',$value);
