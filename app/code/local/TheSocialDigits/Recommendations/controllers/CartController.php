@@ -21,7 +21,8 @@ Mage_Checkout_CartController {
 
     public function addAction()
     {
-      $this->rewriteUrl();
+      if(Mage::getStoreConfig('recommendations_options/moresell/active'))
+        $this->rewriteUrl();
       parent::addAction();
     }
 
