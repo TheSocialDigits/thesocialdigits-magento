@@ -137,8 +137,10 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
     $ignore = array('q','limit','p');
     foreach($params as $param => $value){
       if(!in_array($param,$ignore)){
-        if($param == 'cat')
-          $param = 'categories';
+        if($param == 'cat'){
+          $filter[] = 'categories = ' . $value;
+          continue;
+        }
       $dashpos = strpos($value,'-');
       if($dashpos === false){
         //no dash in string

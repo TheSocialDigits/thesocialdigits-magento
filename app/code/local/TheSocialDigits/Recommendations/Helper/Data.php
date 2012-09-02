@@ -42,6 +42,7 @@ Mage_Core_Helper_Abstract {
       $product_data['rating'] = null;
       $product_categories = $product->getCategoryIds();
       $product_data['categories'] = $product_categories;
+      unset($product_data['stock_item']);
 
       //get additional product attributes
       $product_attributes = $product->getAttributes();
