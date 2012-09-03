@@ -8,6 +8,10 @@
     </modules>
     <blocks>
       <recommendations>
+        <class>TheSocialDigits_Recommendations_Block</class>
+        <rewrite>
+          <catalogsearch_layer>TheSocialDigits_Recommendations_Block_CatalogSearch_Layer</catalogsearch_layer>
+        </rewrite>
         <rewrite>
           <recommendations>TheSocialDigits_Recommendations_Block_Recommendations</recommendations>
         </rewrite>
@@ -42,7 +46,15 @@
     <models>
       <recommendations>
         <class>TheSocialDigits_Recommendations_Model</class>
+        <rewrite>
+          <catalogsearch_layer>TheSocialDigits_Recommendations_Model_CatalogSearch_Layer</catalogsearch_layer>
+        </rewrite>
       </recommendations>
+      <catalog>
+        <rewrite>
+          <layer_filter_item>TheSocialDigits_Recommendations_Model_Catalog_Layer_Filter_Item</layer_filter_item>
+        </rewrite>
+      </catalog>
     </models>
   </global>
   <frontend>

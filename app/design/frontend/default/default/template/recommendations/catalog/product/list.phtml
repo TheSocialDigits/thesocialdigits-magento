@@ -52,7 +52,11 @@
           : <?php echo $offset+$limit; ?>;
 
           var amount_txt = "Items " + first_item + " to " + last_item + " of " + hits + " total";
-          
+          var navigation_data = <?php echo json_encode($pager_params); ?>;
+          navigation_data['items[]'] = data.result;
+          $.get("/index.php/recommendations/index/search",navigation_data,function(data){
+            $('.block-layered-nav').replaceWith(data)
+          }, 'html'); 
           $('.pager p.amount').html(amount_txt);
           <?php 
           if($page > 1){

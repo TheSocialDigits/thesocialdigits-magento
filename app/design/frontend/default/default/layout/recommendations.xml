@@ -1,6 +1,17 @@
 <?xml version="1.0" ?>
 <layout version="0.1.0">
-  <default>
+  <catalog_product_view>
+    <reference name="product.info">
+      <block type="recommendations/upsell" name="upsell_products"
+      template="recommendations/upsell.phtml" before="-">
+        <action method="setElementId">
+          <id>tsd-upsell</id>
+        </action>
+        <action method="setAction">
+          <action>alternative</action>
+        </action>
+      </block>
+    </reference>
     <reference name="right">
       <remove name="catalog.product.related" /> 
       <block type="recommendations/related"
@@ -12,19 +23,6 @@
         <action method="setCarouselArgument">
           <argument>orientation</argument>
           <value>vertical</value>
-        </action>
-      </block>
-    </reference>
-  </default>
-  <catalog_product_view>
-    <reference name="product.info">
-      <block type="recommendations/upsell" name="upsell_products"
-      template="recommendations/upsell.phtml" before="-">
-        <action method="setElementId">
-          <id>tsd-upsell</id>
-        </action>
-        <action method="setAction">
-          <action>alternative</action>
         </action>
       </block>
     </reference>
@@ -81,10 +79,16 @@
     </reference>
   </checkout_multishipping_success>
   <catalogsearch_result_index>
+    <block type="catalogsearch/layer" name="catalogsearch.leftnav"
+    template="recommendations/catalog/layer/view.phtml" /> 
     <reference name="search.result">
     <block type="recommendations/catalog_product_list" name="search_result_list"
     template="recommendations/catalog/product/list.phtml">
     </block> 
     </reference>
   </catalogsearch_result_index>
+  <recommendations_index_search>
+    <block name="root" type="recommendations/catalogsearch_layer"
+    template="catalog/layer/view.phtml" />
+  </recommendations_index_search>
 </layout>

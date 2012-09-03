@@ -156,8 +156,8 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
           } else {
             //dash is in the middle
             $values = explode('-',$value);
-            $filter[] = $param . ' > ' . $values[0];
-            $filter[] = $param . ' < ' . $values[1];
+            $filter[] = $param . ' >= ' . $values[0];
+            $filter[] = $param . ' <= ' . $values[1];
           }
         }
       }
