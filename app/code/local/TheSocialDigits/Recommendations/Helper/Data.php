@@ -16,6 +16,8 @@ Mage_Core_Helper_Abstract {
       ->addAttributeToSelect('*')
       ->addAttributeToFilter('status',1) //maybe is_salable in stead?
       ->getItems();
+    
+    $layer = Mage::getModel('catalog/layer');
 
     foreach($products as $product){
       if(!$product->isSalable())
@@ -28,8 +30,8 @@ Mage_Core_Helper_Abstract {
           if(sizeof($parents))
             continue;
       }
- 
-      $product_data = $product->getData();
+
+      $product_data = array();
       $product_data['id'] = $product['entity_id'];
       $product_data['name'] = array(
         $language => $product['name'],
@@ -38,18 +40,24 @@ Mage_Core_Helper_Abstract {
         $language => $product['description'],
       );
 
-      $product_data['price'] = (float) $product['price'];
       $product_data['rating'] = null;
       $product_categories = $product->getCategoryIds();
       $product_data['categories'] = $product_categories;
       unset($product_data['stock_item']);
 
-      //get additional product attributes
-      $product_attributes = $product->getAttributes();
+      foreach($layer->getFilterableAttributes() as $attribute){
+        $product_data[$attribute->getAttributeCode()] =
+        $product[$attribute->getAttributeCode()];
+      };
+      
+      $product_data['price'] = (float) $product['price'];
       $product_data['weight'] = $product->getData('weight');
-      $product_data['color'] = $product->getData('color');
       $product_data['SKU'] = $product->getData('sku');
-
+       //get additional product attributes
+/*      $product_attributes = $product->getAttributes();
+      $product_data['color'] = $product->getData('color');
+      $product_data['manufacturer'] = $product->getData('manufacturer');
+*/
       //add the product to the array of products
       $retval[] = $product_data;
     }
