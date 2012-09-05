@@ -4,8 +4,8 @@ class TheSocialDigits_Recommendations_ListController extends
 Mage_Core_Controller_Front_Action {
   public function indexAction(){
     $params = $this->getRequest()->getParams();
+    $items = array();
     if(isset($params['products']) && $params['products'] <> ''){
-      $items = array();
       foreach($params['products'] as $item_id){
         $product = Mage::getModel('catalog/product')
           ->load($item_id);
@@ -30,9 +30,7 @@ Mage_Core_Controller_Front_Action {
         $items[] = $item_data;
 
       }
-      echo json_encode($items,JSON_NUMERIC_CHECK);
-    } else {
-      echo 'Please supply a list of item ids';
     }
+    echo json_encode($items,JSON_NUMERIC_CHECK);
   }
 }
