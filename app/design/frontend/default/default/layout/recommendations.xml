@@ -79,8 +79,10 @@
     </reference>
   </checkout_multishipping_success>
   <catalogsearch_result_index>
-    <block type="catalogsearch/layer" name="catalogsearch.leftnav"
-    template="recommendations/catalog/layer/view.phtml" /> 
+    <remove name="catalogsearch.leftnav"/>
+    <reference name="left">
+      <block type="catalogsearch/layer" name="recommendations.leftnav" after="currency" template="recommendations/catalog/layer/view.phtml" />
+    </reference>
     <reference name="search.result">
     <block type="recommendations/catalog_product_list" name="search_result_list"
     template="recommendations/catalog/product/list.phtml">

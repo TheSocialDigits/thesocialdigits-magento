@@ -1,6 +1,6 @@
 (function(j){
   j(document).ready(function(){
-    j.get('http://demoshop.thesocialdigits.com/index.php/recommendations/configuration',
+    j.get('/index.php/recommendations/configuration',
     function(data){
       data = JSON.parse(data);
       //datasource is set in the javascript file because of unknwon error
