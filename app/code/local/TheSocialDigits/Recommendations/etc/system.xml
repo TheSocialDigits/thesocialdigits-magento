@@ -16,17 +16,19 @@
       <show_in_store>1</show_in_store>
       <groups>
         <settings translate="label">
-          <label>Recommendations configuration</label>
+          <label>General configuration</label>
           <frontend_type>text</frontend_type>
+          <sort_order>0</sort_order>
           <show_in_default>1</show_in_default>
           <show_in_website>1</show_in_website>
           <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
           <fields>
             <api_key>
               <label>API Key</label>
               <comment>The API provided by The Social Digits</comment>
               <frontend_type>text</frontend_type>
-              <sort_order>1</sort_order>
+              <sort_order>10</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
@@ -37,37 +39,1237 @@
               will be present in the daily feed to The Social Digits.</comment>
               <frontend_type>select</frontend_type>
               <source_model>recommendations/languages</source_model>
-              <sort_order>2</sort_order>
+              <sort_order>20</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </language>
-            <template>
-              <label>Template</label>
-              <comment>The template that will be used for each item
-              occurence. The input will be rendered as html. Magic
-              values are inserted in curly brackets. e.g. '{name}' -
-              commonly used values are {name} {price} {product_url}
-              {thumbnail_url}.
-              </comment>
-              <frontend_type>textarea</frontend_type>
-              <sort_order>3</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </template>
             <ga_tracking>
               <label>Google Analytics tracking category</label>
               <comment>Event category name for Google Analytics
               tracking. Leave empty to disable</comment>
               <frontend_type>text</frontend_type>
-              <sort_order>4</sort_order>
+              <sort_order>30</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
               <show_in_store>1</show_in_store>
             </ga_tracking>
           </fields>
         </settings>
+        <crosssell translate="label">
+          <label>Crosssell block configuration</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>10</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
+          <fields>
+            <active translate="label comment">
+              <label>Activate</label>
+              <comment>Enable/disable the block on the frontend.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <sort_order>0</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </active>
+            <display_advanced translate="label comment">
+              <label>Display advanced settings</label>
+              <comment>Displays advanced settings to configure for
+              the block.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </display_advanced>
+            <api_header translate="label comment">
+              <label>API settings</label>
+              <comment>Block specific API settings.</comment>
+              <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </api_header>
+            <limit translate="label comment">
+              <label>Limit</label>
+              <comment>The number of items that will be loaded from the API. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>31</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </limit>
+<!--            <exclude_cart translate="label comment">
+              <label>Exclude cart contents</label>
+              <comment>Ask the API to exclude cart contents from the results.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>3</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+              </depends>
+            </exclude_cart> -->
+            <filter translate="label comment">
+              <label>Filter</label>
+              <comment><![CDATA[Enter a filter query to add to each API call. The filter
+              must be on the form described
+              <a
+              href="http://developers.thesocialdigits.com/docs/api/result-filtering"
+              target="_blank">here</a>. ('' = block default)]]></comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>44</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </filter>
+            <frontend_header translate="label comment">
+              <label>Frontend settings</label>
+              <comment>Configure how the block will be presented in the shop.</comment>
+              <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+              <sort_order>55</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </frontend_header>
+            <visible translate="label comment">
+              <label>Visible</label>
+              <comment>The number of items visible in the carousel at a time. Be
+              careful not to break the layout. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>66</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </visible>
+            <step translate="label comment">
+              <label>Step</label>
+              <comment>The number of items to scroll when transitioning. Enter 0
+              to use the same number as visible. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>77</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </step>
+            <navigation translate="label comment">
+              <label>Navigation</label>
+              <comment>Enable/disable navigation buttons.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <validate></validate>
+              <sort_order>88</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation>
+            <navigation_prev translate="label comment">
+              <label>Previous-button image</label>
+              <comment>The url location of the image used for the previous button.
+              ('' = disabled)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-url</validate>
+              <sort_order>89</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation_prev>
+            <navigation_next translate="label comment">
+              <label>Next-button image</label>
+              <comment>The url location of the image used for the next button.
+              ('' = disabled)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-url</validate>
+              <sort_order>90</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation_next>
+            <transition_speed translate="label comment">
+               <label>Transition speed</label>
+              <comment>The time (in milliseconds) the animimation scrolls when
+              transitioning. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>99</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </transition_speed>
+            <template translate="label comment">
+              <label>Item template</label>
+              <comment>The html template used to render each item. The input will be
+              rendered as html. Magic values are inserted in curly brackets.
+              e.g. '{name}' - commonly used values are {name} {price}
+              {product_url} {thumbnail_url}. ('' = block default)</comment>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </template>
+            <width translate="label comment">
+              <label>Item width</label>
+              <comment>The width (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>111</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </width> 
+            <height translate="label comment">
+              <label>Item height</label>
+              <comment>The height (in pixels) of each item presented. (0 = block default) </comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>121</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </height>
+            <margin translate="label comment">
+              <label>Item margin</label>
+              <comment>The margin (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>131</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </margin>
+            <auto translate="label comment">
+              <label>Automatic transition</label>
+              <comment>Automatically transition items after a given interval.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <sort_order>141</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </auto>
+            <auto_interval translate="label comment">
+              <label>Interval</label>
+              <comment>The interval (in milliseconds) between automatic
+              transitions. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>151</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <auto>1</auto>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </auto_interval>
+            <!--<auto_direction translate="label comment">
+              <label>Direction</label>
+              <comment>The direction of the automatic transition</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>recommendations/system_config_source_dropdown_values</source_model>
+              <validate></validate>
+              <sort_order>16</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <auto>1</auto>
+              </depends>
+            </auto_direction> -->
+          </fields>
+        </crosssell>
+        <moresell translate="label">
+          <label>Moresell block configuration</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>20</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
+          <fields>
+            <active translate="label comment">
+              <label>Activate</label>
+              <comment>Enable/disable the block on the frontend.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <sort_order>0</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </active>
+            <display_advanced translate="label comment">
+              <label>Display advanced settings</label>
+              <comment>Displays advanced settings to configure for
+              the block.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </display_advanced>
+            <api_header translate="label comment">
+              <label>API settings</label>
+              <comment>Block specific API settings.</comment>
+              <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </api_header>
+            <limit translate="label comment">
+              <label>Limit</label>
+              <comment>The number of items that will be loaded from the API. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>31</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </limit>
+<!--            <exclude_cart translate="label comment">
+              <label>Exclude cart contents</label>
+              <comment>Ask the API to exclude cart contents from the results.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>3</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+              </depends>
+            </exclude_cart> -->
+            <filter translate="label comment">
+              <label>Filter</label>
+              <comment><![CDATA[Enter a filter query to add to each API call. The filter
+              must be on the form described
+              <a
+              href="http://developers.thesocialdigits.com/docs/api/result-filtering"
+              target="_blank">here</a>. ('' = block default)]]></comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>44</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </filter>
+            <frontend_header translate="label comment">
+              <label>Frontend settings</label>
+              <comment>Configure how the block will be presented in the shop.</comment>
+              <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+              <sort_order>55</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </frontend_header>
+            <columns translate="label comment">
+              <label>Columns</label>
+              <comment>The number of columns to display. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>66</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </columns>
+            <template translate="label comment">
+              <label>Item template</label>
+              <comment>The html template used to render each item. The input will be
+              rendered as html. Magic values are inserted in curly brackets.
+              e.g. '{name}' - commonly used values are {name} {price}
+              {product_url} {thumbnail_url}. ('' = block default)</comment>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </template>
+            <width translate="label comment">
+              <label>Item width</label>
+              <comment>The width (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>111</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </width> 
+            <height translate="label comment">
+              <label>Item height</label>
+              <comment>The height (in pixels) of each item presented. (0 = block default) </comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>121</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </height>
+            <margin translate="label comment">
+              <label>Item margin</label>
+              <comment>The margin (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>131</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </margin>
+          </fields>
+        </moresell>
+        <related translate="label">
+          <label>Related block configuration</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>30</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
+          <fields>
+            <active translate="label comment">
+              <label>Activate</label>
+              <comment>Enable/disable the block on the frontend.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <sort_order>0</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </active>
+            <display_advanced translate="label comment">
+              <label>Display advanced settings</label>
+              <comment>Displays advanced settings to configure for
+              the block.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </display_advanced>
+            <api_header translate="label comment">
+              <label>API settings</label>
+              <comment>Block specific API settings.</comment>
+              <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </api_header>
+            <limit translate="label comment">
+              <label>Limit</label>
+              <comment>The number of items that will be loaded from the API. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>31</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </limit>
+<!--            <exclude_cart translate="label comment">
+              <label>Exclude cart contents</label>
+              <comment>Ask the API to exclude cart contents from the results.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>3</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+              </depends>
+            </exclude_cart> -->
+            <filter translate="label comment">
+              <label>Filter</label>
+              <comment><![CDATA[Enter a filter query to add to each API call. The filter
+              must be on the form described
+              <a
+              href="http://developers.thesocialdigits.com/docs/api/result-filtering"
+              target="_blank">here</a>. ('' = block default)]]></comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>44</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </filter>
+            <frontend_header translate="label comment">
+              <label>Frontend settings</label>
+              <comment>Configure how the block will be presented in the shop.</comment>
+              <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+              <sort_order>55</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </frontend_header>
+            <visible translate="label comment">
+              <label>Visible</label>
+              <comment>The number of items visible in the carousel at a time. Be
+              careful not to break the layout. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>66</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </visible>
+            <step translate="label comment">
+              <label>Step</label>
+              <comment>The number of items to scroll when transitioning. Enter 0
+              to use the same number as visible. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>77</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </step>
+            <navigation translate="label comment">
+              <label>Navigation</label>
+              <comment>Enable/disable navigation buttons.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <validate></validate>
+              <sort_order>88</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation>
+            <navigation_prev translate="label comment">
+              <label>Previous-button image</label>
+              <comment>The url location of the image used for the previous button.
+              ('' = disabled)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-url</validate>
+              <sort_order>89</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation_prev>
+            <navigation_next translate="label comment">
+              <label>Next-button image</label>
+              <comment>The url location of the image used for the next button.
+              ('' = disabled)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-url</validate>
+              <sort_order>90</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation_next>
+            <transition_speed translate="label comment">
+               <label>Transition speed</label>
+              <comment>The time (in milliseconds) the animimation scrolls when
+              transitioning. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>99</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </transition_speed>
+            <template translate="label comment">
+              <label>Item template</label>
+              <comment>The html template used to render each item. The input will be
+              rendered as html. Magic values are inserted in curly brackets.
+              e.g. '{name}' - commonly used values are {name} {price}
+              {product_url} {thumbnail_url}. ('' = block default)</comment>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </template>
+            <width translate="label comment">
+              <label>Item width</label>
+              <comment>The width (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>111</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </width> 
+            <height translate="label comment">
+              <label>Item height</label>
+              <comment>The height (in pixels) of each item presented. (0 = block default) </comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>121</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </height>
+            <margin translate="label comment">
+              <label>Item margin</label>
+              <comment>The margin (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>131</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </margin>
+            <auto translate="label comment">
+              <label>Automatic transition</label>
+              <comment>Automatically transition items after a given interval.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <sort_order>141</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </auto>
+            <auto_interval translate="label comment">
+              <label>Interval</label>
+              <comment>The interval (in milliseconds) between automatic
+              transitions. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>151</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <auto>1</auto>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </auto_interval>
+            <!--<auto_direction translate="label comment">
+              <label>Direction</label>
+              <comment>The direction of the automatic transition</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>recommendations/system_config_source_dropdown_values</source_model>
+              <validate></validate>
+              <sort_order>16</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <auto>1</auto>
+              </depends>
+            </auto_direction> -->
+          </fields>
+        </related>
+        <search translate="label">
+          <label>Search block configuration</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>40</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
+          <fields>
+            <active translate="label comment">
+              <label>Activate</label>
+              <comment>Enable/disable the block on the frontend.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <sort_order>0</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </active>
+            <display_advanced translate="label comment">
+              <label>Display advanced settings</label>
+              <comment>Displays advanced settings to configure for
+              the block.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </display_advanced>
+            <frontend_header translate="label comment">
+              <label>Frontend settings</label>
+              <comment>Configure how the block will be presented in the shop.</comment>
+              <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+              <sort_order>55</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </frontend_header>
+            <mode translate="label comment">
+              <label>Mode</label>
+              <comment>Choose between list mode and grid mode for the result
+              item list.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>recommendations/modes</source_model>
+              <sort_order>58</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </mode>
+            <template_list translate="label comment">
+              <label>Item template</label>
+              <comment>The html template used to render each item. The input will be
+              rendered as html. Magic values are inserted in curly brackets.
+              e.g. '{name}' - commonly used values are {name} {price}
+              {product_url} {thumbnail_url}. ('' = block default)</comment>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+                <mode>list</mode>
+              </depends>
+            </template_list>
+            <columns translate="label comment">
+              <label>Columns</label>
+              <comment>The number of columns to display in the grid. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>110</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+                <mode>grid</mode>
+              </depends>
+            </columns>
+            <template_grid translate="label comment">
+              <label>Item template</label>
+              <comment>The html template used to render each item. The input will be
+              rendered as html. Magic values are inserted in curly brackets.
+              e.g. '{name}' - commonly used values are {name} {price}
+              {product_url} {thumbnail_url}. ('' = block default)</comment>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>120</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+                <mode>grid</mode>
+              </depends>
+            </template_grid>
+            <width translate="label comment">
+              <label>Item width</label>
+              <comment>The width (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>131</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>a
+                <mode>grid</mode>
+              </depends>
+            </width> 
+            <height translate="label comment">
+              <label>Item height</label>
+              <comment>The height (in pixels) of each item presented. (0 = block default) </comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>141</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+                <mode>grid</mode>
+              </depends>
+            </height>
+            <margin translate="label comment">
+              <label>Item margin</label>
+              <comment>The margin (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>151</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+                <mode>grid</mode>
+              </depends>
+            </margin>
+          </fields>
+        </search>
+        <upsell translate="label comment">
+          <label>Upsell block configuration</label>
+          <comment>The upsell block is displayed below the product on the
+          product view page.</comment>
+          <frontend_type>text</frontend_type>
+          <sort_order>50</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
+          <fields>
+            <active translate="label comment">
+              <label>Activate</label>
+              <comment>Enable/disable the block on the frontend.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <sort_order>0</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </active>
+            <display_advanced translate="label comment">
+              <label>Display advanced settings</label>
+              <comment>Displays advanced settings to configure for
+              the block.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+            </display_advanced>
+            <api_header translate="label comment">
+              <label>API settings</label>
+              <comment>Block specific API settings.</comment>
+              <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </api_header>
+            <limit translate="label comment">
+              <label>Limit</label>
+              <comment>The number of items that will be loaded from the API. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>31</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </limit>
+<!--            <exclude_cart translate="label comment">
+              <label>Exclude cart contents</label>
+              <comment>Ask the API to exclude cart contents from the results.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>3</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+              </depends>
+            </exclude_cart> -->
+            <filter translate="label comment">
+              <label>Filter</label>
+              <comment><![CDATA[Enter a filter query to add to each API call. The filter
+              must be on the form described
+              <a
+              href="http://developers.thesocialdigits.com/docs/api/result-filtering"
+              target="_blank">here</a>. ('' = block default)]]></comment>
+              <frontend_type>text</frontend_type>
+              <sort_order>44</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </filter>
+            <frontend_header translate="label comment">
+              <label>Frontend settings</label>
+              <comment>Configure how the block will be presented in the shop.</comment>
+              <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+              <sort_order>55</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </frontend_header>
+            <visible translate="label comment">
+              <label>Visible</label>
+              <comment>The number of items visible in the carousel at a time. Be
+              careful not to break the layout. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>66</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </visible>
+            <step translate="label comment">
+              <label>Step</label>
+              <comment>The number of items to scroll when transitioning. Enter 0
+              to use the same number as visible. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>77</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </step>
+            <navigation translate="label comment">
+              <label>Navigation</label>
+              <comment>Enable/disable navigation buttons.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <validate></validate>
+              <sort_order>88</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation>
+            <navigation_prev translate="label comment">
+              <label>Previous-button image</label>
+              <comment>The url location of the image used for the previous button.
+              ('' = disabled)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-url</validate>
+              <sort_order>89</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation_prev>
+            <navigation_next translate="label comment">
+              <label>Next-button image</label>
+              <comment>The url location of the image used for the next button.
+              ('' = disabled)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-url</validate>
+              <sort_order>90</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </navigation_next>
+            <transition_speed translate="label comment">
+               <label>Transition speed</label>
+              <comment>The time (in milliseconds) the animation scrolls when
+              transitioning. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>99</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </transition_speed>
+            <template translate="label comment">
+              <label>Item template</label>
+              <comment>The html template used to render each item. The input will be
+              rendered as html. Magic values are inserted in curly brackets.
+              e.g. '{name}' - commonly used values are {name} {price}
+              {product_url} {thumbnail_url}. ('' = block default)</comment>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </template>
+            <width translate="label comment">
+              <label>Item width</label>
+              <comment>The width (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>111</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </width> 
+            <height translate="label comment">
+              <label>Item height</label>
+              <comment>The height (in pixels) of each item presented. (0 = block default) </comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>121</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </height>
+            <margin translate="label comment">
+              <label>Item margin</label>
+              <comment>The margin (in pixels) of each item presented. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>131</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </margin>
+            <auto translate="label comment">
+              <label>Automatic transition</label>
+              <comment>Automatically transition items after a given interval.</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_enabledisable</source_model>
+              <sort_order>141</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </auto>
+            <auto_interval translate="label comment">
+              <label>Interval</label>
+              <comment>The interval (in milliseconds) between automatic
+              transitions. (0 = block default)</comment>
+              <frontend_type>text</frontend_type>
+              <validate>validate-ajax validate-not-negative-number</validate>
+              <sort_order>151</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <auto>1</auto>
+                <display_advanced>1</display_advanced>
+              </depends>
+            </auto_interval>
+            <!--<auto_direction translate="label comment">
+              <label>Direction</label>
+              <comment>The direction of the automatic transition</comment>
+              <frontend_type>select</frontend_type>
+              <source_model>recommendations/system_config_source_dropdown_values</source_model>
+              <validate></validate>
+              <sort_order>16</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store> 
+              <depends>
+                <active>1</active>
+                <auto>1</auto>
+              </depends>
+            </auto_direction> -->
+          </fields>
+        </upsell>
       </groups>
     </recommendations_options>
   </sections>

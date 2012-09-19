@@ -6,34 +6,35 @@
         <version>0.1.0</version>
       </TheSocialDigits_Recommendations>
     </modules>
-    <default>
-      <recommendations_options>
-        <settings>
-          <api_key></api_key>
-          <language>english</language>
-          <template>
-          <div>
-            <a href="/index.php/{product_url}">
-              <img src="{thumbnail_url}" /><br/>
-              {name}<br />
-              {price},-
-            </a>
-          </div>
-          </template>
-        </settings>
-        <ga_tracking>The SocialDigits</ga_tracking>
-      </recommendations_options>
-    </default>
     <blocks>
       <recommendations>
+        <class>TheSocialDigits_Recommendations_Block</class>
+        <rewrite>
+          <catalogsearch_layer>TheSocialDigits_Recommendations_Block_CatalogSearch_Layer</catalogsearch_layer>
+        </rewrite>
         <rewrite>
           <recommendations>TheSocialDigits_Recommendations_Block_Recommendations</recommendations>
         </rewrite>
         <rewrite>
+          <crosssell>TheSocialDigits_Recommendations_Block_Crosssell</crosssell>
+        </rewrite>
+        <rewrite>
+          <related>TheSocialDigits_Recommendations_Block_Related</related>
+        </rewrite>
+        <rewrite>
+          <moresell>TheSocialDigits_Recommendations_Block_Moresell</moresell>
+        </rewrite>
+        <rewrite>
+          <upsell>TheSocialDigits_Recommendations_Block_Upsell</upsell>
+        </rewrite>
+        <rewrite>
           <checkout_onepage_success>TheSocialDigits_Recommendations_Block_Checkout_Onepage_Success</checkout_onepage_success>
         </rewrite>
-<rewrite>
+        <rewrite>
           <checkout_multishipping_success>TheSocialDigits_Recommendations_Block_Checkout_Multishipping_Success</checkout_multishipping_success>
+        </rewrite>
+        <rewrite>
+          <catalog_product_list>TheSocialDigits_Recommendations_Block_Catalog_Product_List</catalog_product_list>
         </rewrite>
       </recommendations>
     </blocks>
@@ -45,7 +46,15 @@
     <models>
       <recommendations>
         <class>TheSocialDigits_Recommendations_Model</class>
+        <rewrite>
+          <catalogsearch_layer>TheSocialDigits_Recommendations_Model_CatalogSearch_Layer</catalogsearch_layer>
+        </rewrite>
       </recommendations>
+      <catalog>
+        <rewrite>
+          <layer_filter_item>TheSocialDigits_Recommendations_Model_Catalog_Layer_Filter_Item</layer_filter_item>
+        </rewrite>
+      </catalog>
     </models>
   </global>
   <frontend>
@@ -57,6 +66,14 @@
           <frontName>recommendations</frontName>
         </args>
       </recommendations>
+      <checkout>
+        <args>
+          <modules>
+            <TheSocialDigits_Recommendations
+            before="Mage_Checkout">TheSocialDigits_Recommendations</TheSocialDigits_Recommendations>
+          </modules>
+        </args>
+      </checkout>
     </routers>
     <layout>
       <updates>
@@ -86,5 +103,152 @@
         </admin>
       </resources>
     </acl>
-  </adminhtml>
+  </adminhtml>    
+  <default>
+      <recommendations_options>
+        <settings>
+          <api_key></api_key>
+          <language>english</language>
+          <ga_tracking>The Social Digits</ga_tracking>
+        </settings>
+        <crosssell>
+          <active>1</active>
+          <limit>0</limit>
+          <exclude_cart>1</exclude_cart>
+          <filter></filter>
+          <visible>0</visible>
+          <step>0</step>
+          <navigation>0</navigation>
+          <navigation_prev></navigation_prev>
+          <navigation_next></navigation_next>
+          <transition_speed>0</transition_speed>
+          <template><![CDATA[
+<li class="item">
+  <a class="product-image" href="{product_url}" title="{name}">
+    <img src="{thumbnail_url}" width="75" height="75" alt="{name}" />
+  </a>
+  <div class="product-details">
+    <h3 class="product-name">
+      <a href="{product_url}">{name}</a>
+    </h3>
+    {price},-
+    <button type="button" title="Add to Cart" class="button btn-cart" 
+      onclick="setLocation('{add_to_cart_url}')">
+      <span>
+        <span>Add to Cart</span>
+      </span>
+    </button>
+  </div>
+</li>]]></template> 
+          <width>0</width>
+          <height>0</height>
+          <margin>0</margin>
+          <auto>0</auto>
+          <auto_interval>0</auto_interval>
+        </crosssell>
+        <moresell>
+          <active>1</active>
+          <display_advanced>0</display_advanced>
+          <limit>0</limit>
+          <exclude_cart>1</exclude_cart>
+          <filter></filter>
+          <columns>0</columns>
+          <template><![CDATA[
+<div>
+  <a href="{product_url}">
+    <img src="{thumbnail_url}" /><br/>
+    {name}<br />
+    {price},-
+  </a>
+</div>]]></template> 
+          <width>0</width>
+          <height>0</height>
+          <margin>0</margin>
+        </moresell>
+        <related>
+          <active>1</active>
+          <limit>0</limit>
+          <exclude_cart>1</exclude_cart>
+          <filter></filter>
+          <visible>0</visible>
+          <step>0</step>
+          <navigation>0</navigation>
+          <navigation_prev></navigation_prev>
+          <navigation_next></navigation_next>
+          <transition_speed>0</transition_speed>
+          <template><![CDATA[
+<div>
+  <a href="{product_url}">
+    <img src="{thumbnail_url}" /><br/>
+    {name}<br />
+    {price},-
+  </a>
+</div>]]></template> 
+          <width>0</width>
+          <height>0</height>
+          <margin>0</margin>
+          <auto>0</auto>
+          <auto_interval>0</auto_interval>
+        </related>
+        <search>
+          <mode>grid</mode>
+          <template_list><![CDATA[
+<div>
+  <a class="product-image" href="/index.php/{product_url}" title="{name}"
+  style="float:left">
+    <img src="{thumbnail_url}" width="75" height="75" alt="{name}" />
+  </a>
+  <div class="product-details">
+    <h3 class="product-name">
+      <a href="/index.php/{product_url}">{name}</a>
+    </h3>
+    {price},-
+    <button type="button" title="Add to Cart" class="button btn-cart" 
+      onclick="setLocation('{add_to_cart_url}')">
+      <span>
+        <span>Add to Cart</span>
+      </span>
+    </button>
+  </div><div style="clear:both"></div>
+</div>]]></template_list>
+          <columns>0</columns>
+          <template_grid><![CDATA[
+<div>
+  <a href="{product_url}">
+    <img src="{thumbnail_url}" /><br/>
+    {name}<br />
+    {price},-
+  </a>
+</div>]]></template_grid>
+          <width>0</width>
+          <height>0</height>
+          <margin>0</margin>
+        </search>
+        <upsell>
+          <active>1</active>
+          <limit>0</limit>
+          <exclude_cart>1</exclude_cart>
+          <filter></filter>
+          <visible>4</visible>
+          <step>0</step>
+          <navigation>1</navigation>
+          <navigation_prev>http://demoshop.thesocialdigits.com/skin/frontend/default/default/images/tango/prev-horizontal.gif</navigation_prev>
+          <navigation_next>http://demoshop.thesocialdigits.com/skin/frontend/default/default/images/tango/next-horizontal.gif</navigation_next>
+          <transition_speed>2000</transition_speed>
+          <template><![CDATA[
+<div>
+  <a href="{product_url}">
+    <img src="{thumbnail_url}" /><br/>
+    {name}<br />
+    {price},-
+  </a>
+</div>]]></template>
+          <width>115</width>
+          <height>150</height>
+          <margin>0</margin>
+          <auto>1</auto>
+          <auto_interval>0</auto_interval>
+        </upsell>
+      </recommendations_options>
+    </default>
 </config>

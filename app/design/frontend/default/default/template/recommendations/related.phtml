@@ -1,0 +1,30 @@
+<div class="block block-related">
+  <div class="block-title"><strong><?php echo $this->__('Related products'); ?></strong></div>
+  <div class="block-content">
+    <div id="<?php echo $this->getElementId(); ?>" class="recommendations-carousel">
+      <?php echo $this->getPrevButton(); ?>
+      <div id="<?php echo $this->getElementId(); ?>-container"
+      class="recommendations-carousel-container"></div>
+      <?php echo $this->getNextButton(); ?>
+    </div>
+  </div>
+</div>
+
+<script id="<?php echo $this->getElementId(); ?>-template" type="text/html"> 
+<?php echo $this->getHtmlTemplate(); ?>
+</script>
+  
+<script type="text/javascript">
+  jQuery(function($){
+    $(document).bind('thesocialdigits.ready',function(event){
+      var arguments = <?php echo $this->getApiArgumentsJson(); ?>;
+      $('#<?php echo $this->getElementId(); ?>-container').thesocialdigits('<?php
+      echo $this->getAction(); ?>'
+      , arguments
+      , '#<?php echo $this->getElementId(); ?>-template',function(){
+        var arguments = <?php echo $this->getCarouselArgumentsJson();?>;
+        $('#<?php echo $this->getElementId(); ?>-container').rcarousel(arguments);
+      });
+    });
+  });
+</script>

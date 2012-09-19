@@ -2,90 +2,16 @@
 class TheSocialDigits_Recommendations_FeedController extends
 Mage_Core_Controller_Front_Action {
   public function indexAction(){
+    $helper = Mage::helper('recommendations/data');
+
     $data = array(
-      'products' => array(),
-      'categories' => array(),
-      'sales' => array(),
+      'products' => $helper->getProducts(),
+      'categories' => $helper->getCategories(),
+      'sales' => $helper->getSales(),
     );
-    $language = Mage::getStoreConfig('recommendations_options/settings/language');
-    if(!$language)
-      $language = 'english'; //Should be fixed 
-    //All of the following shit should be in a helper
-    //Retreive all enabled products
-    $products = Mage::getModel('catalog/product')
-      ->getCollection()
-      ->addAttributeToSelect('*')
-      ->addAttributeToFilter('status',1) //maybe is_salable in stead?
-      ->getItems();
-
-    foreach($products as $product){
-
-      $product_data = array();
-      $product_data['id'] = $product['entity_id'];
-      $product_data['name'] = array(
-        $language => $product['name'],
-      );
-      $product_data['description'] = array(
-        $language => $product['description'],
-      );
-
-      $product_data['price'] = (float) $product['price'];
-      $product_data['rating'] = null;
-      $product_categories = $product->getCategoryIds();
-      $product_data['categories'] = $product_categories;
-
-      //API legacy support :P
-      $product_data['category'] = isset($product_categories[0]) ?
-      $product_categories[0] : 1; 
-
-      //get additional product attributes
-      $product_attributes = $product->getAttributes();
-      $product_data['weight'] = $product->getData('weight');
-      $product_data['color'] = $product->getData('color');
-      $product_data['SKU'] = $product->getData('sku');
-
-      //add the product to the array of products
-      $data['products'][] = $product_data;
-    }
-
-    //Retrieve all the categories
-    $categories = Mage::getModel('catalog/category')
-      ->getCollection()
-      ->getItems();
-    
-    foreach($categories as $category){
-      $category_data = array();
-      $category->load();
-      $category_data['id'] = $category->getId();
-      $category_data['name'] = array(
-        $language => $category->getName(),
-      );
-      $category_data['subcategories'] = array();
-      $sub_categories = $category->getChildrenCategories();
-      foreach($sub_categories as $sub_category){
-        $category_data['subcategories'][] = $sub_category->getId();
-      }
-      $data['categories'][] = $category_data;
-    }
-
-    //Retrieve all the sales
-    $orders = Mage::getModel('sales/order')
-      ->getCollection()
-      ->getItems();
-    foreach($orders as $order){
-      $order_items = $order->getAllItems();
-      foreach($order_items as $order_item){
-        $sale = array();
-        $sale['product'] = $order_item->getProductId();
-        $sale['sale'] = $order->getId();
-        $sale['customer'] = $order->getCustomerId();
-        $sale['time'] = strtotime($order->getCreatedAt());
-        $data['sales'][] = $sale;
-      }
-    }
 
     // Print out the jsoon encoded object
-    $json = json_encode($data);
+    $json = json_encode($data, JSON_NUMERIC_CHECK);
     header('Content-length: ' . strlen($json));
     echo $json;
   }

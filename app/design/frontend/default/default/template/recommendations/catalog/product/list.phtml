@@ -1,0 +1,96 @@
+  <?php 
+    $request = $this->getRequest();
+    $limit = $this->getApiArgument('limit',10);//$request->getParam('limit',10);
+    $page = $request->getParam('p',1);
+    $offset = ($page-1) * $limit; 
+
+
+
+    $pager_params = $this->getRequest()->getParams();
+    unset($pager_params['p']);
+    ?>
+<div class="category-products">
+  <style>
+    .tsd-grid {
+      width: <?php echo $this->getColumnWidth(); ?>;
+      float:left;
+    }
+    .tsd-grid div{
+      text-align:center;
+      margin: <?php echo $this->getUiArgument('margin',5); ?>px;
+      width: <?php echo $this->getUiArgument('width',140); ?>px;
+      height: <?php echo $this->getUiArgument('height',150); ?>px;
+    }
+  </style>
+  <?php echo $this->getToolbarHtml(); ?>
+  <div class="<?php echo $this->getElementId(); ?>">
+    <div id="<?php echo $this->getElementId(); ?>-container" class="rcarousel-container"></div>
+  </div>
+  <?php echo $this->getToolbarHtml(); ?>
+
+  <script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
+    <?php echo $this->getHtmlTemplate(); ?>
+  </script>
+
+  <script type="text/javascript">
+    jQuery(function($){
+      $(document).bind('thesocialdigits.ready',function(event){
+        var arguments = <?php echo $this->getApiArgumentsJson(); ?>;
+        arguments.offset = <?php echo $offset ?>;
+        $('#<?php echo $this->getElementId(); ?>-container').thesocialdigits('<?php echo
+        $this->getAction(); ?>'
+        , arguments
+        , '#<?php echo $this->getElementId(); ?>-template',function(data){
+          var page = <?php echo $page; ?>;
+          var limit = <?php echo $limit; ?>;
+          var hits = data.result.length;
+          var totalpages = Math.ceil(hits / limit);
+        
+          var first_item = <?php echo $offset+1 ?>;
+          var last_item = <?php echo $offset+$limit; ?> > hits ? hits
+          : <?php echo $offset+$limit; ?>;
+
+          var amount_txt = "Items " + first_item + " to " + last_item + " of " + hits + " total";
+          var navigation_data = <?php echo json_encode($pager_params); ?>;
+          navigation_data['items[]'] = data.result;
+          $.get("/index.php/recommendations/index/search",navigation_data,function(data){
+            $('.block-layered-nav').replaceWith(data)
+          }, 'html'); 
+          $('.pager p.amount').html(amount_txt);
+          <?php 
+          if($page > 1){
+            $prev_params = $pager_params;
+            $prev_params['p'] = $page-1;
+            $prev_url = Mage::getUrl('catalogsearch/result/index',array(
+              '_query' => $prev_params
+            ));
+            echo '$(\'.pager .pages ol\').append(\'<a href="' . $prev_url . '">Prev</a>\');';
+
+            } 
+        $pager_url = Mage::getUrl('catalogsearch/result',
+      array(
+        '_query' => $pager_params
+      )
+    );
+?>
+
+          for(var i=1; i <= totalpages;i++){
+            if(i == page){
+              //add simple view
+              $('.pager .pages ol').append('<li class="current">' + i + '</li>');
+            } else {
+              
+              $('.pager .pages ol').append('<li><a href="<?php echo
+              $pager_url; ?>&p='+i+'">' + i + '</a></li>');
+            }
+          }
+
+          if(totalpages > page){
+            $('.pager .pages').append('<a href="<?php echo $pager_url; ?>&p=' +
+            (page + 1) + '">Next</a>');
+          }
+        });
+      });
+    });
+  </script>
+</div>

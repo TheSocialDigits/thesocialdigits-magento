@@ -1,0 +1,34 @@
+<div class="crosssell">
+  <h2><?php echo $this->__('Based on your selection, you may be interested in the following items:'); ?></h2>
+  <div>
+  <?php echo $this->getPrevButton(); ?>
+  <ul id="<?php echo $this->getElementId(); ?>-container">
+  </ul>
+  <?php echo $this->getNextButton(); ?>
+  </div>
+  <script type="text/javascript">decorateList('<?php echo $this->getElementId();
+  ?>-container', 'none-recursive')</script>
+</div>
+<style>
+#<?php echo $this->getElementId(); ?>-container li.item {
+  margin-top:0px;
+}
+</style>
+<script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
+  <?php echo $this->getHtmlTemplate(); ?>
+</script>
+  <script type="text/javascript">
+    jQuery(function($){
+      $(document).bind('thesocialdigits.ready',function(event){
+        var arguments = <?php echo $this->getApiArgumentsJson(); ?>;
+        $('#<?php echo $this->getElementId();
+        ?>-container').thesocialdigits('<?php echo $this->getAction(); ?>'
+        , arguments
+        , '#<?php echo $this->getElementId(); ?>-template', function(){
+          var arguments = <?php echo $this->getCarouselArgumentsJson(); ?>;
+          $('#<?php echo $this->getElementId();
+          ?>-container').rcarousel(arguments);
+        });
+      });
+    });
+   </script>

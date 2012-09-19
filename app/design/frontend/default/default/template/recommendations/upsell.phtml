@@ -1,0 +1,34 @@
+<div class="box-collateral box-up-sell">
+    <h2><?php echo $this->__('You may also be interested in the following product(s)') ?></h2>
+    <div id="<?php echo $this->getElementId(); ?>"
+    class="recommendations-carousel-horizontal">
+      <?php echo $this->getPrevButton(); ?>
+      <div id="<?php echo $this->getElementId(); ?>-container"
+class="recommendations-carousel-container"></div>
+      <?php echo $this->getNextButton(); ?>
+      <div style="clear:both"></div>
+    </div>
+</div>
+
+<script id="<?php echo $this->getElementId(); ?>-template" type="text/html">
+  <div>
+    <a href="{product_url}">
+      <span><img src="{thumbnail_url}" /><br />{name}<br />{price} ,-</span>
+    </a>
+  </div>
+</script>
+
+<script type="text/javascript">
+jQuery(function($){
+  $(document).bind('thesocialdigits.ready',function(event){
+    var arguments = <?php echo $this->getApiArgumentsJson(); ?>;
+    $('#<?php echo $this->getElementId(); ?>-container').thesocialdigits('<?php echo $this->getAction(); ?>'
+      , arguments
+      , '#<?php echo $this->getElementId(); ?>-template',
+      function(){
+        var arguments = <?php echo $this->getCarouselArgumentsJson();?>;
+        $('#<?php echo $this->getElementId(); ?>-container').rcarousel(arguments);
+    });
+  });
+});
+</script>
