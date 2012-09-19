@@ -7,11 +7,22 @@ magento blocks that provides product relations by using The Social Digits API.
 The API specifikation is available at http://developers.thesocialdigits.com.
 
 ## Installation
-1. Unzip tar.gz file (or copy contents of the
-github repository) into magento root folder. 
-2. Go to System > Configuration
-> The Social Digits on the administration page to insert API key and configure module.
-3. Profit
+1. Navigate to
+https://github.com/TheSocialDigits/thesocialdigits-magento/downloads and
+download the latest release file.
+2. In the magento admin panel, navigate to "System > Magento Connect > Magento
+Connect Manager". You will be prompted for administator password. Type in your
+username and password. 
+3. Under "Direct package file upload" click the "Choose file" button, locate the
+tar.gz file downloaded in step 1, and click the "Upload button". The extension
+should upload without problems.
+4. Navigate to "System > Configuration > Advanced > The Social Digits". If you
+cannot see the menu item or it returns a "404 error", you need to log out of the
+admin panel and remove everything in var/cache/ and var/session - (refer to e.g.
+http://www.magentocommerce.com/boards/viewthread/227649/)
+5. Type in the API key supplied by The Social Digits. Everything should now be
+working out of the box, if you like you can now make changes to the specific
+blocks on the site. 
 
 ## Configuration
 ### Enabling and disabling blocks
