@@ -29,13 +29,16 @@ blocks on the site.
 The module provides alternatives to built in magento blocks and by default
 removes or replaces them. Block override and removal is done through the layout
 xml file, per default located under
-app/design/frontend/default/default/layout/recommendations.xml. 
-
+app/design/frontend/default/default/layout/recommendations.xml. Refer to the
+magento knowledge base for more information
+http://www.magentocommerce.com/knowledge-base/categories/category/themes-and-design/
 #### Crosssell block
 Cross sells are displayed on the checkout cart page below the shopping cart and
 replaces the default crosssell block. To disable the override comment out the
 checkout_cart_index handle. e.g. `<!-- <checkout_cart_index... </checkout_cart_index> -->`
 
+To relocate the crosssell block find the line <reference name="checkout.cart">
+and replace "checkout.cart" with the name of the desired block.
 #### Moresell block
 The moresell block is a landing page that displays related products when adding
 an item to a cart. To disable the landing page simply choose disable on the
@@ -43,10 +46,14 @@ admin configuration form.
 
 #### Related block
 The related block removes the default catalog.product.related block and adds a
-block named catalog.product.recommendations. To reenabled the related block
+block named catalog.product.recommendations. To reenable the related block
 simply remove the line  `<remove name="catalog.product.related" />`. To restore to
 magento defaults entirely comment out the default handle. Also comment out the
 `<reference name="right">` block under the checkout_cart_moresell handle.
+
+To relocate the crosssell block find the line <reference name="right"> between
+the <catalog_product_view> and </catalog_product_view> lines
+and replace "right" with the name of the desired block.
 
 #### Search block
 The search block replaces the product listing when using the search
@@ -58,6 +65,10 @@ To disable the override comment out the catalogsearch_result_index handle.
 The upsell block is displayed beneath the product on product view pages. To
 disable the block, comment out the catalog_product_view handle in the layout xml
 file.
+
+To relocate the crosssell block find the line <reference name="product"> between
+the <catalog_product_view> and </catalog_product_view> lines
+and replace "content" with the name of the desired block.
 
 ### Admin configuration
 Under the magento system configuration (System > Configuration) a tab is located
