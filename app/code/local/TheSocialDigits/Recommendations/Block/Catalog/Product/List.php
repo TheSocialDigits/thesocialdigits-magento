@@ -76,6 +76,15 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
     return $output;
   }
 
+  public function json_encode($data){
+    $options = 0;
+    if (strnatcmp(phpversion(),'5.3.3') >= 0) 
+    { 
+        $options = JSON_NUMERIC_CHECK;
+    } 
+    return json_encode($data, $options);
+  }
+
   /**
    * Get the product id of the current showing product
    */   
@@ -89,7 +98,7 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
   public function getProductIdJson(){
     $product_id = $this->getProductId();
     if(!is_null($product_id))
-      return json_encode(array($product_id),JSON_NUMERIC_CHECK);
+      return $this->json_encode(array($product_id));
     return '[]';
   }
 
@@ -104,7 +113,7 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
   }
 
   public function getCartContentsJson(){
-    return json_encode($this->getCartContents(), JSON_NUMERIC_CHECK);
+    return $this->json_encode($this->getCartContents());
   }
   
   public function setElementId($id){
@@ -225,7 +234,7 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
   }
 
   public function getApiArgumentsJson(){
-    return json_encode($this->getApiArguments(),JSON_NUMERIC_CHECK);
+    return $this->json_encode($this->getApiArguments());
   }
 
   public function getToolbarHtml(){
@@ -312,7 +321,7 @@ class TheSocialDigits_Recommendations_Block_Catalog_Product_List extends
   }
 
   public function getUiArgumentsJson(){
-    return json_encode($this->_getUiArguments(),JSON_NUMERIC_CHECK);
+    return $this->json_encode($this->_getUiArguments());
   }
 
 }

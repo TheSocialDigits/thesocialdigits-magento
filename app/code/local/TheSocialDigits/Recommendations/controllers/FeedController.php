@@ -11,7 +11,8 @@ Mage_Core_Controller_Front_Action {
     );
 
     // Print out the jsoon encoded object
-    $json = json_encode($data, JSON_NUMERIC_CHECK);
+    $json = json_encode($data, (strnatcmp(phpversion(),'5.3.3') >= 0 ?
+    JSON_NUMERIC_CHECK : 0));
     header('Content-length: ' . strlen($json));
     echo $json;
   }

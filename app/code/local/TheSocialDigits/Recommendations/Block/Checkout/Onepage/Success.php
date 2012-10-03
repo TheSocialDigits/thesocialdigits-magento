@@ -47,7 +47,12 @@ Mage_Core_Block_Template {
       'sale' => $this->getOrderId(),
       'products' => $this->getProducts(),
     );
-    return json_encode($json,JSON_NUMERIC_CHECK);
+    $options = 0;
+    if (strnatcmp(phpversion(),'5.3.3') >= 0) 
+    { 
+        $options = JSON_NUMERIC_CHECK;
+    } 
+    return json_encode($json,$options);
   }
 
   /**

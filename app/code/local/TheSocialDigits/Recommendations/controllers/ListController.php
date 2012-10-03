@@ -31,6 +31,7 @@ Mage_Core_Controller_Front_Action {
 
       }
     }
-    echo json_encode($items,JSON_NUMERIC_CHECK);
+    echo json_encode($items, (strnatcmp(phpversion(),'5.3.3') >= 0 ?
+    JSON_NUMERIC_CHECK : 0));
   }
 }

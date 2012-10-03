@@ -12,7 +12,8 @@ Mage_Core_Controller_Front_Action {
       'datasource'=> '__FUNC1__',
     );
 
-    $json = json_encode($settings);
+    $json = json_encode($settings, (strnatcmp(phpversion(),'5.3.3') >= 0 ?
+    JSON_NUMERIC_CHECK : 0));
     //Insert the function
     /* For some reason this won't work
     $json = str_replace('"__FUNC1__"',"function(products,callback){

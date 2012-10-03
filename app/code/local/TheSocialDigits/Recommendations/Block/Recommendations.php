@@ -87,6 +87,15 @@ Mage_Core_Block_Template {
     return $this->getStoreConfig('template',$template,'');
   }
 
+  public function json_encode($data){
+    $options = 0;
+    if (strnatcmp(phpversion(),'5.3.3') >= 0) 
+    { 
+        $options = JSON_NUMERIC_CHECK;
+    } 
+    return json_encode($data, $options);
+  }
+
   /**
    * Get the product id of the current showing product
    */   
@@ -100,7 +109,7 @@ Mage_Core_Block_Template {
   public function getProductIdJson(){
     $product_id = $this->getProductId();
     if(!is_null($product_id))
-      return json_encode(array($product_id),JSON_NUMERIC_CHECK);
+      return $this->json_encode(array($product_id));
     return '[]';
   }
 
@@ -115,7 +124,7 @@ Mage_Core_Block_Template {
   }
 
   public function getCartContentsJson(){
-    return json_encode($this->getCartContents(), JSON_NUMERIC_CHECK);
+    return $this->json_encode($this->getCartContents());
   }
   
   public function setElementId($id){
@@ -205,7 +214,7 @@ Mage_Core_Block_Template {
   }
 
   public function getApiArgumentsJson(){
-    return json_encode($this->getApiArguments(),JSON_NUMERIC_CHECK);
+    return $this->json_encode($this->getApiArguments());
   }
 
   protected function _validateCarouselArgument($argument, $value){
@@ -285,7 +294,7 @@ Mage_Core_Block_Template {
   }
 
   public function getCarouselArgumentsJson(){
-    return json_encode($this->_getCarouselArguments(),JSON_NUMERIC_CHECK);
+    return $this->json_encode($this->_getCarouselArguments());
   }
 
   public function getPrevButton(){
