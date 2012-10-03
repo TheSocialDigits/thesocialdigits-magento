@@ -107,3 +107,35 @@ http://yourdomain.com/recommendations/list?products[]=n (you might need
 to insert /index.php after the tld) where n is a product id. Multiple
 product id's can be retrieved by supplying additional &products[]=n
 arguments to the url.
+
+## Troubleshooting
+### The configuration is available in the backend but the frontend does not change
+This is most likely caused by your template. The plugin enables the blocks for
+the standard template layout. If you have a customized template it might not
+create the same blocks.
+Please refer to the configuration section how to move the blocks.
+
+### The blocks are showing but no content is loaded
+This can be caused by a number of reasons. This will occur especially if your
+magento is located inside a subdirectory. In this case you should find the file
+js/thesocialdigits-js/config.thesocialdigits.js and correct the contents to 
+    (function(j){
+      j(document).ready(function(){
+        j.get('/path-to-magento/path/index.php/recommendations/configuration',
+        function(data){
+          data = JSON.parse(data);
+          //datasource is set in the javascript file because of unknwon error
+          data.datasource = function(products,callback){
+            var url = '/path-to-magento/index.php/recommendations/list';
+            var data = {'products': products};
+           j.getJSON(url,data,callback);
+          }   
+          j.thesocialdigits(data);
+          //Sends out an event that thesocialdigits' api is now ready
+          j(document).trigger('thesocialdigits.ready');
+        }); 
+      }); 
+    })(jQuery);
+    jQuery.noConflict();
+where path-to-magento is replaced with the correct path to your magento installation.
+If this does not solve your problem please contact us with the error you recieve. 
