@@ -119,6 +119,7 @@ Please refer to the configuration section how to move the blocks.
 This can be caused by a number of reasons. This will occur especially if your
 magento is located inside a subdirectory. In this case you should find the file
 js/thesocialdigits-js/config.thesocialdigits.js and correct the contents to 
+
     (function(j){
       j(document).ready(function(){
         j.get('/path-to-magento/path/index.php/recommendations/configuration',
@@ -137,5 +138,6 @@ js/thesocialdigits-js/config.thesocialdigits.js and correct the contents to
       }); 
     })(jQuery);
     jQuery.noConflict();
+
 where path-to-magento is replaced with the correct path to your magento installation.
 If this does not solve your problem please contact us with the error you recieve. 
