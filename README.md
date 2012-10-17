@@ -1,5 +1,5 @@
-thesocialdigits-magento
-=======================
+The Social Digits Magento Plugin (BETA)
+=======================================
 
 ## About
 The Social Digits Recommendations module provides alternatives to built in
